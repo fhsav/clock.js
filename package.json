@@ -1,0 +1,17 @@
+{
+  "name": "clock.js",
+  "version": "0.1.0",
+  "author": "Brandon Cheng <gluxon@gluxon.com>",
+  "description": "clock.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gluxon/clock.js.git"
+  },
+  "dependencies" : {
+    "express": "3.x"
+  },
+  "license": "MPL",
+  "engines": {
+    "node": ">=0.8"
+  }
+}
