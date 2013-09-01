@@ -8,7 +8,9 @@
     "url": "https://github.com/gluxon/clock.js.git"
   },
   "dependencies" : {
-    "express": "3.x"
+    "express": "3.x",
+    "jade"   : "0.x",
+    "stylus" : "0.x"
   },
   "license": "MPL",
   "engines": {
