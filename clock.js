@@ -39,6 +39,14 @@ app.get('/admin/logout', function(req, res) {
   res.redirect('/admin');
 });
 
+app.get('/admin/:page', function(req, res) {
+  res.render('admin', {
+    loggedIn: req.session.loggedIn,
+    version: '0.1.0',
+    page: req.params.page
+  });
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log('Listening on port ' + port);
