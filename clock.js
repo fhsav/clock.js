@@ -5,11 +5,11 @@ var format = require('util').format;
 var uuid = require('node-uuid');
 require('js-yaml');
 
-var MongoClient = require('mongodb').MongoClient;
+/*var MongoClient = require('mongodb').MongoClient;
 var Grid = require('gridfs-stream');
 
 var database = require(__dirname + '/config/database.yaml');
-database.mongodb_uri = process.env['MONGOHQ_URL'];
+database.mongodb_uri = process.env['MONGOHQ_URL'];*/
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -44,9 +44,9 @@ app.listen(port, function() {
   console.log('Listening on port ' + port);
 });
 
-MongoClient.connect(database.mongodb_uri, function(err, db) {
+/*MongoClient.connect(database.mongodb_uri, function(err, db) {
   if (err) throw err;
-});
+});*/
 
 app.post('/admin/login', function(req, res) {
   if (req.body.password == 'penguins') {
