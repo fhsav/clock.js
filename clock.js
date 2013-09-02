@@ -29,8 +29,14 @@ app.get('/', function(req, res) {
 
 app.get('/admin', function(req, res) {
   res.render('admin', {
-    'loggedIn': req.session.loggedIn
+    loggedIn: req.session.loggedIn,
+    version: '0.1.0'
   });
+});
+
+app.get('/admin/logout', function(req, res) {
+  req.session.loggedIn = false;
+  res.redirect('/admin');
 });
 
 var port = process.env.PORT || 3000;
@@ -42,10 +48,9 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   if (err) throw err;
 });
 
-
 app.post('/admin/login', function(req, res) {
-    if (req.body.password == 'penguins') {
-      req.session.loggedIn = true;
-    }
-    res.redirect('/admin');
+  if (req.body.password == 'penguins') {
+    req.session.loggedIn = true;
+  }
+  res.redirect('/admin');
 });

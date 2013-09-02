@@ -11,3 +11,4 @@ node_modules
 
 # Stylus compile files
 /public/css/*.css
+/public/css/admin/*.css
