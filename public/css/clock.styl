@@ -1,39 +1,61 @@
 @import url("http://fonts.googleapis.com/css?family=Open\+Sans:400,300");
 
 body {
-	background: url("http://i.imgur.com/FvF2N.jpg");
+	margin: 0; padding: 0;
+
+	background-color: #2c3e50;
 	background-repeat: none;
 
 	font-family: "Open Sans";
 	font-weight: 300;
-	color: white;
+	color: rgba(255,255,255, 0.8);
 }
 
 #wrapper {
-	margin: 20px 5% 0;
+	margin: 25px 5% 25px;
 	overflow: hidden;
 }
 
 #marquee {
-	background-color: rgba(0,0,0, 0.6);
-	padding: 1px 20px;
+	background-color: rgba(0,0,0, 0.5);
+	margin-top: 20px; padding: 8px 20px;
 	border-radius: 3px;
 }
 
-#time {
+#marquee p {
+	margin: 0; padding: 0;
+	font-size: 28px;
+}
+
+#clock {
+	width: 50%;
 	float: right;
+	text-align: center;
+}
+
+#clock p {
+	margin: 0; padding: 0;
+}
+
+#clock #date {
+	margin-top: 40px;
+	font-size: 40px;
+	line-height: 1.5em;
+}
+
+#clock #time {
+	margin-top: 60px;
+	font-size: 80px;
 }
 
 #schedule {
-	background-color: rgba(0,0,0, 0.6);
-
-	margin-top: 20px;
+	background-color: rgba(0,0,0, 0.25);
 
 	float: left;
 	overflow: hidden;
 	font-size: 40px;
 
-	border-radius: 5px;
+	border-radius: 4px;
 }
 
 #schedule ol {
@@ -42,5 +64,6 @@ body {
 }
 
 #schedule ol li {
-	padding: 3px 15px;
+	padding: 4px 20px;
+	border-bottom: 1px solid rgba(0,0,0,0.5);
 }
