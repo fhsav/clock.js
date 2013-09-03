@@ -1,3 +1,16 @@
 h2 Schedules
-p
-  | Schedules
+table.schedules
+  thead
+    tr
+      th Name
+      th Description
+      th Activate
+      th Actions
+  tbody
+    - for (var i = 0; i < schedules.length; ++i) {
+        tr
+          td= schedules[i].name
+          td= schedules[i].description
+          td= schedules[i].activate
+          td Edit — Delete
+    - }

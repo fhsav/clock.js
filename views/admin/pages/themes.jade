@@ -1,3 +1,14 @@
 h2 Themes
-p
-  | Themes
+table.themes
+  thead
+    tr
+      th Name
+      th Activate
+      th Actions
+  tbody
+    - for (var i = 0; i < themes.length; ++i) {
+        tr
+          td= themes[i].name
+          td= themes[i].activate
+          td Edit — Delete
+    - }

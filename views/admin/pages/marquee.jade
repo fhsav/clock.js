@@ -1,3 +1,12 @@
-h2 Marquee
-p
-  | Marquee
+h2 Marquee Items
+table.marquees
+  thead
+    tr
+      th Text
+      th Actions
+  tbody
+    - for (var i = 0; i < marquees.length; ++i) {
+        tr
+          td= marquees[i].text
+          td Edit — Delete
+    - }
