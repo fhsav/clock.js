@@ -8,5 +8,7 @@ table.marquees
     - for (var i = 0; i < marquees.length; ++i) {
         tr
           td= marquees[i].text
-          td Edit — Delete
+          td
+            <a href="/marquees/#{marquees[i]._id}/edit">Edit</a> —
+            <a href="/marquees/#{marquees[i]._id}/delete">Delete</a>
     - }

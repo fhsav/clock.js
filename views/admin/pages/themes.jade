@@ -10,5 +10,7 @@ table.themes
         tr
           td= themes[i].name
           td= themes[i].active
-          td Edit — Delete
+          td
+            <a href="/themes/#{themes[i]._id}/edit">Edit</a> —
+            <a href="/themes/#{themes[i]._id}/delete">Delete</a>
     - }

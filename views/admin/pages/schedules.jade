@@ -12,5 +12,7 @@ table.schedules
           td= schedules[i].name
           td= schedules[i].description
           td= schedules[i].active
-          td Edit — Delete
+          td
+            <a href="/schedules/#{schedules[i]._id}/edit">Edit</a> —
+            <a href="/schedules/#{schedules[i]._id}/delete">Delete</a>
     - }
