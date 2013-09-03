@@ -96,3 +96,17 @@ app.post('/admin/login', function(req, res) {
   }
   res.redirect('/admin');
 });
+
+app.get('/themes/:objectID/activate', function(req, res) {
+  Themes.activate(req.params.objectID, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/themes');
+  });
+});
+
+app.get('/schedules/:objectID/activate', function(req, res) {
+  Schedules.activate(req.params.objectID, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/schedules');
+  });
+});

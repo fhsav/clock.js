@@ -8,10 +8,12 @@ table.schedules
       th Actions
   tbody
     - for (var i = 0; i < schedules.length; ++i) {
-        tr
+        tr(class=schedules[i].active == true ? "active" : undefined)
           td= schedules[i].name
           td= schedules[i].description
-          td= schedules[i].active
+          td
+            if (!schedules[i].active)
+              <a href="/schedules/#{schedules[i]._id}/activate">Activate</a>
           td
             <a href="/schedules/#{schedules[i]._id}/edit">Edit</a> —
             <a href="/schedules/#{schedules[i]._id}/delete">Delete</a>
