@@ -12,6 +12,7 @@ var Themes = require(__dirname + '/lib/themes');
 var Schedules = require(__dirname + '/lib/schedules');
 var Marquee = require(__dirname + '/lib/marquee');
 var Notices = require(__dirname + '/lib/notices');
+var Periods = require(__dirname + '/lib/periods');
 
 var database = require(__dirname + '/config/database.yaml');
 database.mongodb_uri = process.env['MONGOHQ_URL'];
@@ -29,7 +30,14 @@ app.use(express.session({secret: uuid.v4()}));
 app.use(express.bodyParser());
 
 app.get('/', function(req, res) {
-  res.render('clock');
+  Schedules.getActive(function(err, schedule) {
+    Periods.getAllByScheduleID(schedule[0]._id, function(err, periods) {
+      res.render('clock', {
+        schedule: schedule,
+        periods: periods
+      });
+    });
+  });
 });
 
 app.get('/admin', function(req, res) {
@@ -88,6 +96,7 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   Schedules.setMongoDB(db);
   Marquee.setMongoDB(db);
   Notices.setMongoDB(db);
+  Periods.setMongoDB(db);
 });
 
 app.post('/admin/login', function(req, res) {
