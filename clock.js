@@ -84,19 +84,23 @@ app.get('/admin/:page', function(req, res) {
   }
 });
 
-var port = process.env.PORT || 3000;
-app.listen(port, function() {
-  console.log('Listening on port ' + port);
-});
+console.log('Connecting to MongoDB...');
 
 MongoClient.connect(database.mongodb_uri, function(err, db) {
   if (err) throw err;
+
+  console.log('Connected!');
 
   Themes.setMongoDB(db);
   Schedules.setMongoDB(db);
   Marquee.setMongoDB(db);
   Notices.setMongoDB(db);
   Periods.setMongoDB(db);
+
+  var port = process.env.PORT || 3000;
+  app.listen(port, function() {
+    console.log('Listening on port ' + port);
+  });
 });
 
 app.post('/admin/login', function(req, res) {
