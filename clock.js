@@ -14,6 +14,15 @@ var Marquee = require(__dirname + '/lib/marquee');
 var Notices = require(__dirname + '/lib/notices');
 var Periods = require(__dirname + '/lib/periods');
 
+var route = {};
+route.clock = require(__dirname + '/routes/clock');
+route.admin = require(__dirname + '/routes/admin');
+route.themes = require(__dirname + '/routes/themes');
+route.schedules = require(__dirname + '/routes/schedules');
+route.marquee = require(__dirname + '/routes/marquee');
+route.notices = require(__dirname + '/routes/notices');
+route.periods = require(__dirname + '/routes/periods');
+
 var database = require(__dirname + '/config/database.yaml');
 database.mongodb_uri = process.env['MONGOHQ_URL'];
 
@@ -29,60 +38,20 @@ app.use(express.session({secret: uuid.v4()}));
 
 app.use(express.bodyParser());
 
-app.get('/', function(req, res) {
-  Schedules.getActive(function(err, schedule) {
-    Periods.getAllByScheduleID(schedule[0]._id, function(err, periods) {
-      res.render('clock', {
-        schedule: schedule,
-        periods: periods
-      });
-    });
-  });
-});
+// The binding - .bind() - here is necessary since only the
+// function is being passed, without its scope.
+//
+// http://stackoverflow.com/questions/15604848/express-js-this-undefined-after-routing-with-app-get
 
-app.get('/admin', function(req, res) {
-  res.render('admin', {
-    loggedIn: req.session.loggedIn,
-    version: '0.1.0'
-  });
-});
+app.get('/', route.clock.index.bind(route.clock) );
 
-app.get('/admin/logout', function(req, res) {
-  req.session.loggedIn = false;
-  res.redirect('/admin');
-});
+app.get('/admin', route.admin.welcome.bind(route.admin) );
+app.get('/admin/logout', route.admin.logout.bind(route.admin) );
+app.get('/admin/:page', route.admin.page.bind(route.admin) );
+app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 
-app.get('/admin/:page', function(req, res) {
-  var data = {
-    loggedIn: req.session.loggedIn,
-    version: '0.1.0',
-    page: req.params.page
-  };
-
-  if (req.params.page =='themes') {
-    Themes.getAll(function(err, themes) {
-      data.themes = themes;
-      res.render('admin', data);
-    });
-  } else if (req.params.page == 'schedules') {
-    Schedules.getAll(function(err, schedules) {
-      data.schedules = schedules;
-      res.render('admin', data);
-    });
-  } else if (req.params.page == 'marquee') {
-    Marquee.getAll(function(err, marquees) {
-      data.marquees = marquees;
-      res.render('admin', data);
-    });
-  } else if (req.params.page == 'notices') {
-    Notices.getAll(function(err, notices) {
-      data.notices = notices;
-      res.render('admin', data);
-    });
-  } else {
-  res.render('admin', data);
-  }
-});
+app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
+app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
 console.log('Connecting to MongoDB...');
 
@@ -97,29 +66,21 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   Notices.setMongoDB(db);
   Periods.setMongoDB(db);
 
+  var modules = {
+    'Themes': Themes,
+    'Schedules': Schedules,
+    'Marquee': Marquee,
+    'Notices': Notices,
+    'Periods': Periods
+  };
+
+  route.clock.setModules(modules);
+  route.admin.setModules(modules);
+  route.themes.setModules(modules);
+  route.schedules.setModules(modules);
+
   var port = process.env.PORT || 3000;
   app.listen(port, function() {
     console.log('Listening on port ' + port);
-  });
-});
-
-app.post('/admin/login', function(req, res) {
-  if (req.body.password == 'penguins') {
-    req.session.loggedIn = true;
-  }
-  res.redirect('/admin');
-});
-
-app.get('/themes/:objectID/activate', function(req, res) {
-  Themes.activate(req.params.objectID, function(err) {
-    if (err) throw err;
-    res.redirect('/admin/themes');
-  });
-});
-
-app.get('/schedules/:objectID/activate', function(req, res) {
-  Schedules.activate(req.params.objectID, function(err) {
-    if (err) throw err;
-    res.redirect('/admin/schedules');
   });
 });
