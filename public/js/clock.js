@@ -1,7 +1,7 @@
 onload = function() {
 	
   $("#date").text( moment().format('dddd, MMMM Do, YYYY') );
-  //socket.io takes a while to load and connect... to guarantee a "seamless" experience, we'll take the client side time just this once :)
+  //socket.io takes a while to load and connect... to guarantee a "seamless" experience, we'll take the h/m client side time just this once :)
   $("#time").text( moment().format('h:mm A') );
   
   setInterval(function() {
@@ -12,15 +12,13 @@ onload = function() {
         }
       }, 1000);
       
-  socket = io.connect('http://localhost:3001');
+  socket = io.connect(document.URL);
   
 	socket.on('connect', function () {
     socket.emit('whattime', {});
     
     socket.on('time',function(time){
       offset = moment().subtract('ms',parseInt(time));
-      
-      
     });
 	});
 };

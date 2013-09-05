@@ -58,9 +58,8 @@ app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.sch
 var tz = process.env.TIMEZONE||-5;
 
 console.log('Booting up socket.io...');
-var socketserver = require('http').createServer(app)
-  , io = require('socket.io').listen(socketserver);
-socketserver.listen(3001);
+appserver = require('http').createServer(app);
+io = require('socket.io').listen(appserver);
 
 console.log('Connecting to MongoDB...');
 
@@ -97,7 +96,7 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   });
 
   var port = process.env.PORT || 3000;
-  app.listen(port, function() {
+  appserver.listen(port, function() {
     console.log('Listening on port ' + port);
   });
 
