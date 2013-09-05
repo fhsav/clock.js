@@ -8,6 +8,7 @@ require('js-yaml');
 var MongoClient = require('mongodb').MongoClient;
 var Grid = require('gridfs-stream');
 
+var Admin = require(__dirname + '/lib/admin');
 var Themes = require(__dirname + '/lib/themes');
 var Schedules = require(__dirname + '/lib/schedules');
 var Marquee = require(__dirname + '/lib/marquee');
@@ -25,6 +26,8 @@ route.periods = require(__dirname + '/routes/periods');
 
 var database = require(__dirname + '/config/database.yaml');
 database.mongodb_uri = process.env['MONGOHQ_URL'];
+
+Admin.setVersion('0.1.0');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -46,8 +49,11 @@ app.use(express.bodyParser());
 app.get('/', route.clock.index.bind(route.clock) );
 
 app.get('/admin', route.admin.welcome.bind(route.admin) );
+app.get('/admin/themes', route.themes.landing.bind(route.themes) );
+app.get('/admin/schedules', route.schedules.landing.bind(route.schedules) );
+app.get('/admin/marquee', route.marquee.landing.bind(route.marquee) );
+app.get('/admin/notices', route.notices.landing.bind(route.notices) );
 app.get('/admin/logout', route.admin.logout.bind(route.admin) );
-app.get('/admin/:page', route.admin.page.bind(route.admin) );
 app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 
 app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
@@ -67,6 +73,7 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   Periods.setMongoDB(db);
 
   var modules = {
+    'Admin': Admin,
     'Themes': Themes,
     'Schedules': Schedules,
     'Marquee': Marquee,
@@ -78,6 +85,8 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   route.admin.setModules(modules);
   route.themes.setModules(modules);
   route.schedules.setModules(modules);
+  route.marquee.setModules(modules);
+  route.notices.setModules(modules);
 
   var port = process.env.PORT || 3000;
   app.listen(port, function() {

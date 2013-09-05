@@ -1,18 +1,20 @@
-h2 Themes
-table.themes
-  thead
-    tr
-      th Name
-      th Activate
-      th Actions
-  tbody
-    - for (var i = 0; i < themes.length; ++i) {
-        tr(class=themes[i].active == true ? "active" : undefined)
-          td= themes[i].name
-          td
-            if (!themes[i].active)
-              <a href="/themes/#{themes[i]._id}/activate">Activate</a>
-          td
-            <a href="/themes/#{themes[i]._id}/edit">Edit</a> —
-            <a href="/themes/#{themes[i]._id}/delete">Delete</a>
-    - }
+extend ../index
+block content
+  h2 Themes
+  table.themes
+    thead
+      tr
+        th Name
+        th Activate
+        th Actions
+    tbody
+      - for (var i = 0; i < themes.length; ++i) {
+          tr(class=themes[i].active == true ? "active" : undefined)
+            td= themes[i].name
+            td
+              if (!themes[i].active)
+                <a href="/themes/#{themes[i]._id}/activate">Activate</a>
+            td
+              <a href="/themes/#{themes[i]._id}/edit">Edit</a> —
+              <a href="/themes/#{themes[i]._id}/delete">Delete</a>
+      - }

@@ -11,17 +11,6 @@ html
       if (loggedIn != true)
         include pages/login
       else
-        if (page == undefined)
-          include pages/welcome
-        else if (page == 'themes')
-          include pages/themes
-        else if (page == 'schedules')
-          include pages/schedules
-        else if (page == 'marquee')
-          include pages/marquee
-        else if (page == 'notices')
-          include pages/notices
-        else
-          include ../404.jade
+        block content
     footer
       include footer

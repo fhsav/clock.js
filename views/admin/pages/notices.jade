@@ -1,3 +1,6 @@
-h2 Notices
-p
-  | No notices yet! Why don't you make one?
+extend ../index
+block content
+  h2 Notices
+  if (notices.length == 0)
+    p
+      | No notices yet! Why don't you make one?
