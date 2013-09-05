@@ -3,7 +3,6 @@ var app = express();
 var stylus = require('stylus');
 var format = require('util').format;
 var uuid = require('node-uuid');
-var moment = require('moment');
 require('js-yaml');
 
 var MongoClient = require('mongodb').MongoClient;
