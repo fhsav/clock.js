@@ -6,7 +6,7 @@ onload = function() {
   
   setInterval(function() {
         if(offset){
-          var time = moment().add(offset);
+          var time = moment().subtract('ms',offset);
           $("#date").text( time.format('dddd, MMMM Do, YYYY') );
           $("#time").text( time.format('h:mm:ss A') );
         }
