@@ -22,7 +22,6 @@ route.themes = require(__dirname + '/routes/themes');
 route.schedules = require(__dirname + '/routes/schedules');
 route.marquee = require(__dirname + '/routes/marquee');
 route.notices = require(__dirname + '/routes/notices');
-route.periods = require(__dirname + '/routes/periods');
 
 var database = require(__dirname + '/config/database.yaml');
 database.mongodb_uri = process.env['MONGOHQ_URL'];
