@@ -1,3 +1,5 @@
+var ObjectID = require('mongodb').ObjectID;
+
 function Schedules() {}
 
 Schedules.prototype.setModules = function(modules) {
@@ -9,7 +11,7 @@ Schedules.prototype.setModules = function(modules) {
 };
 
 Schedules.prototype.activate = function(req, res) {
-  this.Schedules.activate(req.params.objectID, function(err) {
+  this.Schedules.activate(new ObjectID(req.params.objectID), function(err) {
     if (err) throw err;
     res.redirect('/admin/schedules');
   });

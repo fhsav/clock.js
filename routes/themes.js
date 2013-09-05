@@ -1,3 +1,5 @@
+var ObjectID = require('mongodb').ObjectID;
+
 function Themes() {}
 
 Themes.prototype.setModules = function(modules) {
@@ -9,7 +11,7 @@ Themes.prototype.setModules = function(modules) {
 };
 
 Themes.prototype.activate = function(req, res) {
-  this.Themes.activate(req.params.objectID, function(err) {
+  this.Themes.activate(new ObjectID(req.params.objectID), function(err) {
     if (err) throw err;
     res.redirect('/admin/themes');
   });
