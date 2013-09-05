@@ -3,7 +3,7 @@ getOffset = function() {
 		socket.emit('whattime', {});
 		return socket.on('time',function(time){
 			return moment().subtract('ms',parseInt(time));
-		};
+		}
 		
 	}
 
