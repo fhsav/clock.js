@@ -86,8 +86,9 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
 
   io.sockets.on('connection', function (socket) {
     console.log('Connection on socket.io!');
-    socket.on('my other event', function (data) {
-      
+    socket.on('whattime', function () {
+      console.log('What time is it?!');
+      socket.emit('time',new Date().getTime().toString());
     });
   });
 

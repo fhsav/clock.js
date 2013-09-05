@@ -1,22 +1,19 @@
-var socket
-  , getOffset = function() {
-	socket.emit('whattime', {});
-	socket.on('time',function(time){
-		moment().subtract('ms',parseInt(time));
-	});
-};
-
 onload = function() {
-	var offset;
 	socket = io.connect('http://localhost:3001');
+  
 	socket.on('connect', function () {
-		offset = getOffset();
+    socket.emit('whattime', {});
+    
+    socket.on('time',function(time){
+      offset = moment().subtract('ms',parseInt(time));
+      setInterval(function() {
+        if(offset){
+          var time = moment().subtract(offset);
+          $("#date").text( time.format('dddd, MMMM Do, YYYY') );
+          $("#time").text( time.format('h:mm:ss A') );
+        }
+      }, 1000);
+      
+    });
 	});
-	setInterval(function() {
-		if(offset){
-			var time = moment().subtract(offset);
-			$("#date").text( time.format('dddd, MMMM Do, YYYY') );
-			$("#time").text( time.format('h:mm:ss A') );
-		}
-	}, 1000);
 };
