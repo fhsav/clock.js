@@ -20,4 +20,20 @@ Marquee.prototype.landing = function(req, res) {
   });
 };
 
+Marquee.prototype.edit = function(req, res) {
+  var data = this.Admin.getViewData(req);
+
+  this.Marquee.getByObjectID(new ObjectID(req.params.objectID), function(err, marquee) {
+    data.marquee = marquee;
+    res.render('admin/edit/marquee', data);
+  });
+};
+
+Marquee.prototype.edit_post = function(req, res) {
+  this.Marquee.updateText(new ObjectID(req.params.objectID), req.body.text, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/marquee');
+  });
+};
+
 module.exports = new Marquee();

@@ -6,3 +6,41 @@ a {
 a:hover {
 	color: rgb(153, 153, 153);
 }
+
+input, textarea, button {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+textarea {
+	width: 100%;
+}
+
+input, textarea {
+	color: rgb(51, 51, 51);
+
+	border: 1px solid rgb(204, 204, 204);
+	border-radius: 3px;
+}
+
+textarea {
+	padding: 3px;
+}
+
+button {
+	padding: 5px 10px;
+	background: linear-gradient(center, rgb(255, 255, 255), rgb(230, 230, 230));
+	border: 1px solid rgba(0,0,0, 0.3); border-radius: 3px;
+}
+
+input:focus, textarea:focus {
+	border-color: rgba(82, 168, 236, 0.8);
+}
+
+input[type='submit'] {
+	background-color: #2980b9;
+	border: 1px solid #0d0d8e; border-radius: 3px;
+	color: white;
+	padding: 5px 10px;
+}

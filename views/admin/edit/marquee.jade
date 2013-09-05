@@ -1,0 +1,10 @@
+extend ../index
+block content
+  h2 Marquee Items
+  h3 Editing marquee item #{marquee._id}
+  form(action='/marquees/#{marquee._id}/edit',method='post')#marquee-item
+    textarea(name='text',rows=5)= marquee.text
+    .submit-container
+      button
+        a(href='/admin/marquee') Cancel
+      input(type='submit',value='Save')
