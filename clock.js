@@ -54,9 +54,6 @@ app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
 app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
-//getting timezone: this should definitely be a DB setting; lazy tho
-var tz = process.env.TIMEZONE||-5;
-
 console.log('Booting up socket.io...');
 appserver = require('http').createServer(app);
 io = require('socket.io').listen(appserver);
@@ -91,7 +88,7 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
     console.log('Someone opened a socket!');
     socket.on('whattime', function () {
       console.log('Someone asked for the time!');
-      socket.emit('time',moment().add('h',tz).valueOf().toString());
+      socket.emit('time',moment().valueOf().toString());
     });
   });
 
