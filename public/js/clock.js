@@ -1,15 +1,14 @@
-var socket;
-getOffset = function() {
-		socket.emit('whattime', {});
-		return socket.on('time',function(time){
-			return moment().subtract('ms',parseInt(time));
-		}
-		
-	}
+var socket
+  , getOffset = function() {
+	socket.emit('whattime', {});
+	socket.on('time',function(time){
+		moment().subtract('ms',parseInt(time));
+	});
+};
 
 onload = function() {
 	var offset;
-	socket = io.connect('http://localhost:3000');
+	socket = io.connect('http://localhost:3001');
 	socket.on('connect', function () {
 		offset = getOffset();
 	});
