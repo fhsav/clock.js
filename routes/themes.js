@@ -27,4 +27,9 @@ Themes.prototype.activate = function(req, res) {
   });
 };
 
+Themes.prototype.wallpaper = function(req, res) {
+  var wallpaperStream = this.Themes.getWallpaperStream(new ObjectID(req.params.objectID));
+  wallpaperStream.pipe(res);
+};
+
 module.exports = new Themes();
