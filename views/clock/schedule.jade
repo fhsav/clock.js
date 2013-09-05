@@ -1,10 +1,4 @@
 ol
-  li Period 1: 7:32 – 8:14
-  li Period 2: 8:18 – 9:01
-  li Period 3: 9:05 – 9:47
-  li Period 4: 9:51 – 10:33
-  li Period 5: 10:37 – 11:19
-  li Period 6: 11:23 – 12:05
-  li Period 7: 12:09 – 12:51
-  li Period 8: 12:55 – 1:37
-  li Period 9: 1:41 – 2:23
+  - for (var i = 0; i < periods.length; i++) {
+      li= periods[i].text + ": " + periods[i].start + " - " + periods[i].finish
+  - }
