@@ -53,6 +53,10 @@ app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
 app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
+app.get('/time', function(req, res){
+  res.send(new Date().getTime().toString());
+});
+
 console.log('Connecting to MongoDB...');
 
 MongoClient.connect(database.mongodb_uri, function(err, db) {
