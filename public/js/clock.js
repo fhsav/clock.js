@@ -1,18 +1,25 @@
 onload = function() {
-	socket = io.connect('http://localhost:3001');
+	
+  $("#date").text( moment().format('dddd, MMMM Do, YYYY') );
+  //socket.io takes a while to load and connect... to guarantee a "seamless" experience, we'll take the client side time just this once :)
+  $("#time").text( moment().format('h:mm A') );
+  
+  setInterval(function() {
+        if(offset){
+          var time = moment().add(offset);
+          $("#date").text( time.format('dddd, MMMM Do, YYYY') );
+          $("#time").text( time.format('h:mm:ss A') );
+        }
+      }, 1000);
+      
+  socket = io.connect('http://localhost:3001');
   
 	socket.on('connect', function () {
     socket.emit('whattime', {});
     
     socket.on('time',function(time){
       offset = moment().subtract('ms',parseInt(time));
-      setInterval(function() {
-        if(offset){
-          var time = moment().subtract(offset);
-          $("#date").text( time.format('dddd, MMMM Do, YYYY') );
-          $("#time").text( time.format('h:mm:ss A') );
-        }
-      }, 1000);
+      
       
     });
 	});

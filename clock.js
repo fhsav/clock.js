@@ -3,6 +3,7 @@ var app = express();
 var stylus = require('stylus');
 var format = require('util').format;
 var uuid = require('node-uuid');
+var moment = require('moment');
 require('js-yaml');
 
 var MongoClient = require('mongodb').MongoClient;
@@ -53,6 +54,9 @@ app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
 app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
+//getting timezone: this should definitely be a DB setting; lazy tho
+var tz = process.env.TIMEZONE||-5;
+
 console.log('Booting up socket.io...');
 var socketserver = require('http').createServer(app)
   , io = require('socket.io').listen(socketserver);
@@ -85,10 +89,10 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   route.schedules.setModules(modules);
 
   io.sockets.on('connection', function (socket) {
-    console.log('Connection on socket.io!');
+    console.log('Someone opened a socket!');
     socket.on('whattime', function () {
-      console.log('What time is it?!');
-      socket.emit('time',new Date().getTime().toString());
+      console.log('Someone asked for the time!');
+      socket.emit('time',moment().add('h',tz).valueOf().toString());
     });
   });
 
