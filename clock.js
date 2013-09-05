@@ -53,6 +53,11 @@ app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
 app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
+console.log('Booting up socket.io...');
+var socketserver = require('http').createServer(app)
+  , io = require('socket.io').listen(socketserver);
+socketserver.listen(3001);
+
 console.log('Connecting to MongoDB...');
 
 MongoClient.connect(database.mongodb_uri, function(err, db) {
@@ -79,8 +84,16 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
   route.themes.setModules(modules);
   route.schedules.setModules(modules);
 
+  io.sockets.on('connection', function (socket) {
+    console.log('Connection on socket.io!');
+    socket.on('my other event', function (data) {
+      
+    });
+  });
+
   var port = process.env.PORT || 3000;
   app.listen(port, function() {
     console.log('Listening on port ' + port);
   });
+
 });
