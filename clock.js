@@ -88,7 +88,7 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
     console.log('Someone opened a socket!');
     socket.on('whattime', function () {
       console.log('Someone asked for the time!');
-      socket.emit('time',moment().valueOf().toString());
+      socket.emit('time',new Date().valueOf().toString());
     });
   });
 
