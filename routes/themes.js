@@ -28,8 +28,17 @@ Themes.prototype.activate = function(req, res) {
 };
 
 Themes.prototype.wallpaper = function(req, res) {
-  var wallpaperStream = this.Themes.getWallpaperStream(new ObjectID(req.params.objectID));
-  wallpaperStream.pipe(res);
+  this.Themes.getWallpaperStreamByThemeID(new ObjectID(req.params.objectID), function(err, wallpaperStream) {
+    wallpaperStream.pipe(res);
+  });
+};
+
+Themes.prototype.preview = function(req, res) {
+  var data = this.Admin.getViewData(req);
+
+  data.theme = {};
+  data.theme._id = req.params.objectID;
+  res.render('admin/pages/preview', data);
 };
 
 module.exports = new Themes();
