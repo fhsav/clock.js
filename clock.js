@@ -62,6 +62,7 @@ app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) )
 app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
 app.get('/themes/:objectID/preview', route.themes.preview.bind(route.themes) );
+app.get('/themes/wallpaper/active', route.themes.wallpaperActive.bind(route.themes) );
 app.get('/themes/wallpaper/:objectID', route.themes.wallpaper.bind(route.themes) );
 
 console.log('Connecting to MongoDB...');

@@ -33,6 +33,12 @@ Themes.prototype.wallpaper = function(req, res) {
   });
 };
 
+Themes.prototype.wallpaperActive = function(req, res) {
+  this.Themes.getActiveWallpaperStream(function(err, wallpaperStream) {
+    wallpaperStream.pipe(res);
+  });
+};
+
 Themes.prototype.preview = function(req, res) {
   var data = this.Admin.getViewData(req);
 
