@@ -1,0 +1,21 @@
+extend ../index
+block content
+  h2 Schedules
+  h3 #{schedule.name}
+  table.periods
+    thead
+      tr
+        th &#35;
+        th Text
+        th Times
+        th Actions
+    tbody
+      - for (var i = 0; i < periods.length; ++i) {
+          tr
+            td= periods[i].number
+            td= periods[i].text
+            td= periods[i].start + ' - ' + periods[i].finish
+            td
+              <a href="/periods/#{periods[i]._id}/edit">Edit</a> —
+              <a href="/periods/#{periods[i]._id}/delete">Delete</a>
+      - }

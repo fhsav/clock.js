@@ -55,6 +55,8 @@ app.get('/admin/notices', route.notices.landing.bind(route.notices) );
 app.get('/admin/logout', route.admin.logout.bind(route.admin) );
 app.post('/admin/login', route.admin.login_post.bind(route.admin) );
 
+app.get('/schedules/:objectID/edit', route.schedules.edit.bind(route.schedules) );
+app.post('/schedules/:objectID/edit', route.schedules.edit_post.bind(route.schedules) );
 app.get('/marquees/:objectID/edit', route.marquee.edit.bind(route.marquee) );
 app.post('/marquees/:objectID/edit', route.marquee.edit_post.bind(route.marquee) );
 
