@@ -21,8 +21,8 @@ Clock.prototype.index = function(req, res) {
 
   function parsePeriods(err, periods) {
     for (var i = 0; i < periods.length; i++) {
-      periods[i].start = self.normalizeTime(periods[i].start);
-      periods[i].finish = self.normalizeTime(periods[i].finish);
+      periods[i].start = self.Periods.normalizeTime(periods[i].start);
+      periods[i].finish = self.Periods.normalizeTime(periods[i].finish);
     }
     renderClock(periods);
   }
@@ -32,13 +32,6 @@ Clock.prototype.index = function(req, res) {
       periods: periods
     });
   }
-};
-
-Clock.prototype.normalizeTime = function(isoTime) {
-    var timezone = isoTime.getTimezoneOffset() / 60;
-    var hour = moment(isoTime).hour();
-    var time = moment(isoTime).hour(hour + timezone);
-    return moment(time).format("hh:mm");
 };
 
 module.exports = new Clock();
