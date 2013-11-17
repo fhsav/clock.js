@@ -27,8 +27,8 @@ Schedules.prototype.edit = function(req, res) {
   this.Schedules.getByObjectID(new ObjectID(req.params.objectID), function(err, schedule) {
     self.Periods.getAllByScheduleID(new ObjectID(req.params.objectID), function (err, periods) {
       for (var i = 0; i < periods.length; i++) {
-        periods[i].start = self.Periods.normalizeTime(periods[i].start);
-        periods[i].finish = self.Periods.normalizeTime(periods[i].finish);
+        periods[i].start = self.Periods.normalizeTime24(periods[i].start);
+        periods[i].finish = self.Periods.normalizeTime24(periods[i].finish);
       }
       data.schedule = schedule;
       data.periods = periods;
@@ -45,6 +45,19 @@ Schedules.prototype.activate = function(req, res) {
   this.Schedules.activate(new ObjectID(req.params.objectID), function(err) {
     if (err) throw err;
     res.redirect('/admin/schedules');
+  });
+};
+
+Schedules.prototype.createPeriod = function(req, res) {
+  var scheduleID = new ObjectID(req.params.objectID);
+  var number = req.body.period.number;
+  var text = req.body.period.text;
+  var start = this.Periods.parseTime(req.body.period.start);
+  var finish = this.Periods.parseTime(req.body.period.finish);
+
+  this.Periods.create(scheduleID, number, text, start, finish, function(err) {
+    if (err) throw err;
+    res.redirect('/schedules/' + req.params.objectID + '/edit');
   });
 };
 

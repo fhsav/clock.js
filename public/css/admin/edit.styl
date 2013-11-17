@@ -6,10 +6,28 @@
 	margin-bottom: 30px;
 }
 
+@css {
 #schedule-item input[type=text] {
-	width: 365px;
+	width: 40%;
+	width: calc(50% - 35px);
 }
+}
+
 #schedule-item .submit-container {
-	margin-right: auto;
 	margin-top: 0;
+}
+
+#period-create {
+	margin-top: 30px;
+}
+
+#period-create .submit-container {
+	margin-top: 0;
+}
+
+@css {
+#period-create input[name="period[number]"] { width: 50px; }
+#period-create input[name="period[text]"]   { width: 47%; width: calc(60% - 129px); }
+#period-create input[name="period[start]"]  { width: 20%; }
+#period-create input[name="period[finish]"] { width: 20%; }
 }
