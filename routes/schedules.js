@@ -61,4 +61,11 @@ Schedules.prototype.createPeriod = function(req, res) {
   });
 };
 
+Schedules.prototype.deletePeriod = function(req, res) {
+  this.Periods.remove(new ObjectID(req.params.periodID), false, function(err, numberRemoved) {
+    if (err) throw err;
+    res.redirect('/schedules/' + req.params.scheduleID + '/edit');
+  });
+};
+
 module.exports = new Schedules();

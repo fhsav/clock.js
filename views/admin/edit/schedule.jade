@@ -21,8 +21,8 @@ block content
             td= periods[i].text
             td= periods[i].start + ' - ' + periods[i].finish
             td
-              <a href="/periods/#{periods[i]._id}/edit">Edit</a> —
-              <a href="/periods/#{periods[i]._id}/delete">Delete</a>
+              <a href="/schedules/#{schedule._id}/periods/#{periods[i]._id}/edit">Edit</a> —
+              <a href="/schedules/#{schedule._id}/periods/#{periods[i]._id}/delete">Delete</a>
       - }
   form(action='/schedules/#{schedule._id}/periods/create',method='post')#period-create
     input(type='text',name='period[number]',placeholder='#')

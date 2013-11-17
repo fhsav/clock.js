@@ -65,6 +65,8 @@ app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.sch
 
 app.post('/schedules/:objectID/periods/create', route.schedules.createPeriod.bind(route.schedules) );
 
+app.get('/schedules/:scheduleID/periods/:periodID/delete', route.schedules.deletePeriod.bind(route.schedules) );
+
 app.get('/themes/:objectID/preview', route.themes.preview.bind(route.themes) );
 app.get('/themes/wallpaper/active', route.themes.wallpaperActive.bind(route.themes) );
 app.get('/themes/wallpaper/:objectID', route.themes.wallpaper.bind(route.themes) );
