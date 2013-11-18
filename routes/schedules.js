@@ -38,7 +38,15 @@ Schedules.prototype.edit = function(req, res) {
 };
 
 Schedules.prototype.edit_post = function(req, res) {
-  res.redirect('/admin/schedules');
+  var data = {
+    'name': req.body.schedule.name,
+    'description': req.body.schedule.description,
+  };
+
+  this.Schedules.update({_id: new ObjectID(req.params.objectID)}, { $set: data }, {}, function(err) {
+    if (err) throw err;
+    res.redirect('/schedules/' + req.params.objectID + '/edit');
+  });
 };
 
 Schedules.prototype.activate = function(req, res) {
