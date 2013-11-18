@@ -20,6 +20,13 @@ Schedules.prototype.landing = function(req, res) {
   });
 };
 
+Schedules.prototype.create = function(req, res) {
+  this.Schedules.create(req.body.schedule.name, req.body.schedule.description, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/schedules');
+  });
+};
+
 Schedules.prototype.edit = function(req, res) {
   var self = this;
   var data = this.Admin.getViewData(req);
@@ -46,6 +53,13 @@ Schedules.prototype.edit_post = function(req, res) {
   this.Schedules.update({_id: new ObjectID(req.params.objectID)}, { $set: data }, {}, function(err) {
     if (err) throw err;
     res.redirect('/schedules/' + req.params.objectID + '/edit');
+  });
+};
+
+Schedules.prototype.remove = function(req, res) {
+  this.Schedules.remove(new ObjectID(req.params.objectID), false, function(err, numberRemoved) {
+    if (err) throw err;
+    res.redirect('/admin/schedules');
   });
 };
 

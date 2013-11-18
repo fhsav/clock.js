@@ -2,7 +2,7 @@ extend ../index
 block content
   h2 Schedules
   h3 #{schedule.name}
-  form(action='/schedules/#{schedule._id}/edit',method='post')#schedule-item
+  form(action='/schedules/#{schedule._id}/edit',method='post').schedule-item
     input(type='text',name='schedule[name]',value='#{schedule.name}')
     input(type='text',name='schedule[description]',value='#{schedule.description}')
     .submit-container
