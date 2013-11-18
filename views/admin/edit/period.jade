@@ -1,0 +1,13 @@
+extend ../index
+block content
+  h2 Period Item
+  h3 Editing period item #{period._id}
+  form(action='/schedules/#{scheduleID}/periods/#{period._id}/edit',method='post')#period-edit
+    input(type='text',name='period[number]',placeholder='#',value='#{period.number}')
+    input(type='text',name='period[text]',placeholder='Text',value='#{period.text}')
+    input(type='text',name='period[start]',placeholder='Start Time',value='#{period.start}')
+    input(type='text',name='period[finish]',placeholder='Finish Time',value='#{period.finish}')
+    .submit-container
+      div.cancel
+        a(href='/schedules/#{scheduleID}/edit') Cancel
+      input(type='submit',value='Save')

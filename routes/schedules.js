@@ -61,6 +61,36 @@ Schedules.prototype.createPeriod = function(req, res) {
   });
 };
 
+Schedules.prototype.editPeriod = function(req, res) {
+  var self = this;
+  var data = this.Admin.getViewData(req);
+
+  this.Periods.getByObjectID(new ObjectID(req.params.periodID), function(err, period) {
+    period.start = self.Periods.normalizeTime24(period.start);
+    period.finish = self.Periods.normalizeTime24(period.finish);
+
+    data.scheduleID = req.params.scheduleID;
+    data.period = period;
+
+    res.render('admin/edit/period', data);
+  });
+};
+
+Schedules.prototype.editPeriod_post = function(req, res) {
+  var data = {
+    'scheduleID': new ObjectID(req.params.scheduleID),
+    'number': req.body.period.number,
+    'text': req.body.period.text,
+    'start': this.Periods.parseTime(req.body.period.start),
+    'finish': this.Periods.parseTime(req.body.period.finish)
+  };
+
+  this.Periods.update({_id: new ObjectID(req.params.periodID)}, { $set: data }, {}, function(err) {
+    if (err) throw err;
+    res.redirect('/schedules/' + req.params.scheduleID + '/edit');
+  });
+};
+
 Schedules.prototype.deletePeriod = function(req, res) {
   this.Periods.remove(new ObjectID(req.params.periodID), false, function(err, numberRemoved) {
     if (err) throw err;
