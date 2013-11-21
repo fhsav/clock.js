@@ -20,6 +20,13 @@ Marquee.prototype.landing = function(req, res) {
   });
 };
 
+Marquee.prototype.create = function(req, res) {
+  this.Marquee.create(req.body.marquee.text, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/marquee');
+  });
+};
+
 Marquee.prototype.edit = function(req, res) {
   var data = this.Admin.getViewData(req);
 
@@ -31,6 +38,13 @@ Marquee.prototype.edit = function(req, res) {
 
 Marquee.prototype.edit_post = function(req, res) {
   this.Marquee.updateText(new ObjectID(req.params.objectID), req.body.text, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/marquee');
+  });
+};
+
+Marquee.prototype.remove = function(req, res) {
+  this.Marquee.remove(new ObjectID(req.params.objectID), false, function(err, numberRemoved) {
     if (err) throw err;
     res.redirect('/admin/marquee');
   });

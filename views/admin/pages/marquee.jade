@@ -14,3 +14,7 @@ block content
               <a href="/marquees/#{marquees[i]._id}/edit">Edit</a> —
               <a href="/marquees/#{marquees[i]._id}/delete">Delete</a>
       - }
+  form(method='post',action='/marquees/create').marquee-create
+    textarea(name='marquee[text]',placeholder='What do you want to say?')
+    .submit-container
+      input(type='submit',value='Save')
