@@ -18,3 +18,8 @@ block content
               <a href="/themes/#{themes[i]._id}/preview">View</a> —
               <a href="/themes/#{themes[i]._id}/delete">Delete</a>
       - }
+  form(method='post',action='/themes/create',enctype='multipart/form-data').theme-create
+    input(type='text',name='theme[name]',placeholder='Name')
+    input(type='file',name='theme[wallpaper]')
+    .submit-container
+      input(type='submit',value='Save')

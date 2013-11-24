@@ -65,10 +65,12 @@ app.post('/marquees/:objectID/edit', route.marquee.edit_post.bind(route.marquee)
 app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
 app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
 
+app.post('/themes/create', route.themes.create.bind(route.themes) );
 app.post('/schedules/:objectID/periods/create', route.schedules.createPeriod.bind(route.schedules) );
 app.post('/schedules/create', route.schedules.create.bind(route.schedules) );
 app.post('/marquees/create', route.marquee.create.bind(route.marquee) );
 
+app.get('/themes/:objectID/delete', route.themes.remove.bind(route.themes) );
 app.get('/schedules/:objectID/delete', route.schedules.remove.bind(route.schedules) );
 app.get('/schedules/:scheduleID/periods/:periodID/delete', route.schedules.deletePeriod.bind(route.schedules) );
 app.get('/marquees/:objectID/delete', route.marquee.remove.bind(route.marquee) );

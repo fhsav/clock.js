@@ -20,8 +20,22 @@ Themes.prototype.landing = function(req, res) {
   });
 };
 
+Themes.prototype.create = function(req, res) {
+  this.Themes.create(req.body.theme.name, req.files.theme.wallpaper, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/themes');
+  });
+};
+
 Themes.prototype.activate = function(req, res) {
   this.Themes.activate(new ObjectID(req.params.objectID), function(err) {
+    if (err) throw err;
+    res.redirect('/admin/themes');
+  });
+};
+
+Themes.prototype.remove = function(req, res) {
+  this.Themes.remove(new ObjectID(req.params.objectID), false, function(err, numberRemoved) {
     if (err) throw err;
     res.redirect('/admin/themes');
   });
