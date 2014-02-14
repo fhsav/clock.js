@@ -4,3 +4,7 @@ block content
   if (notices.length == 0)
     p
       | No notices yet! Why don't you make one?
+  form(action='/notices/create',method='post').notice-item
+    input(type='text',name='notice[text]',placeholder='What do you need to notify the school of?')
+    .submit-container
+      input(type='submit',value='Save')

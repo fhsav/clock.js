@@ -20,4 +20,11 @@ Notices.prototype.landing = function(req, res) {
   });
 };
 
+Notices.prototype.create = function(req, res) {
+  this.Notices.create(req.body.notice.text, function(err) {
+    if (err) throw err;
+    res.redirect('/admin/notices');
+  });
+};
+
 module.exports = new Notices();

@@ -69,6 +69,7 @@ app.post('/themes/create', route.themes.create.bind(route.themes) );
 app.post('/schedules/:objectID/periods/create', route.schedules.createPeriod.bind(route.schedules) );
 app.post('/schedules/create', route.schedules.create.bind(route.schedules) );
 app.post('/marquees/create', route.marquee.create.bind(route.marquee) );
+app.post('/notices/create', route.notices.create.bind(route.notices) );
 
 app.get('/themes/:objectID/delete', route.themes.remove.bind(route.themes) );
 app.get('/schedules/:objectID/delete', route.schedules.remove.bind(route.schedules) );
