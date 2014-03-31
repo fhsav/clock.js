@@ -1,18 +1,23 @@
+// Node.js Core
+var fs = require('fs');
+
+// Express
 var express = require('express');
 var app = express();
+
+// Express middleware
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-
 var stylus = require('stylus');
-var format = require('util').format;
-var uuid = require('node-uuid');
 
-var yaml = require('js-yaml');
-var fs = require('fs');
-
+// MongoDB
 var MongoClient = require('mongodb').MongoClient;
 var Grid = require('gridfs-stream');
+
+// Miscellaneous
+var uuid = require('node-uuid');
+var yaml = require('js-yaml');
 
 // Clock.js classes
 var Admin = require(__dirname + '/lib/admin');
@@ -22,13 +27,13 @@ var Marquee = require(__dirname + '/lib/marquee');
 var Notices = require(__dirname + '/lib/notices');
 var Periods = require(__dirname + '/lib/periods');
 
-var route = {};
-route.clock = require(__dirname + '/routes/clock');
-route.admin = require(__dirname + '/routes/admin');
-route.themes = require(__dirname + '/routes/themes');
-route.schedules = require(__dirname + '/routes/schedules');
-route.marquee = require(__dirname + '/routes/marquee');
-route.notices = require(__dirname + '/routes/notices');
+// Clock.js route classes
+var clockRoute = require(__dirname + '/routes/clock');
+var adminRoute = require(__dirname + '/routes/admin');
+var themesRoute = require(__dirname + '/routes/themes');
+var schedulesRoute = require(__dirname + '/routes/schedules');
+var marqueeRoute = require(__dirname + '/routes/marquee');
+var noticesRoute = require(__dirname + '/routes/notices');
 
 var database = yaml.safeLoad(fs.readFileSync(__dirname + '/config/database.yaml', 'utf8'));
 database.mongodb_uri = process.env['MONGODB_URI'];
@@ -52,12 +57,12 @@ app.use(bodyParser());
 //
 // http://stackoverflow.com/questions/15604848/express-js-this-undefined-after-routing-with-app-get
 
-route.clock.setRoutes(app);
-route.admin.setRoutes(app);
-route.themes.setRoutes(app);
-route.schedules.setRoutes(app);
-route.marquee.setRoutes(app);
-route.notices.setRoutes(app);
+clockRoute.setRoutes(app);
+adminRoute.setRoutes(app);
+themesRoute.setRoutes(app);
+schedulesRoute.setRoutes(app);
+marqueeRoute.setRoutes(app);
+noticesRoute.setRoutes(app);
 
 console.log('Connecting to MongoDB...');
 
@@ -81,12 +86,12 @@ MongoClient.connect(database.mongodb_uri, function(err, db) {
     'Periods': Periods
   };
 
-  route.clock.setModules(modules);
-  route.admin.setModules(modules);
-  route.themes.setModules(modules);
-  route.schedules.setModules(modules);
-  route.marquee.setModules(modules);
-  route.notices.setModules(modules);
+  clockRoute.setModules(modules);
+  adminRoute.setModules(modules);
+  themesRoute.setModules(modules);
+  schedulesRoute.setModules(modules);
+  marqueeRoute.setModules(modules);
+  noticesRoute.setModules(modules);
 
   var port = process.env.PORT || 3000;
   app.listen(port, function() {
