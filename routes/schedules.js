@@ -2,6 +2,20 @@ var ObjectID = require('mongodb').ObjectID;
 
 function Schedules() {}
 
+Schedules.prototype.setRoutes = function(app) {
+  app.get('/admin/schedules', this.landing.bind(this) );
+  app.post('/schedules/create', this.create.bind(this) );
+  app.get('/schedules/:objectID/activate', this.activate.bind(this) );
+  app.get('/schedules/:objectID/edit', this.edit.bind(this) );
+  app.post('/schedules/:objectID/edit', this.edit_post.bind(this) );
+  app.get('/schedules/:objectID/delete', this.remove.bind(this) );
+
+  app.post('/schedules/:objectID/periods/create', this.createPeriod.bind(this) );
+  app.get('/schedules/:scheduleID/periods/:periodID/edit', this.editPeriod.bind(this) );
+  app.post('/schedules/:scheduleID/periods/:periodID/edit', this.editPeriod_post.bind(this) );
+  app.get('/schedules/:scheduleID/periods/:periodID/delete', this.deletePeriod.bind(this) );
+};
+
 Schedules.prototype.setModules = function(modules) {
   this.Admin = modules.Admin;
   this.Themes = modules.Themes;

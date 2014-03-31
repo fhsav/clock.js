@@ -8,14 +8,17 @@
     "url": "https://github.com/gluxon/clock.js.git"
   },
   "dependencies" : {
-    "express"      : "3.x",
-    "jade"         : "0.x",
-    "stylus"       : "0.x",
-    "js-yaml"      : "2.1.x",
-    "mongodb"      : "1.3.x",
-    "gridfs-stream": "0.4.x",
-    "node-uuid"    : "1.4.x",
-    "moment"       : "2.4.x"
+    "express"         : "4.x",
+    "jade"            : "1.3.x",
+    "body-parser"     : "1.x",
+    "cookie-parser"   : "1.x",
+    "express-session" : "1.x",
+    "stylus"          : "0.x",
+    "js-yaml"         : "3.x",
+    "mongodb"         : "1.4.x",
+    "gridfs-stream"   : "0.4.x",
+    "node-uuid"       : "1.4.x",
+    "moment"          : "2.5.x"
   },
   "license": "MPL",
   "engines": {

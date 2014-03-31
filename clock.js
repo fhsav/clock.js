@@ -1,13 +1,20 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
 var stylus = require('stylus');
 var format = require('util').format;
 var uuid = require('node-uuid');
-require('js-yaml');
+
+var yaml = require('js-yaml');
+var fs = require('fs');
 
 var MongoClient = require('mongodb').MongoClient;
 var Grid = require('gridfs-stream');
 
+// Clock.js classes
 var Admin = require(__dirname + '/lib/admin');
 var Themes = require(__dirname + '/lib/themes');
 var Schedules = require(__dirname + '/lib/schedules');
@@ -23,8 +30,8 @@ route.schedules = require(__dirname + '/routes/schedules');
 route.marquee = require(__dirname + '/routes/marquee');
 route.notices = require(__dirname + '/routes/notices');
 
-var database = require(__dirname + '/config/database.yaml');
-database.mongodb_uri = process.env['MONGOHQ_URL'];
+var database = yaml.safeLoad(fs.readFileSync(__dirname + '/config/database.yaml', 'utf8'));
+database.mongodb_uri = process.env['MONGODB_URI'];
 
 Admin.setVersion('0.1.0');
 
@@ -35,50 +42,22 @@ app.locals.pretty = true;
 app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
 
-app.use(express.cookieParser());
-app.use(express.session({secret: uuid.v4()}));
+app.use(cookieParser());
+app.use(session({secret: uuid.v4()}));
 
-app.use(express.bodyParser());
+app.use(bodyParser());
 
 // The binding - .bind() - here is necessary since only the
 // function is being passed, without its scope.
 //
 // http://stackoverflow.com/questions/15604848/express-js-this-undefined-after-routing-with-app-get
 
-app.get('/', route.clock.index.bind(route.clock) );
-
-app.get('/admin', route.admin.welcome.bind(route.admin) );
-app.get('/admin/themes', route.themes.landing.bind(route.themes) );
-app.get('/admin/schedules', route.schedules.landing.bind(route.schedules) );
-app.get('/admin/marquee', route.marquee.landing.bind(route.marquee) );
-app.get('/admin/notices', route.notices.landing.bind(route.notices) );
-app.get('/admin/logout', route.admin.logout.bind(route.admin) );
-app.post('/admin/login', route.admin.login_post.bind(route.admin) );
-
-app.get('/schedules/:objectID/edit', route.schedules.edit.bind(route.schedules) );
-app.post('/schedules/:objectID/edit', route.schedules.edit_post.bind(route.schedules) );
-app.get('/schedules/:scheduleID/periods/:periodID/edit', route.schedules.editPeriod.bind(route.schedules) );
-app.post('/schedules/:scheduleID/periods/:periodID/edit', route.schedules.editPeriod_post.bind(route.schedules) );
-app.get('/marquees/:objectID/edit', route.marquee.edit.bind(route.marquee) );
-app.post('/marquees/:objectID/edit', route.marquee.edit_post.bind(route.marquee) );
-
-app.get('/themes/:objectID/activate', route.themes.activate.bind(route.themes) );
-app.get('/schedules/:objectID/activate', route.schedules.activate.bind(route.schedules) );
-
-app.post('/themes/create', route.themes.create.bind(route.themes) );
-app.post('/schedules/:objectID/periods/create', route.schedules.createPeriod.bind(route.schedules) );
-app.post('/schedules/create', route.schedules.create.bind(route.schedules) );
-app.post('/marquees/create', route.marquee.create.bind(route.marquee) );
-app.post('/notices/create', route.notices.create.bind(route.notices) );
-
-app.get('/themes/:objectID/delete', route.themes.remove.bind(route.themes) );
-app.get('/schedules/:objectID/delete', route.schedules.remove.bind(route.schedules) );
-app.get('/schedules/:scheduleID/periods/:periodID/delete', route.schedules.deletePeriod.bind(route.schedules) );
-app.get('/marquees/:objectID/delete', route.marquee.remove.bind(route.marquee) );
-
-app.get('/themes/:objectID/preview', route.themes.preview.bind(route.themes) );
-app.get('/themes/wallpaper/active', route.themes.wallpaperActive.bind(route.themes) );
-app.get('/themes/wallpaper/:objectID', route.themes.wallpaper.bind(route.themes) );
+route.clock.setRoutes(app);
+route.admin.setRoutes(app);
+route.themes.setRoutes(app);
+route.schedules.setRoutes(app);
+route.marquee.setRoutes(app);
+route.notices.setRoutes(app);
 
 console.log('Connecting to MongoDB...');
 

@@ -2,6 +2,11 @@ var ObjectID = require('mongodb').ObjectID;
 
 function Notices() {}
 
+Notices.prototype.setRoutes = function(app) {
+  app.get('/admin/notices', this.landing.bind(this) );
+  app.post('/notices/create', this.create.bind(this) );
+};
+
 Notices.prototype.setModules = function(modules) {
   this.Admin = modules.Admin;
   this.Notices = modules.Notices;

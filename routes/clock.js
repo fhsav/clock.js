@@ -2,6 +2,10 @@ var moment = require('moment');
 
 function Clock() {}
 
+Clock.prototype.setRoutes = function(app) {
+  app.get('/', this.index.bind(this) );
+};
+
 Clock.prototype.setModules = function(modules) {
   this.Themes = modules.Themes;
   this.Schedules = modules.Schedules;

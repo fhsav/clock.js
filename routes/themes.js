@@ -2,6 +2,17 @@ var ObjectID = require('mongodb').ObjectID;
 
 function Themes() {}
 
+Themes.prototype.setRoutes = function(app) {
+  app.get('/admin/themes', this.landing.bind(this) );
+  app.post('/themes/create', this.create.bind(this) );
+  app.get('/themes/:objectID/activate', this.activate.bind(this) );
+  app.get('/themes/:objectID/delete', this.remove.bind(this) );
+
+  app.get('/themes/wallpaper/active', this.wallpaperActive.bind(this) );
+  app.get('/themes/wallpaper/:objectID', this.wallpaper.bind(this) );
+  app.get('/themes/:objectID/preview', this.preview.bind(this) );
+};
+
 Themes.prototype.setModules = function(modules) {
   this.Admin = modules.Admin;
   this.Themes = modules.Themes;
@@ -42,6 +53,7 @@ Themes.prototype.remove = function(req, res) {
 };
 
 Themes.prototype.wallpaper = function(req, res) {
+  console.log(req.params);
   this.Themes.getWallpaperStreamByThemeID(new ObjectID(req.params.objectID), function(err, wallpaperStream) {
     wallpaperStream.pipe(res);
   });

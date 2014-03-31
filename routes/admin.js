@@ -1,5 +1,11 @@
 function Admin() {}
 
+Admin.prototype.setRoutes = function(app) {
+  app.get('/admin', this.welcome.bind(this) );
+  app.get('/admin/logout', this.logout.bind(this) );
+  app.post('/admin/login', this.login_post.bind(this) );
+};
+
 Admin.prototype.setModules = function(modules) {
   this.Admin = modules.Admin;
   this.Themes = modules.Themes;

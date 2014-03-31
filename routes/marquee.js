@@ -2,6 +2,14 @@ var ObjectID = require('mongodb').ObjectID;
 
 function Marquee() {}
 
+Marquee.prototype.setRoutes = function(app) {
+  app.get('/admin/marquee', this.landing.bind(this) );
+  app.post('/marquees/create', this.create.bind(this) );
+  app.get('/marquees/:objectID/edit', this.edit.bind(this) );
+  app.post('/marquees/:objectID/edit', this.edit_post.bind(this) );
+  app.get('/marquees/:objectID/delete', this.remove.bind(this) );
+};
+
 Marquee.prototype.setModules = function(modules) {
   this.Admin = modules.Admin;
   this.Themes = modules.Themes;
