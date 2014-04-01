@@ -12,3 +12,6 @@ node_modules
 # Stylus compile files
 /public/css/*.css
 /public/css/admin/*.css
+
+# OS X
+.DS_Store
