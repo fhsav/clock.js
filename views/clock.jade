@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Clock
+    link(rel="stylesheet", href="/css/clock.css")
+    script(type="text/javascript", src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    script(type="text/javascript", src="http://momentjs.com/downloads/moment.min.js")
+    script(type="text/javascript", src="/js/clock.js")
+  body
+    #marquee
+      p
+        | Hello. This is the marquee.
+    #wrapper
+      #clock
+        p#date
+        p#time
+      #schedule
+        ol
+          - for (var i = 0; i < periods.length; i++) {
+              li= periods[i].text + ": " + periods[i].start + " - " + periods[i].finish
+          - }
