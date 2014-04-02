@@ -68,9 +68,10 @@ Themes.prototype.wallpaperActive = function(req, res) {
 Themes.prototype.preview = function(req, res) {
   var data = this.Admin.getViewData(req);
 
-  data.theme = {};
-  data.theme._id = req.params.objectID;
-  res.render('admin/pages/preview', data);
+  this.Themes.getByObjectID(new ObjectID(req.params.objectID), function(err, theme) {
+    data.theme = theme;
+    res.render('admin/pages/preview', data);
+  });
 };
 
 module.exports = new Themes();
