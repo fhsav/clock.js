@@ -1,19 +1,23 @@
 extend ../index
 block content
   h2 Marquee Items
-  table.marquees
-    thead
-      tr
-        th Text
-        th Actions
-    tbody
-      - for (var i = 0; i < marquees.length; ++i) {
-          tr
-            td= marquees[i].text
-            td
-              <a href="/marquees/#{marquees[i]._id}/edit">Edit</a> —
-              <a href="/marquees/#{marquees[i]._id}/delete">Delete</a>
-      - }
+  if (marquees.length == 0)
+    p
+      | No notices yet! Why don't you make one?
+  else
+    table.marquees
+      thead
+        tr
+          th Text
+          th Actions
+      tbody
+        - for (var i = 0; i < marquees.length; ++i) {
+            tr
+              td= marquees[i].text
+              td
+                <a href="/marquees/#{marquees[i]._id}/edit">Edit</a> —
+                <a href="/marquees/#{marquees[i]._id}/delete">Delete</a>
+        - }
   form(method='post',action='/marquees/create').marquee-create
     textarea(name='marquee[text]',placeholder='What do you want to say?')
     input(type='submit',value='Save')

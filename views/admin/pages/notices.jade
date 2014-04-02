@@ -4,6 +4,20 @@ block content
   if (notices.length == 0)
     p
       | No notices yet! Why don't you make one?
+  else
+    table.notices
+      thead
+        tr
+          th Text
+          th Actions
+      tbody
+        - for (var i = 0; i < notices.length; ++i) {
+            tr
+              td= notices[i].text
+              td
+                <a href="/notices/#{notices[i]._id}/edit">Edit</a> —
+                <a href="/notices/#{notices[i]._id}/delete">Delete</a>
+        - }
   form(action='/notices/create',method='post').notice-create
     input(type='text',name='notice[text]',placeholder='What do you need to notify the school of?')
     input(type='submit',value='Save')

@@ -1,0 +1,10 @@
+extend ../index
+block content
+  h2 Notice Items
+  h3 Editing notice item #{notice._id}
+  form(action='/notices/#{notice._id}/edit',method='post').notice-edit
+    textarea(name='text',rows=5)= notice.text
+    .submit-container
+      .cancel
+        a(href='/admin/notices') Cancel
+      input(type='submit',value='Save')
