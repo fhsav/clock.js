@@ -20,8 +20,7 @@ block content
               <a href="/schedules/#{schedules[i]._id}/edit">Edit</a> —
               <a href="/schedules/#{schedules[i]._id}/delete">Delete</a>
       - }
-  form(action='/schedules/create',method='post').schedule-item
+  form(action='/schedules/create',method='post').schedule-create
     input(type='text',name='schedule[name]',placeholder='Name')
     input(type='text',name='schedule[description]',placeholder='Description')
-    .submit-container
-      input(type='submit',value='Save')
+    input(type='submit',value='Save')
