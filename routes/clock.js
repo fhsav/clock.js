@@ -32,8 +32,11 @@ Clock.prototype.index = function(req, res) {
   }
 
   function renderClock(periods) {
-    res.render('clock', {
-      periods: periods
+    self.Marquee.getAll(function(err, marquees) {
+      res.render('clock', {
+        periods: periods,
+        marquees: marquees
+      });
     });
   }
 };

@@ -8,8 +8,10 @@ html
     script(type="text/javascript", src="/js/clock.js")
   body
     #marquee
-      p
-        | Hello. This is the marquee.
+      ul
+        - for (var i = 0; i < marquees.length; i++) {
+          li= marquees[i].text
+        - }
     #wrapper
       #clock
         p#date
