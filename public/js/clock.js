@@ -1,4 +1,10 @@
 $(function() {
+  updateTime();
+  createMarquee();
+  highlightActivePeriod();
+});
+
+function updateTime() {
   $("#date").text( moment().format('dddd, MMMM Do, YYYY') );
   $("#time").text( moment().format('h:mm:ss A') );
 
@@ -9,6 +15,12 @@ $(function() {
   setInterval(function() {
     $("#time").text( moment().format('h:mm:ss A') );
   }, 1000);
+}
 
+function createMarquee() {
   $("#marquee ul").marquee({ pauseOnHover: false });
-});
+}
+
+function highlightActivePeriod() {
+  
+}

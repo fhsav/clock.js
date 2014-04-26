@@ -27,6 +27,8 @@ Clock.prototype.index = function(req, res) {
     for (var i = 0; i < periods.length; i++) {
       periods[i].start = self.Periods.normalizeTime(periods[i].start);
       periods[i].finish = self.Periods.normalizeTime(periods[i].finish);
+      periods[i].startDatetime = self.Periods.normalizeForDatetime(periods[i].start);
+      periods[i].finishDatetime = self.Periods.normalizeForDatetime(periods[i].finish);
     }
     renderClock(periods);
   }

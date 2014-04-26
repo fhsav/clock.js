@@ -1,3 +1,4 @@
+var mongo = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 
 function Schedules() {}
@@ -86,7 +87,7 @@ Schedules.prototype.activate = function(req, res) {
 
 Schedules.prototype.createPeriod = function(req, res) {
   var scheduleID = new ObjectID(req.params.objectID);
-  var number = req.body.period.number;
+  var number = new mongo.Long(req.body.period.number);
   var text = req.body.period.text;
   var start = this.Periods.parseTime(req.body.period.start);
   var finish = this.Periods.parseTime(req.body.period.finish);
@@ -115,7 +116,7 @@ Schedules.prototype.editPeriod = function(req, res) {
 Schedules.prototype.editPeriod_post = function(req, res) {
   var data = {
     'scheduleID': new ObjectID(req.params.scheduleID),
-    'number': req.body.period.number,
+    'number': new mongo.Long(req.body.period.number),
     'text': req.body.period.text,
     'start': this.Periods.parseTime(req.body.period.start),
     'finish': this.Periods.parseTime(req.body.period.finish)

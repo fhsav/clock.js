@@ -21,5 +21,6 @@ html
       #schedule
         ol
           - for (var i = 0; i < periods.length; i++) {
-              li= periods[i].text + ": " + periods[i].start + " - " + periods[i].finish
+              li.
+                #{periods[i].text} : <time datetime="#{periods[i].startDatetime}">#{periods[i].start}</time> - <time datetime="#{periods[i].finishDatetime}">#{periods[i].finish}</time>
           - }
