@@ -3,12 +3,14 @@ html
   head
     title Clock
     link(rel="stylesheet", href="/css/clock.css")
+    link(rel="stylesheet", href="/css/vendor/jquery.marquee.css")
     script(type="text/javascript", src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
     script(type="text/javascript", src="http://momentjs.com/downloads/moment.min.js")
+    script(type="text/javascript", src="/js/jquery.marquee.js")
     script(type="text/javascript", src="/js/clock.js")
   body
     #marquee
-      ul
+      ul.marquee
         - for (var i = 0; i < marquees.length; i++) {
           li= marquees[i].text
         - }
