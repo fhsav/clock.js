@@ -18,10 +18,10 @@
     "mongodb"         : "1.4.x",
     "gridfs-stream"   : "0.4.x",
     "node-uuid"       : "1.4.x",
-    "moment"          : "2.5.x"
+    "moment"          : "2.6.x"
   },
   "license": "MPL",
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.10"
   }
 }
