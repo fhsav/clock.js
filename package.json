@@ -8,6 +8,7 @@
     "url": "https://github.com/gluxon/clock.js.git"
   },
   "dependencies" : {
+    "async"           : "0.7.x",
     "express"         : "4.x",
     "jade"            : "1.3.x",
     "body-parser"     : "1.x",

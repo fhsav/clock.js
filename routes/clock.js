@@ -1,4 +1,5 @@
 var moment = require('moment');
+var async = require('async');
 
 function Clock() {}
 
@@ -17,30 +18,41 @@ Clock.prototype.setModules = function(modules) {
 Clock.prototype.index = function(req, res) {
   var self = this;
 
-  self.Schedules.getActive(getPeriods);
+  async.parallel({
 
-  function getPeriods(err, schedule) {
-    self.Periods.getAllByScheduleID(schedule._id, parsePeriods);
-  }
+    // Get periods in parallel with marquees
+    'periods': function(callback) {
+      self.Schedules.getActive(getPeriods);
 
-  function parsePeriods(err, periods) {
-    for (var i = 0; i < periods.length; i++) {
-      periods[i].start = self.Periods.normalizeTime(periods[i].start);
-      periods[i].finish = self.Periods.normalizeTime(periods[i].finish);
-      periods[i].startDatetime = self.Periods.normalizeForDatetime(periods[i].start);
-      periods[i].finishDatetime = self.Periods.normalizeForDatetime(periods[i].finish);
+      function getPeriods(err, schedule) {
+        self.Periods.getAllByScheduleID(schedule._id, parsePeriods);
+      }
+
+      function parsePeriods(err, periods) {
+        for (var i = 0; i < periods.length; i++) {
+          periods[i].start = self.Periods.normalizeTime(periods[i].start);
+          periods[i].finish = self.Periods.normalizeTime(periods[i].finish);
+          periods[i].startDatetime = self.Periods.normalizeForDatetime(periods[i].start);
+          periods[i].finishDatetime = self.Periods.normalizeForDatetime(periods[i].finish);
+        }
+        callback(err, periods);
+      }
+    },
+
+    // Now get marquees in parallel
+    'marquees': function(callback){
+      self.Marquee.getAll(callback);
+    },
+
+    'notices': function(callback) {
+      self.Notices.getAll(callback);
     }
-    renderClock(periods);
-  }
+  },
 
-  function renderClock(periods) {
-    self.Marquee.getAll(function(err, marquees) {
-      res.render('clock', {
-        periods: periods,
-        marquees: marquees
-      });
-    });
-  }
+  // We've got periods, marquees, and notices. Render.
+  function(err, results) {
+    res.render('clock', results);
+  });
 };
 
 module.exports = new Clock();
