@@ -40,7 +40,7 @@ Notices.prototype.edit = function(req, res) {
 
   this.Notices.getByObjectID(new ObjectID(req.params.objectID), function(err, notice) {
     data.notice = notice;
-    res.render('admin/edit/notices', data);
+    res.render('admin/edit/notice', data);
   });
 };
 
