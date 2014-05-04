@@ -20,8 +20,8 @@ block content
             td= periods[i].text
             td= periods[i].normalized.military.start + ' - ' + periods[i].normalized.military.finish
             td
-              <a href="schedules/#{schedule._id}/periods/#{periods[i]._id}/edit">Edit</a> —
-              <a href="schedules/#{schedule._id}/periods/#{periods[i]._id}/delete">Delete</a>
+              <a href="periods/#{periods[i]._id}/edit">Edit</a> —
+              <a href="periods/#{periods[i]._id}/delete">Delete</a>
       - }
   form(method='post',action='/admin/schedules/#{schedule._id}/periods/create').period-create
     input(type='text',name='period[number]',placeholder='#')

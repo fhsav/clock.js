@@ -27,6 +27,14 @@ periodSchema.statics.normalize24 = function(isoTime) {
   return moment(time).format("HH:mm");
 };
 
+/** Parse time in hh:mm format to Date() */
+periodSchema.statics.parseTime = function(time) {
+  var timezone = new Date().getTimezoneOffset() / 60;
+  time = moment(time, "HH:mm").toDate();
+  time.setHours(time.getHours() - timezone);
+  return time;
+};
+
 /**
 * RFC 3339
 */
