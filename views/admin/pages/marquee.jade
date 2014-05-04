@@ -15,9 +15,9 @@ block content
             tr
               td= marquees[i].text
               td
-                <a href="marquees/#{marquees[i]._id}/edit">Edit</a> —
-                <a href="marquees/#{marquees[i]._id}/delete">Delete</a>
+                <a href="marquee/#{marquees[i]._id}/edit">Edit</a> —
+                <a href="marquee/#{marquees[i]._id}/delete">Delete</a>
         - }
-  form(method='post',action='marquees/create').marquee-create
+  form(method='post',action='marquee/create').marquee-create
     textarea(name='marquee[text]',placeholder='What do you want to say?')
     input(type='submit',value='Save')

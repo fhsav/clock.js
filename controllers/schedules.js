@@ -23,6 +23,18 @@ router.param('schedule', function(req, res, next, id) {
   });
 });
 
+router.post('/create', function(req, res, next) {
+  Schedule.create({
+    'name': req.body.schedule.name,
+    'description': req.body.schedule.description
+  }, redirectToLanding);
+
+  function redirectToLanding(err) {
+    if (err) throw err;
+    res.redirect('/admin/schedules');
+  }
+});
+
 router.get('/:schedule/activate', function(req, res, next) {
   req.schedule.activate(function(err) {
     if (err) throw err;

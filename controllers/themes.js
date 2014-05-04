@@ -28,9 +28,8 @@ router.post('/create', function(req, res, next) {
     if (err) throw err;
 
     Theme.create({
-        'active': false,
-        'name': req.body['theme[name]'],
-        'wallpaper': req.files['theme[wallpaper]'].name
+      'name': req.body['theme[name]'],
+      'wallpaper': req.files['theme[wallpaper]'].name
     }, redirectToLanding);
 
     function redirectToLanding(err) {

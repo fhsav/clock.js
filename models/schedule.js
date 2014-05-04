@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var Period = mongoose.model('Period');
 
 var scheduleSchema = new Schema({
-  'active': Boolean,
+  'active': { type: Boolean, default: false },
   'name': String,
   'description': String,
   'created_at': { type: Date, default: Date.now },
