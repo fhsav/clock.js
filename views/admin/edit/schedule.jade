@@ -2,7 +2,7 @@ extend ../index
 block content
   h2 Schedules
   h3 #{schedule.name}
-  form(action='/schedules/#{schedule._id}/edit',method='post').schedule-edit
+  form(action='/admin/schedules/#{schedule._id}/edit',method='post').schedule-edit
     input(type='text',name='schedule[name]',value='#{schedule.name}')
     input(type='text',name='schedule[description]',value='#{schedule.description}')
     input(type='submit',value='Save')
@@ -18,12 +18,12 @@ block content
           tr
             td= periods[i].number
             td= periods[i].text
-            td= periods[i].start + ' - ' + periods[i].finish
+            td= periods[i].normalized.military.start + ' - ' + periods[i].normalized.military.finish
             td
-              <a href="/schedules/#{schedule._id}/periods/#{periods[i]._id}/edit">Edit</a> —
-              <a href="/schedules/#{schedule._id}/periods/#{periods[i]._id}/delete">Delete</a>
+              <a href="schedules/#{schedule._id}/periods/#{periods[i]._id}/edit">Edit</a> —
+              <a href="schedules/#{schedule._id}/periods/#{periods[i]._id}/delete">Delete</a>
       - }
-  form(action='/schedules/#{schedule._id}/periods/create',method='post').period-create
+  form(method='post',action='/admin/schedules/#{schedule._id}/periods/create').period-create
     input(type='text',name='period[number]',placeholder='#')
     input(type='text',name='period[text]',placeholder='Text')
     input(type='text',name='period[start]',placeholder='Start Time')

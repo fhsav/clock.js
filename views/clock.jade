@@ -22,5 +22,5 @@ html
         ol
           - for (var i = 0; i < periods.length; i++) {
               li.
-                #{periods[i].text} : <time datetime="#{periods[i].startDatetime}">#{periods[i].start}</time> - <time datetime="#{periods[i].finishDatetime}">#{periods[i].finish}</time>
+                #{periods[i].text} : <time datetime="#{periods[i].datetime.start}">#{periods[i].normalized.start}</time> - <time datetime="#{periods[i].datetime.finish}">#{periods[i].normalized.finish}</time>
           - }
