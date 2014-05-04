@@ -2,8 +2,8 @@ extend ../index
 block content
   h2 Marquee Items
   h3 Editing marquee item #{marquee._id}
-  form(action='/marquees/#{marquee._id}/edit',method='post').marquee-edit
-    textarea(name='text',rows=5)= marquee.text
+  form(action='edit',method='post').marquee-edit
+    textarea(name='marquee[text]',rows=5)= marquee.text
     .submit-container
       .cancel
         a(href='/admin/marquee') Cancel
