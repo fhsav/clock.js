@@ -113,7 +113,7 @@ router.post('/:schedule/periods/:period/edit', function(req, res, next) {
   req.period.text = req.body.period.text;
   req.period.start = Period.parseTime(req.body.period.start);
   req.period.finish = Period.parseTime(req.body.period.finish);
-  req.period.schedule_id = req.schedule._id;
+  req.period.schedule_id = req.schedule.id;
 
   req.period.save(function(err) {
     if (err) throw err;

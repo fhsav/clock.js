@@ -13,10 +13,10 @@ block content
             td= themes[i].name
             td
               if (!themes[i].active)
-                <a href="themes/#{themes[i]._id}/activate">Activate</a>
+                <a href="/admin/themes/#{themes[i]._id}/activate">Activate</a>
             td
-              <a href="themes/#{themes[i]._id}/preview">View</a> —
-              <a href="themes/#{themes[i]._id}/delete">Delete</a>
+              <a href="/admin/themes/#{themes[i]._id}/preview">View</a> —
+              <a href="/admin/themes/#{themes[i]._id}/delete">Delete</a>
       - }
   form(method='post',action='/admin/themes/create',enctype='multipart/form-data').theme-create
     input(type='text',name='theme[name]',placeholder='Name')

@@ -15,12 +15,12 @@ block content
             td= schedules[i].description
             td
               if (!schedules[i].active)
-                <a href="schedules/#{schedules[i]._id}/activate">Activate</a>
+                <a href="/admin/schedules/#{schedules[i]._id}/activate">Activate</a>
             td
-              <a href="schedules/#{schedules[i]._id}/edit">Edit</a> —
-              <a href="schedules/#{schedules[i]._id}/delete">Delete</a>
+              <a href="/admin/schedules/#{schedules[i]._id}/edit">Edit</a> —
+              <a href="/admin/schedules/#{schedules[i]._id}/delete">Delete</a>
       - }
-  form(action='schedules/create',method='post').schedule-create
+  form(action='/admin/schedules/create',method='post').schedule-create
     input(type='text',name='schedule[name]',placeholder='Name')
     input(type='text',name='schedule[description]',placeholder='Description')
     input(type='submit',value='Save')
