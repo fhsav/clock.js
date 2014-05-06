@@ -22,5 +22,21 @@ function createMarquee() {
 }
 
 function highlightActivePeriod() {
-  
+  setInterval(function() {
+    $('#schedule ol li') .each(function (index, element) {
+      var startTime = $($(element).children()[0]).attr('datetime');
+      var finishTime = $($(element).children()[1]).attr('datetime');
+
+      var startTimeX = moment(startTime, "HH:mm:ss").format('X');
+      var finishTimeX = moment(finishTime, "HH:mm:ss").format('X');
+
+      var now = moment().format('X');
+
+      if (startTimeX < now && now < finishTimeX) {
+        $(element).addClass('active');
+      } else {
+        $(element).removeClass('active');
+      }
+    });
+  }, 1000);
 }
