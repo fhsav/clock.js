@@ -8,30 +8,34 @@ body {
 	background-image: url("/wallpaper/active");
 	background-repeat: none;
 
-	font-family: "Roboto";
-	font-weight: 700;
+	font: 500 38px/1.25em "Roboto",Helvetica Neue,Helvetica,Arial,sans-serif;
 	color: white;
 }
 
 #wrapper {
-	margin: 25px 3% 25px;
+	margin-top: 0.85em;
+	padding: 0 0.5em;
 	overflow: hidden;
 }
 
 #marquee {
 	background-color: rgba(51, 51, 51, 0.75);
-	margin-top: 20px; padding: 8px 20px;
+	margin-top: 19px; padding: 0 0.5em;
+	color: #FAFAFA;
 	border-radius: 3px;
 }
 
 #marquee ul {
 	margin: 0; padding: 0;
-	height: 40px;
-	font-size: 36px;
+	height: 1.5em;
+}
+
+#marquee ul li {
+	padding: 0.2em 0px 0.2em 0.5em;
 }
 
 #clock {
-	width: 48%;
+	width: 45.3781%;
 	float: right;
 
 	text-align: center;
@@ -47,23 +51,26 @@ body {
 }
 
 #clock #date {
-	margin-top: 40px;
-	font-size: 40px;
+	font-size: 1.25em;
 	line-height: 1.5em;
 }
 
 #clock #time {
-	margin-top: 60px;
-	font-size: 80px;
+	margin-top: 0.35em;
+	font-size: 2.5em;
+	font-weight: 700; 
+	line-height: 1em;
 }
 
 #schedule {
 	background-color: rgba(0,0,0, 0.7);
-	width: 48%;
+	width: 49.5798%;
 
 	float: left;
 	overflow: hidden;
-	color: black; font-size: 40px;
+
+	color: black;
+	font-weight: 700;
 
 	border-radius: 2px;
 
@@ -78,8 +85,9 @@ body {
 }
 
 #schedule ol li {
-	padding: 4px 20px;
+	padding: 0.2em 0.5em;
 	background: linear-gradient(#F0F0F0, #D2D2D2);
+	border-top: 1px solid #FFF;
 }
 
 #schedule ol li + li {

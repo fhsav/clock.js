@@ -5,15 +5,15 @@ $(function() {
 });
 
 function updateTime() {
-  $("#date").text( moment().format('dddd, MMMM Do, YYYY') );
-  $("#time").text( moment().format('h:mm:ss A') );
+  $("#date").text( moment().format('dddd, MMMM D, YYYY') );
+  $("#time").text( moment().format('h:mm:ss') );
 
   setInterval(function() {
-    $("#date").text( moment().format('dddd, MMMM Do, YYYY') );
+    $("#date").text( moment().format('dddd, MMMM D, YYYY') );
   }, 1000);
 
   setInterval(function() {
-    $("#time").text( moment().format('h:mm:ss A') );
+    $("#time").text( moment().format('h:mm:ss') );
   }, 1000);
 }
 
