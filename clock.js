@@ -39,6 +39,12 @@ app.locals.pretty = true;
 app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
 
+// Set up Socket.io communication
+
+var server = require('http').createServer(app)
+  , io = require('socket.io').listen(server);
+io.set('browser client gzip',true); //enable compression on socket.io.js
+
 // Setup view controller
 app.use(cookieParser());
 app.use(session({secret: uuid.v4()}));
@@ -65,7 +71,7 @@ db.once('open', function() {
   app.use('/wallpaper', Wallpaper);
 
   var port = process.env.PORT || 3000;
-  app.listen(port, function() {
+  server.listen(port, function() {
     console.log('Listening on port ' + port);
   });
 });
