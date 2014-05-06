@@ -27,6 +27,16 @@ periodSchema.statics.normalize24 = function(isoTime) {
   return moment(time).format("HH:mm");
 };
 
+/**
+* RFC 3339 partial-time
+*/
+periodSchema.statics.normalizeForDatetime = function(isoTime) {
+  var timezone = isoTime.getTimezoneOffset() / 60;
+  var hour = moment(isoTime).hour();
+  var time = moment(isoTime).hour(hour + timezone);
+  return moment(time).format("HH:mm:ss");
+}
+
 /** Parse time in hh:mm format to Date() */
 periodSchema.statics.parseTime = function(time) {
   var timezone = new Date().getTimezoneOffset() / 60;
@@ -34,13 +44,6 @@ periodSchema.statics.parseTime = function(time) {
   time.setHours(time.getHours() - timezone);
   return time;
 };
-
-/**
-* RFC 3339
-*/
-periodSchema.statics.normalizeForDatetime = function(normalizedTime) {
-  return this.normalize24(normalizedTime);
-}
 
 // Virtual properties
 
@@ -64,7 +67,7 @@ periodSchema.virtual('datetime.start').get(function () {
   return periodSchema.statics.normalizeForDatetime(this.start);
 });
 
-periodSchema.virtual('datetime.start').get(function () {
+periodSchema.virtual('datetime.finish').get(function () {
   return periodSchema.statics.normalizeForDatetime(this.finish);
 });
 
