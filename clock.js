@@ -45,6 +45,33 @@ var server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
 io.set('browser client gzip',true); //enable compression on socket.io.js
 
+// Enable server-side socket plugins
+//glue function to add socket object to every function
+Function.prototype.callWith = function(self,argsCallingWith){
+  var a = Array.prototype.slice.call(arguments,1)
+    , self = arguments[0]
+    , f = this;
+  return function(){
+    var b = Array.prototype.slice.call(arguments)
+      , args = a.concat(b);
+    return f.apply(self,args);
+  }
+}
+//iterate through all .js files in ./api and add the functions to on connection
+fs.readdirSync('./api/').forEach(function(file) {
+  if(path.extname(file)==='.js'){
+    console.log('[Socket Plugins] Loading "'+file+'"');
+    var obj = new(require('./api/'+file));
+    for(var key in obj){
+      if(typeof obj[key] == 'function'){
+        console.log('- loaded function "'+key+'"');
+        io.sockets.on('connection',function(socket){
+          socket.on(key,obj[key].callWith(obj,socket));
+        });
+      }
+    }
+  }
+});
 // Setup view controller
 app.use(cookieParser());
 app.use(session({secret: uuid.v4()}));
