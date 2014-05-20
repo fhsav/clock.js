@@ -2,12 +2,12 @@ var express = require('express');
 var mongoose = require('mongoose');
 var Schedule = mongoose.model('Schedule')
   , Period = mongoose.model('Period');
-var session = require(__dirname + '/session');
+var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = session.getViewData(req);
+  var data = sessionManager.getViewData(req);
 
   Schedule.getAll(function(err, schedules) {
     data.schedules = schedules;
@@ -60,7 +60,7 @@ router.get('/:schedule/delete', function(req, res, next) {
 });
 
 router.get('/:schedule/edit', function(req, res, next) {
-  var data = session.getViewData(req);
+  var data = sessionManager.getViewData(req);
   data.schedule = req.schedule;
 
   req.schedule.getPeriods(function(err, periods) {
@@ -102,7 +102,7 @@ router.get('/:schedule/periods/:period/delete', function(req, res, next) {
 });
 
 router.get('/:schedule/periods/:period/edit', function(req, res, next) {
-  var data = session.getViewData(req);
+  var data = sessionManager.getViewData(req);
   data.scheduleID = req.params.scheduleID;
   data.period = req.period;
   res.render('admin/edit/period', data);

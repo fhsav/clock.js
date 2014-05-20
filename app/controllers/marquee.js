@@ -1,12 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Marquee = mongoose.model('Marquee');
-var session = require(__dirname + '/session');
+var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = session.getViewData(req);
+  var data = sessionManager.getViewData(req);
 
   Marquee.getAll(function(err, marquees) {
     data.marquees = marquees;
@@ -42,7 +42,7 @@ router.get('/:marquee/delete', function(req, res, next) {
 });
 
 router.get('/:marquee/edit', function(req, res, next) {
-  var data = session.getViewData(req);
+  var data = sessionManager.getViewData(req);
   data.marquee = req.marquee;
 
   res.render('admin/edit/marquee', data);

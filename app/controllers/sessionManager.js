@@ -1,8 +1,8 @@
-function Session() {
+function SessionManager() {
   this.appVersion = '0.2.0';
 };
 
-Session.prototype.getViewData = function(req) {
+SessionManager.prototype.getViewData = function(req) {
   return {
     //loggedIn: req.session.loggedIn,
     loggedIn: true,
@@ -10,4 +10,4 @@ Session.prototype.getViewData = function(req) {
   };
 };
 
-module.exports = new Session();
+module.exports = new SessionManager();

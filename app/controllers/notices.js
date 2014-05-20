@@ -1,12 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Notice = mongoose.model('Notice');
-var session = require(__dirname + '/session');
+var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = session.getViewData(req);
+  var data = sessionManager.getViewData(req);
 
   Notice.getAll(function(err, notices) {
     data.notices = notices;

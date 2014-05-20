@@ -4,7 +4,7 @@ var Theme = mongoose.model('Theme')
   , Schedule = mongoose.model('Schedule')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice');
-var session = require(__dirname + '/session');
+var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
@@ -14,7 +14,7 @@ var marqueeRoute = require(__dirname + '/marquee');
 var noticesRoute = require(__dirname + '/notices');
 
 router.get('/', function(req, res, next) {
-  res.render('admin/pages/welcome', session.getViewData(req));
+  res.render('admin/pages/welcome', sessionManager.getViewData(req));
 });
 
 router.use('/themes', themesRoute);
