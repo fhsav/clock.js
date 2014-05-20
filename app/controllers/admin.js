@@ -5,6 +5,7 @@ var Theme = mongoose.model('Theme')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice');
 var sessionManager = require(__dirname + '/sessionManager');
+var crypto = require('crypto');
 
 var router = express.Router();
 
@@ -15,6 +16,22 @@ var noticesRoute = require(__dirname + '/notices');
 
 router.get('/', function(req, res, next) {
   res.render('admin/pages/welcome', sessionManager.getViewData(req));
+});
+
+router.post('/login', function(req, res, next) {
+  if (req.body.password == 'penguins') {
+    req.session.loggedIn = true;
+    res.redirect('/admin');
+  } else {
+    res.redirect('/admin');
+  }
+});
+
+router.get('/logout', function(req, res, next) {
+  req.session.destroy(function(err) {
+    if (err) throw err;
+    res.redirect('/admin');
+  });
 });
 
 router.use('/themes', themesRoute);

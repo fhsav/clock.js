@@ -4,8 +4,7 @@ function SessionManager() {
 
 SessionManager.prototype.getViewData = function(req) {
   return {
-    //loggedIn: req.session.loggedIn,
-    loggedIn: true,
+    loggedIn: req.session.loggedIn,
     version: this.appVersion
   };
 };
