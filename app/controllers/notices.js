@@ -1,12 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Notice = mongoose.model('Notice');
-var adminUtils = require(__dirname + '/adminUtils');
+var session = require(__dirname + '/session');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = adminUtils.getViewData(req);
+  var data = session.getViewData(req);
 
   Notice.getAll(function(err, notices) {
     data.notices = notices;
@@ -42,7 +42,7 @@ router.get('/:notice/delete', function(req, res, next) {
 });
 
 router.get('/:notice/edit', function(req, res, next) {
-  var data = adminUtils.getViewData(req);
+  var data = session.getViewData(req);
   data.notice = req.notice;
 
   res.render('admin/edit/notice', data);

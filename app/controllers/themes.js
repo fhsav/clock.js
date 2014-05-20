@@ -1,12 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Theme = mongoose.model('Theme');
-var adminUtils = require(__dirname + '/adminUtils');
+var session = require(__dirname + '/session');
 
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = adminUtils.getViewData(req);
+  var data = session.getViewData(req);
 
   Theme.getAll(function(err, themes) {
     data.themes = themes;
@@ -54,7 +54,7 @@ router.get('/:theme/delete', function(req, res, next) {
 });
 
 router.get('/:theme/preview', function(req, res, next) {
-  var data = adminUtils.getViewData(req);
+  var data = session.getViewData(req);
   data.theme = req.theme;
 
   req.theme.getWallpaperID(function(err, wallpaperID) {
