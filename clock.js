@@ -27,12 +27,12 @@ var database = yaml.safeLoad(fs.readFileSync(__dirname + '/config/database.yaml'
 database.mongodb_uri = process.env['MONGODB_URI'];
 
 // Include data models
-fs.readdirSync(__dirname + '/models').forEach(function(file) {
-  if (path.extname(file)) require(__dirname + '/models/' + file);
+fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
+  if (path.extname(file)) require(__dirname + '/app/models/' + file);
 });
 
 // Configure Express view engines and middleware
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/app/views');
 app.set('view engine', 'jade');
 app.locals.pretty = true;
 
@@ -45,9 +45,9 @@ app.use(session({secret: uuid.v4()}));
 app.use(bodyParser());
 app.use(multer());
 
-var Clock = require(__dirname + '/controllers/clock');
-var Admin = require(__dirname + '/controllers/admin');
-var Wallpaper = require(__dirname + '/controllers/wallpaper');
+var Clock = require(__dirname + '/app/controllers/clock');
+var Admin = require(__dirname + '/app/controllers/admin');
+var Wallpaper = require(__dirname + '/app/controllers/wallpaper');
 
 // We're ready!
 console.log('Connecting to database...');
