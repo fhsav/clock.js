@@ -57,21 +57,7 @@ Function.prototype.callWith = function(self,argsCallingWith){
     return f.apply(self,args);
   }
 }
-//iterate through all .js files in ./api and add the functions to on connection
-fs.readdirSync('./api/').forEach(function(file) {
-  if(path.extname(file)==='.js'){
-    console.log('[Socket Plugins] Loading "'+file+'"');
-    var obj = new(require('./api/'+file));
-    for(var key in obj){
-      if(typeof obj[key] == 'function'){
-        console.log('- loaded function "'+key+'"');
-        io.sockets.on('connection',function(socket){
-          socket.on(key,obj[key].callWith(obj,socket));
-        });
-      }
-    }
-  }
-});
+
 // Setup view controller
 app.use(cookieParser());
 app.use(session({secret: uuid.v4()}));
@@ -92,6 +78,25 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
   console.log('Connected!');
+  
+  //iterate through all .js files in ./api and add the functions to on connection
+  fs.readdirSync('./api/').forEach(function(file) {
+    if(path.extname(file)==='.js'){
+      console.log('[Socket Plugins] Loading "'+file+'"');
+      var obj = new(require('./api/'+file));
+      for(var key in obj){
+        if(typeof obj[key] == 'function'){
+          console.log('- loaded function "'+key+'"');
+          io.sockets.on('connection',function(socket){
+            socket.on(key,obj[key].callWith({
+              db:db,
+              socket:socket
+            },socket));
+          });
+        }
+      }
+    }
+  });
 
   app.use('/', Clock);
   app.use('/admin', Admin);
