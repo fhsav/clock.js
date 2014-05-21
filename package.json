@@ -16,10 +16,11 @@
     "gridfs-stream": "0.4.x",
     "jade": "1.3.x",
     "js-yaml": "3.x",
-    "moment": "2.6.x",
+    "moment": "^2.6.0",
     "mongoose": "3.8.x",
     "multer": "0.0.x",
     "node-uuid": "1.4.x",
+    "ntp-client": "^0.5.2",
     "socket.io": "^0.9.16",
     "stylus": "0.x"
   },
