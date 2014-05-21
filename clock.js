@@ -66,6 +66,12 @@ db.once('open', function() {
   app.use('/admin', Admin);
   app.use('/wallpaper', Wallpaper);
 
+  // Setup 404
+  app.use(function(req, res, next) {
+    res.status(404);
+    res.render('404');
+  });
+
   var port = process.env.PORT || 3000;
   app.listen(port, function() {
     console.log('Listening on port ' + port);
