@@ -14,15 +14,26 @@ var schedulesRoute = require(__dirname + '/schedules');
 var marqueeRoute = require(__dirname + '/marquee');
 var noticesRoute = require(__dirname + '/notices');
 
+router.use(function(req, res, next) {
+  res.locals.viewData = {};
+  res.locals.viewData.authenticated = req.session.authenticated;
+  res.locals.viewData.version = '0.3.0';
+  res.locals.viewData.successes = req.flash('success');
+  res.locals.viewData.errors = req.flash('error');
+  next();
+});
+
 router.get('/', function(req, res, next) {
-  res.render('admin/pages/welcome', sessionManager.getViewData(req));
+  res.render('admin/welcome', res.locals.viewData);
 });
 
 router.post('/login', function(req, res, next) {
   if (req.body.password == 'penguins') {
-    req.session.loggedIn = true;
+    req.session.authenticated = true;
+    req.flash('success', 'Welcome back!');
     res.redirect('/admin');
   } else {
+    req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
     res.redirect('/admin');
   }
 });
@@ -30,6 +41,7 @@ router.post('/login', function(req, res, next) {
 router.get('/logout', function(req, res, next) {
   req.session.destroy(function(err) {
     if (err) throw err;
+    req.flash('success', 'Bye bye!');
     res.redirect('/admin');
   });
 });

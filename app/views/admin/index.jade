@@ -4,12 +4,12 @@ html
   body
     header
       include header
-    if (loggedIn == true)
+    if (authenticated == true)
       nav
         include navigation
     #content
-      if (loggedIn != true)
-        include pages/login
+      if (authenticated != true)
+        include login
       else
         block content
     footer

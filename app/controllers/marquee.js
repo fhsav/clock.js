@@ -6,11 +6,9 @@ var sessionManager = require(__dirname + '/sessionManager');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-
   Marquee.getAll(function(err, marquees) {
-    data.marquees = marquees;
-    res.render('admin/pages/marquee', data);
+    res.locals.viewData.marquees = marquees;
+    res.render('admin/marquee/index', res.locals.viewData);
   });
 });
 
@@ -30,6 +28,7 @@ router.post('/create', function(req, res, next) {
 
   function redirectToLanding(err) {
     if (err) throw err;
+    req.flash('success', 'The marquee has been created.');
     res.redirect('/admin/marquee');
   }
 });
@@ -37,15 +36,14 @@ router.post('/create', function(req, res, next) {
 router.get('/:marquee/delete', function(req, res, next) {
   req.marquee.remove(function (err) {
     if (err) throw err;
+    req.flash('success', 'The marquee has been destroyed.');
     res.redirect('/admin/marquee');
   });
 });
 
 router.get('/:marquee/edit', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-  data.marquee = req.marquee;
-
-  res.render('admin/edit/marquee', data);
+  res.locals.viewData.marquee = req.marquee;
+  res.render('admin/marquee/edit', res.locals.viewData);
 });
 
 router.post('/:marquee/edit', function(req, res, next) {
@@ -53,7 +51,7 @@ router.post('/:marquee/edit', function(req, res, next) {
 
   req.marquee.save(function(err) {
     if (err) throw err;
-
+    req.flash('success', 'The marquee has been modified.');
     res.redirect('/admin/marquee');
   });
 });

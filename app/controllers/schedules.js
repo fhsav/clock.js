@@ -7,11 +7,9 @@ var sessionManager = require(__dirname + '/sessionManager');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-
   Schedule.getAll(function(err, schedules) {
-    data.schedules = schedules;
-    res.render('admin/pages/schedules', data);
+    res.locals.viewData.schedules = schedules;
+    res.render('admin/schedules/index', res.locals.viewData);
   });
 });
 
@@ -39,15 +37,17 @@ router.post('/create', function(req, res, next) {
     'description': req.body.schedule.description
   }, redirectToLanding);
 
-  function redirectToLanding(err) {
+  function redirectToLanding(err, schedule) {
     if (err) throw err;
-    res.redirect('/admin/schedules');
+    req.flash('success', 'The schedule has been created.');
+    res.redirect('/admin/schedules/' + schedule.id + '/edit');
   }
 });
 
 router.get('/:schedule/activate', function(req, res, next) {
   req.schedule.activate(function(err) {
     if (err) throw err;
+    req.flash('success', 'The schedule has been activated.');
     res.redirect('/admin/schedules');
   });
 });
@@ -55,17 +55,17 @@ router.get('/:schedule/activate', function(req, res, next) {
 router.get('/:schedule/delete', function(req, res, next) {
   req.schedule.remove(function (err) {
     if (err) throw err;
+    req.flash('success', 'The schedule has been destroyed.');
     res.redirect('/admin/schedules');
   });
 });
 
 router.get('/:schedule/edit', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-  data.schedule = req.schedule;
+  res.locals.viewData.schedule = req.schedule;
 
   req.schedule.getPeriods(function(err, periods) {
-    data.periods = periods;
-    res.render('admin/edit/schedule', data);
+    res.locals.viewData.periods = periods;
+    res.render('admin/schedules/edit', res.locals.viewData);
   });
 });
 
@@ -75,6 +75,7 @@ router.post('/:schedule/edit', function(req, res, next) {
 
   req.schedule.save(function(err) {
     if (err) throw err;
+    req.flash('success', 'The schedule has been modified.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
   });
 });
@@ -90,6 +91,7 @@ router.post('/:schedule/periods/create', function(req, res, next) {
 
   function redirectToLanding(err) {
     if (err) throw err;
+    req.flash('success', 'The period has been created.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
   }
 });
@@ -97,15 +99,15 @@ router.post('/:schedule/periods/create', function(req, res, next) {
 router.get('/:schedule/periods/:period/delete', function(req, res, next) {
   req.period.remove(function (err) {
     if (err) throw err;
+    req.flash('success', 'The period has been destroyed.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
   });
 });
 
 router.get('/:schedule/periods/:period/edit', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-  data.scheduleID = req.params.scheduleID;
-  data.period = req.period;
-  res.render('admin/edit/period', data);
+  res.locals.viewData.scheduleID = req.params.scheduleID;
+  res.locals.viewData.period = req.period;
+  res.render('admin/schedules/edit_period', res.locals.viewData);
 });
 
 router.post('/:schedule/periods/:period/edit', function(req, res, next) {
@@ -117,6 +119,7 @@ router.post('/:schedule/periods/:period/edit', function(req, res, next) {
 
   req.period.save(function(err) {
     if (err) throw err;
+    req.flash('success', 'The schedule has been modified.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
   });
 });

@@ -11,7 +11,8 @@ var bodyParser = require('body-parser')
   , cookieParser = require('cookie-parser')
   , multer = require('multer')
   , session = require('express-session')
-  , stylus = require('stylus');
+  , stylus = require('stylus')
+  , flash = require('connect-flash');
 
 // Database
 var mongoose = require('mongoose')
@@ -40,10 +41,11 @@ app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
 
 // Setup view controller
+app.use(bodyParser());
 app.use(cookieParser());
 app.use(session({secret: uuid.v4()}));
-app.use(bodyParser());
 app.use(multer());
+app.use(flash());
 
 var Clock = require(__dirname + '/app/controllers/clock');
 var Admin = require(__dirname + '/app/controllers/admin');

@@ -6,11 +6,9 @@ var sessionManager = require(__dirname + '/sessionManager');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-
   Theme.getAll(function(err, themes) {
-    data.themes = themes;
-    res.render('admin/pages/themes', data);
+    res.locals.viewData.themes = themes;
+    res.render('admin/themes/index', res.locals.viewData);
   });
 });
 
@@ -34,6 +32,7 @@ router.post('/create', function(req, res, next) {
 
     function redirectToLanding(err) {
       if (err) throw err;
+      req.flash('success', 'The theme has been created.');
       res.redirect('/admin/themes');
     }
   });
@@ -42,6 +41,7 @@ router.post('/create', function(req, res, next) {
 router.get('/:theme/activate', function(req, res, next) {
   req.theme.activate(function(err) {
     if (err) throw err;
+    req.flash('success', 'The theme has been activated.');
     res.redirect('/admin/themes');
   });
 });
@@ -49,17 +49,17 @@ router.get('/:theme/activate', function(req, res, next) {
 router.get('/:theme/delete', function(req, res, next) {
   req.theme.remove(function (err) {
     if (err) throw err;
+    req.flash('success', 'The theme has been destroyed.');
     res.redirect('/admin/themes');
   });
 });
 
 router.get('/:theme/preview', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-  data.theme = req.theme;
+  res.locals.viewData.theme = req.theme;
 
   req.theme.getWallpaperID(function(err, wallpaperID) {
-    data.wallpaperID = wallpaperID;
-    res.render('admin/pages/preview', data);
+    res.locals.viewData.wallpaperID = wallpaperID;
+    res.render('admin/themes/preview', res.locals.viewData);
   });
 });
 

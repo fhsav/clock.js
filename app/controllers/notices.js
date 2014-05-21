@@ -6,11 +6,9 @@ var sessionManager = require(__dirname + '/sessionManager');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  var data = sessionManager.getViewData(req);
-
   Notice.getAll(function(err, notices) {
-    data.notices = notices;
-    res.render('admin/pages/notices', data);
+    res.locals.viewData.notices = notices;
+    res.render('admin/notices/index', res.locals.viewData);
   });
 });
 
@@ -30,6 +28,7 @@ router.post('/create', function(req, res, next) {
 
   function redirectToLanding(err) {
     if (err) throw err;
+    req.flash('success', 'The notice has been created.');
     res.redirect('/admin/notices');
   }
 });
@@ -37,15 +36,14 @@ router.post('/create', function(req, res, next) {
 router.get('/:notice/delete', function(req, res, next) {
   req.notice.remove(function (err) {
     if (err) throw err;
+    req.flash('success', 'The notice has been destroyed.');
     res.redirect('/admin/notices');
   });
 });
 
 router.get('/:notice/edit', function(req, res, next) {
-  var data = session.getViewData(req);
-  data.notice = req.notice;
-
-  res.render('admin/edit/notice', data);
+  res.locals.viewData.notice = req.notice;
+  res.render('admin/notice/edit', res.locals.viewData);
 });
 
 router.post('/:notice/edit', function(req, res, next) {
@@ -53,7 +51,7 @@ router.post('/:notice/edit', function(req, res, next) {
 
   req.notice.save(function(err) {
     if (err) throw err;
-
+    req.flash('success', 'The notice has been modified.');
     res.redirect('/admin/notices');
   });
 });

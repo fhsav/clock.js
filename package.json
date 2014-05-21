@@ -1,6 +1,6 @@
 {
   "name": "clock.js",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "author": "Brandon Cheng <gluxon@gluxon.com>",
   "description": "clock.js",
   "repository": {
@@ -16,6 +16,7 @@
     "multer"          : "0.0.x",
     "express-session" : "1.x",
     "stylus"          : "0.x",
+    "connect-flash"   : "0.1.x",
     "js-yaml"         : "3.x",
     "mongoose"        : "3.8.x",
     "gridfs-stream"   : "0.4.x",

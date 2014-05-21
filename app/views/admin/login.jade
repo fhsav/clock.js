@@ -1,5 +1,6 @@
 #login
   h2 Login
   form(action='/admin/login',method='post')
+    include flash
     input(type='password',name='password',placeholder='Password')
     input(type='submit',value='Go')
