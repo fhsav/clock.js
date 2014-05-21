@@ -39,11 +39,9 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  req.session.destroy(function(err) {
-    if (err) throw err;
-    req.flash('success', 'Bye bye!');
-    res.redirect('/admin');
-  });
+  req.session.authenticated = false;
+  req.flash('success', 'Bye bye!');
+  res.redirect('/admin');
 });
 
 router.use('/themes', themesRoute);
