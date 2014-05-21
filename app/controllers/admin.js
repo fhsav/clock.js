@@ -14,20 +14,27 @@ var schedulesRoute = require(__dirname + '/schedules');
 var marqueeRoute = require(__dirname + '/marquee');
 var noticesRoute = require(__dirname + '/notices');
 
-router.use(function(req, res, next) {
+router.get(/.*/, function(req, res, next) {
+  // Generate data for views
   res.locals.viewData = {};
   res.locals.viewData.authenticated = req.session.authenticated;
   res.locals.viewData.version = '0.3.0';
   res.locals.viewData.successes = req.flash('success');
   res.locals.viewData.errors = req.flash('error');
-  next();
+
+  // Make sure user is logged in
+  if (!req.session.authenticated) {
+    res.render('admin/login', res.locals.viewData);
+  } else {
+    next();
+  }
 });
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('admin/welcome', res.locals.viewData);
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', function(req, res) {
   if (req.body.password == 'penguins') {
     req.session.authenticated = true;
     req.flash('success', 'Welcome back!');
@@ -38,7 +45,7 @@ router.post('/login', function(req, res, next) {
   }
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function(req, res) {
   req.session.authenticated = false;
   req.flash('success', 'Bye bye!');
   res.redirect('/admin');

@@ -8,9 +8,6 @@ html
       nav
         include navigation
     #content
-      if (authenticated != true)
-        include login
-      else
-        block content
+      block content
     footer
       include footer

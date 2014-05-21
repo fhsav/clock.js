@@ -6,7 +6,7 @@ var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   Schedule.getAll(function(err, schedules) {
     res.locals.viewData.schedules = schedules;
     res.render('admin/schedules/index', res.locals.viewData);
@@ -31,7 +31,7 @@ router.param('period', function(req, res, next, id) {
   });
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/create', function(req, res) {
   Schedule.create({
     'name': req.body.schedule.name,
     'description': req.body.schedule.description
@@ -44,7 +44,7 @@ router.post('/create', function(req, res, next) {
   }
 });
 
-router.get('/:schedule/activate', function(req, res, next) {
+router.get('/:schedule/activate', function(req, res) {
   req.schedule.activate(function(err) {
     if (err) throw err;
     req.flash('success', 'The schedule has been activated.');
@@ -52,7 +52,7 @@ router.get('/:schedule/activate', function(req, res, next) {
   });
 });
 
-router.get('/:schedule/delete', function(req, res, next) {
+router.get('/:schedule/delete', function(req, res) {
   req.schedule.remove(function (err) {
     if (err) throw err;
     req.flash('success', 'The schedule has been destroyed.');
@@ -60,7 +60,7 @@ router.get('/:schedule/delete', function(req, res, next) {
   });
 });
 
-router.get('/:schedule/edit', function(req, res, next) {
+router.get('/:schedule/edit', function(req, res) {
   res.locals.viewData.schedule = req.schedule;
 
   req.schedule.getPeriods(function(err, periods) {
@@ -69,7 +69,7 @@ router.get('/:schedule/edit', function(req, res, next) {
   });
 });
 
-router.post('/:schedule/edit', function(req, res, next) {
+router.post('/:schedule/edit', function(req, res) {
   req.schedule.name = req.body.schedule.name;
   req.schedule.description = req.body.schedule.description;
 
@@ -80,7 +80,7 @@ router.post('/:schedule/edit', function(req, res, next) {
   });
 });
 
-router.post('/:schedule/periods/create', function(req, res, next) {
+router.post('/:schedule/periods/create', function(req, res) {
   Period.create({
     'number': req.body.period.number,
     'text': req.body.period.text,
@@ -96,7 +96,7 @@ router.post('/:schedule/periods/create', function(req, res, next) {
   }
 });
 
-router.get('/:schedule/periods/:period/delete', function(req, res, next) {
+router.get('/:schedule/periods/:period/delete', function(req, res) {
   req.period.remove(function (err) {
     if (err) throw err;
     req.flash('success', 'The period has been destroyed.');
@@ -104,13 +104,13 @@ router.get('/:schedule/periods/:period/delete', function(req, res, next) {
   });
 });
 
-router.get('/:schedule/periods/:period/edit', function(req, res, next) {
+router.get('/:schedule/periods/:period/edit', function(req, res) {
   res.locals.viewData.scheduleID = req.params.scheduleID;
   res.locals.viewData.period = req.period;
   res.render('admin/schedules/edit_period', res.locals.viewData);
 });
 
-router.post('/:schedule/periods/:period/edit', function(req, res, next) {
+router.post('/:schedule/periods/:period/edit', function(req, res) {
   req.period.number = req.body.period.number;
   req.period.text = req.body.period.text;
   req.period.start = Period.parseTime(req.body.period.start);

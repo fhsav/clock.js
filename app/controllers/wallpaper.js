@@ -4,7 +4,7 @@ var Theme = mongoose.model('Theme');
 
 var router = express.Router();
 
-router.get('/active', function(req, res, next) {
+router.get('/active', function(req, res) {
   Theme.getWallpaperStreamOfActive(function(err, wallpaperStream) {
     wallpaperStream.pipe(res);
   });
@@ -19,7 +19,7 @@ router.param('wallpaper', function(req, res, next, id) {
   });
 });
 
-router.get('/:wallpaper', function(req, res, next) {
+router.get('/:wallpaper', function(req, res) {
   req.wallpaperStream.pipe(res);
 });
 

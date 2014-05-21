@@ -5,7 +5,7 @@ var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   Marquee.getAll(function(err, marquees) {
     res.locals.viewData.marquees = marquees;
     res.render('admin/marquee/index', res.locals.viewData);
@@ -21,7 +21,7 @@ router.param('marquee', function(req, res, next, id) {
   });
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/create', function(req, res) {
   Marquee.create({
     'text': req.body.marquee.text
   }, redirectToLanding);
@@ -33,7 +33,7 @@ router.post('/create', function(req, res, next) {
   }
 });
 
-router.get('/:marquee/delete', function(req, res, next) {
+router.get('/:marquee/delete', function(req, res) {
   req.marquee.remove(function (err) {
     if (err) throw err;
     req.flash('success', 'The marquee has been destroyed.');
@@ -41,12 +41,12 @@ router.get('/:marquee/delete', function(req, res, next) {
   });
 });
 
-router.get('/:marquee/edit', function(req, res, next) {
+router.get('/:marquee/edit', function(req, res) {
   res.locals.viewData.marquee = req.marquee;
   res.render('admin/marquee/edit', res.locals.viewData);
 });
 
-router.post('/:marquee/edit', function(req, res, next) {
+router.post('/:marquee/edit', function(req, res) {
   req.marquee.text = req.body.marquee.text;
 
   req.marquee.save(function(err) {

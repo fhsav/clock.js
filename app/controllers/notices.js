@@ -5,7 +5,7 @@ var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   Notice.getAll(function(err, notices) {
     res.locals.viewData.notices = notices;
     res.render('admin/notices/index', res.locals.viewData);
@@ -21,7 +21,7 @@ router.param('notice', function(req, res, next, id) {
   });
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/create', function(req, res) {
   Notice.create({
     'text': req.body.notice.text
   }, redirectToLanding);
@@ -33,7 +33,7 @@ router.post('/create', function(req, res, next) {
   }
 });
 
-router.get('/:notice/delete', function(req, res, next) {
+router.get('/:notice/delete', function(req, res) {
   req.notice.remove(function (err) {
     if (err) throw err;
     req.flash('success', 'The notice has been destroyed.');
@@ -41,12 +41,12 @@ router.get('/:notice/delete', function(req, res, next) {
   });
 });
 
-router.get('/:notice/edit', function(req, res, next) {
+router.get('/:notice/edit', function(req, res) {
   res.locals.viewData.notice = req.notice;
   res.render('admin/notice/edit', res.locals.viewData);
 });
 
-router.post('/:notice/edit', function(req, res, next) {
+router.post('/:notice/edit', function(req, res) {
   req.notice.text = req.body.notice.text;
 
   req.notice.save(function(err) {

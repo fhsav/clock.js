@@ -5,7 +5,7 @@ var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   Theme.getAll(function(err, themes) {
     res.locals.viewData.themes = themes;
     res.render('admin/themes/index', res.locals.viewData);
@@ -21,7 +21,7 @@ router.param('theme', function(req, res, next, id) {
   });
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/create', function(req, res) {
   Theme.uploadWallpaper(req.files['theme[wallpaper]'], function(err) {
     if (err) throw err;
 
@@ -38,7 +38,7 @@ router.post('/create', function(req, res, next) {
   });
 });
 
-router.get('/:theme/activate', function(req, res, next) {
+router.get('/:theme/activate', function(req, res) {
   req.theme.activate(function(err) {
     if (err) throw err;
     req.flash('success', 'The theme has been activated.');
@@ -46,7 +46,7 @@ router.get('/:theme/activate', function(req, res, next) {
   });
 });
 
-router.get('/:theme/delete', function(req, res, next) {
+router.get('/:theme/delete', function(req, res) {
   req.theme.remove(function (err) {
     if (err) throw err;
     req.flash('success', 'The theme has been destroyed.');
@@ -54,7 +54,7 @@ router.get('/:theme/delete', function(req, res, next) {
   });
 });
 
-router.get('/:theme/preview', function(req, res, next) {
+router.get('/:theme/preview', function(req, res) {
   res.locals.viewData.theme = req.theme;
 
   req.theme.getWallpaperID(function(err, wallpaperID) {

@@ -8,7 +8,7 @@ var Schedule = mongoose.model('Schedule')
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   var self = this;
 
   async.parallel({
