@@ -62,7 +62,7 @@ function loadPlugins(db){ //Consider: extracting "__dirname+'/api/'" to argument
   , storeback
   , confloc = __dirname+'/api/config.json';
   
-  function APIObject(socket){this.socket = this.socket||socket};
+  function APIObject(socket){this.socket = socket||this.socket};
   APIObject.prototype = {
     db:db
     , socket:io.sockets //kinda hackish... API abuse likely, should fix later
