@@ -1,7 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Marquee = mongoose.model('Marquee');
-var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 

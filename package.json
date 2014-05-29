@@ -21,7 +21,8 @@
     "mongoose"        : "3.8.x",
     "gridfs-stream"   : "0.4.x",
     "node-uuid"       : "1.4.x",
-    "moment"          : "2.6.x"
+    "moment"          : "2.6.x",
+    "sha1"            : "1.1.x"
   },
   "license": "MPL",
   "engines": {

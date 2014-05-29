@@ -1,0 +1,8 @@
+extend index
+block content
+  #login
+    h2 Setup
+    form(action='/admin/setup',method='post')
+      include flash
+      input(type='password',name='password',placeholder='Password')
+      input(type='submit',value='Go')

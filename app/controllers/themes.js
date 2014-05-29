@@ -1,7 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var Theme = mongoose.model('Theme');
-var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 

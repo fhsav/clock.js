@@ -3,8 +3,8 @@ var express = require('express');
 var Theme = mongoose.model('Theme')
   , Schedule = mongoose.model('Schedule')
   , Marquee = mongoose.model('Marquee')
-  , Notice = mongoose.model('Notice');
-var sessionManager = require(__dirname + '/sessionManager');
+  , Notice = mongoose.model('Notice')
+  , System = require(__dirname + '/../models/system.js');
 var crypto = require('crypto');
 
 var router = express.Router();
@@ -21,9 +21,13 @@ router.get(/.*/, function(req, res, next) {
   res.locals.viewData.version = '0.3.0';
   res.locals.viewData.successes = req.flash('success');
   res.locals.viewData.errors = req.flash('error');
+  res.locals.viewData.warnings = req.flash('warning');
 
-  // Make sure user is logged in
-  if (!req.session.authenticated) {
+  if (!System.isConfigured() && req.url != '/setup') {
+    // Check if we need to do one-time setup
+    req.flash('warning', 'Y\'all need to give me your password first.');
+    res.redirect('/admin/setup');
+  } else if (!req.session.authenticated && System.isConfigured()) {
     res.render('admin/login', res.locals.viewData);
   } else {
     next();
@@ -34,15 +38,26 @@ router.get('/', function(req, res) {
   res.render('admin/welcome', res.locals.viewData);
 });
 
+router.get('/setup', function(req, res) {
+  res.render('admin/setup', res.locals.viewData);
+});
+
+router.post('/setup', function(req, res) {
+  System.setPassword(req.body.password, function(err, reply) {
+    res.redirect('/admin');
+  });
+});
+
 router.post('/login', function(req, res) {
-  if (req.body.password == 'penguins') {
-    req.session.authenticated = true;
-    req.flash('success', 'Welcome back!');
+  System.validatePassword(req.body.password, function(err) {
+    if (err) {
+      req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
+    } else {
+      req.flash('success', 'Welcome back!');
+      req.session.authenticated = true;
+    }
     res.redirect('/admin');
-  } else {
-    req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
-    res.redirect('/admin');
-  }
+  });
 });
 
 router.get('/logout', function(req, res) {

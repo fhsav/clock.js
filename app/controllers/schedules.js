@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 var Schedule = mongoose.model('Schedule')
   , Period = mongoose.model('Period');
-var sessionManager = require(__dirname + '/sessionManager');
 
 var router = express.Router();
 
