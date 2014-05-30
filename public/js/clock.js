@@ -3,7 +3,7 @@ var socket;
 $(function() {
   socket = io.connect();
   socket.on('servertime',function(servertime){
-    if(moment(servertime).isValid())
+    if (moment(servertime).isValid())
       time = moment(servertime).subtract(new Date());
   });
   updateTime();
@@ -20,7 +20,7 @@ function updateTime() {
   }, 1000);
   
   setInterval(function() {
-    if(time)
+    if (time)
       $("#time").text( moment().add(time).format('h:mm:ss') );
     else
       socket.emit('get servertime');

@@ -22,7 +22,7 @@ Sync.prototype.tick["get NTP time"] = {
     var me = this;
     console.log("Grabbing the time offset...");
     ntpClient.getNetworkTime("pool.ntp.org", 123, function(err, date) {
-      if(err) return console.error(err);
+      if (err) return console.error(err);
       date = moment(date).zone(me.properties.timezone);
       me.offset = moment().zone(me.properties.timezone).subtract(date);
       console.log("Offset is "+date.fromNow(true)+" from this computer's clock.");
@@ -42,7 +42,7 @@ Sync.prototype.offset = null;
  * Whatever their name is will be the client socket event that triggers them
  */
 Sync.prototype['get servertime'] = function(api){
-  if(this.offset){
+  if (this.offset){
     api.socket.emit('servertime',moment().add(this.offset));
   }
 }
