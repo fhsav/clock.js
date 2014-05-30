@@ -3,7 +3,7 @@ var ntpClient = require('ntp-client')
 , moment = require('moment');
 
 //Object declaration
-function Sync(){}
+function Sync() {}
 
 /* Properties:
  * To read a property from the config file, you have to define a key and its default value here

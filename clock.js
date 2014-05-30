@@ -40,10 +40,9 @@ app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
 
 // Set up Socket.io communication
-
 var server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
-io.set('browser client gzip',true); //enable compression on socket.io.js
+
 
 // Enable server-side socket plugins
 //glue function to add socket object to every function
@@ -137,6 +136,7 @@ app.use(cookieParser());
 app.use(session({secret: uuid.v4()}));
 app.use(bodyParser());
 app.use(multer());
+io.set('browser client gzip', true); // enable compression on socket.io.js, here because http://is.gd/9E0Nev
 
 var Clock = require(__dirname + '/controllers/clock');
 var Admin = require(__dirname + '/controllers/admin');
