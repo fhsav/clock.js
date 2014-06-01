@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(session({secret: uuid.v4()}));
 app.use(bodyParser());
 app.use(multer());
-io.set('browser client gzip', true); // enable compression on socket.io.js, here because http://is.gd/9E0Nev
+io.set('browser client gzip', true); // enable compression on socket.io.js
 
 var Clock = require(__dirname + '/controllers/clock');
 var Admin = require(__dirname + '/controllers/admin');
