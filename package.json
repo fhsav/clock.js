@@ -9,6 +9,7 @@
   },
   "dependencies" : {
     "async"           : "0.7.x",
+
     "express"         : "4.x",
     "jade"            : "1.3.x",
     "body-parser"     : "1.x",
@@ -17,11 +18,15 @@
     "express-session" : "1.x",
     "stylus"          : "0.x",
     "connect-flash"   : "0.1.x",
-    "js-yaml"         : "3.x",
+
     "mongoose"        : "3.8.x",
     "gridfs-stream"   : "0.4.x",
-    "node-uuid"       : "1.4.x",
+
+    "socket.io"       : "1.0.x",
     "moment"          : "2.6.x",
+    "ntp-client"      : "0.5.x",
+    "js-yaml"         : "3.x",
+    "node-uuid"       : "1.4.x",
     "sha1"            : "1.1.x"
   },
   "license": "MPL",

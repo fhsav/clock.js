@@ -37,8 +37,14 @@ app.set('views', __dirname + '/app/views');
 app.set('view engine', 'jade');
 app.locals.pretty = true;
 
+io.set('browser client gzip', true);
+
 app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
+
+// Set up Socket.io communication
+var server = require('http').createServer(app)
+  , io = require('socket.io').listen(server);
 
 // Setup view controller
 app.use(bodyParser());
@@ -61,6 +67,9 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
   console.log('Connected!');
+  
+  // Enable server-side socket plugins
+  require(__dirname+'apiloader')(db);
 
   app.use('/', Clock);
   app.use('/admin', Admin);
@@ -73,7 +82,7 @@ db.once('open', function() {
   });
 
   var port = process.env.PORT || 3000;
-  app.listen(port, function() {
+  server.listen(port, function() {
     console.log('Listening on port ' + port);
   });
 });
