@@ -1,4 +1,11 @@
+var time;
+var socket;
 $(function() {
+  socket = io.connect();
+  socket.on('servertime',function(servertime){
+    if (moment(servertime).isValid())
+      time = moment(servertime).subtract(new Date());
+  });
   updateTime();
   createMarquee();
   highlightActivePeriod();
@@ -6,14 +13,17 @@ $(function() {
 
 function updateTime() {
   $("#date").text( moment().format('dddd, MMMM D, YYYY') );
-  $("#time").text( moment().format('h:mm:ss') );
+  $("#time").text( moment().format('h:mm') );
 
   setInterval(function() {
     $("#date").text( moment().format('dddd, MMMM D, YYYY') );
   }, 1000);
-
+  
   setInterval(function() {
-    $("#time").text( moment().format('h:mm:ss') );
+    if (time)
+      $("#time").text( moment().add(time).format('h:mm:ss') );
+    else
+      socket.emit('get servertime');
   }, 1000);
 }
 
