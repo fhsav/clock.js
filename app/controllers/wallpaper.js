@@ -13,7 +13,6 @@ router.get('/active', function(req, res) {
 router.param('wallpaper', function(req, res, next, id) {
   Theme.createWallpaperStream(id, function(err, wallpaperStream) {
     if (err) return next(err);
-
     req.wallpaperStream = wallpaperStream;
     next();
   });

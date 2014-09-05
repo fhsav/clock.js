@@ -15,17 +15,7 @@ router.get('/', function(req, res) {
 router.param('schedule', function(req, res, next, id) {
   Schedule.findById(id, function (err, schedule) {
     if (err) return next(err);
-
     req.schedule = schedule;
-    next();
-  });
-});
-
-router.param('period', function(req, res, next, id) {
-  Period.findById(id, function (err, period) {
-    if (err) return next(err);
-
-    req.period = period;
     next();
   });
 });
@@ -47,6 +37,14 @@ router.get('/:schedule/activate', function(req, res) {
   req.schedule.activate(function(err) {
     if (err) throw err;
     req.flash('success', 'The schedule has been activated.');
+    res.redirect('/admin/schedules');
+  });
+});
+
+router.get('/:schedule/deactivate', function(req, res) {
+  req.schedule.deactivate(function(err) {
+    if (err) throw err;
+    req.flash('success', 'The schedule has been deactivated.');
     res.redirect('/admin/schedules');
   });
 });
@@ -76,6 +74,14 @@ router.post('/:schedule/edit', function(req, res) {
     if (err) throw err;
     req.flash('success', 'The schedule has been modified.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
+  });
+});
+
+router.param('period', function(req, res, next, id) {
+  Period.findById(id, function (err, period) {
+    if (err) return next(err);
+    req.period = period;
+    next();
   });
 });
 

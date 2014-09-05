@@ -5,14 +5,8 @@ var Theme = mongoose.model('Theme')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice')
   , System = require(__dirname + '/../models/system.js');
-var crypto = require('crypto');
 
 var router = express.Router();
-
-var themesRoute = require(__dirname + '/themes');
-var schedulesRoute = require(__dirname + '/schedules');
-var marqueeRoute = require(__dirname + '/marquee');
-var noticesRoute = require(__dirname + '/notices');
 
 router.get(/.*/, function(req, res, next) {
   // Generate data for views
@@ -23,8 +17,8 @@ router.get(/.*/, function(req, res, next) {
   res.locals.viewData.errors = req.flash('error');
   res.locals.viewData.warnings = req.flash('warning');
 
+  // Check if we need to do one-time setup
   if (!System.isConfigured() && req.url != '/setup') {
-    // Check if we need to do one-time setup
     req.flash('warning', 'Y\'all need to give me your password first.');
     res.redirect('/admin/setup');
   } else if (!req.session.authenticated && System.isConfigured()) {
@@ -65,6 +59,11 @@ router.get('/logout', function(req, res) {
   req.flash('success', 'Bye bye!');
   res.redirect('/admin');
 });
+
+var themesRoute = require(__dirname + '/themes');
+var schedulesRoute = require(__dirname + '/schedules');
+var marqueeRoute = require(__dirname + '/marquee');
+var noticesRoute = require(__dirname + '/notices');
 
 router.use('/themes', themesRoute);
 router.use('/schedules', schedulesRoute);

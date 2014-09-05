@@ -14,7 +14,6 @@ router.get('/', function(req, res) {
 router.param('theme', function(req, res, next, id) {
   Theme.findById(id, function (err, theme) {
     if (err) return next(err);
-
     req.theme = theme;
     next();
   });

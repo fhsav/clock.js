@@ -14,7 +14,6 @@ router.get('/', function(req, res) {
 router.param('marquee', function(req, res, next, id) {
   Marquee.findById(id, function (err, marquee) {
     if (err) return next(err);
-
     req.marquee = marquee;
     next();
   });

@@ -57,7 +57,6 @@ themeSchema.methods.activate = function(callback) {
 
   this.model('Theme').update({active: true}, { $set: {active: false} }, {multi: true}, function(err) {
     if (err) callback(err);
-
     self.active = true;
     self.save(callback);
   });
@@ -71,7 +70,6 @@ themeSchema.methods.createWallpaperStream = function(callback) {
 
   this.getWallpaperID(function(err, wallpaperID) {
     if (err) throw err;
-
     self.model('Theme').createWallpaperStream(wallpaperID, callback);
   });
 };

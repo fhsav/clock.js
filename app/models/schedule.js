@@ -31,10 +31,16 @@ scheduleSchema.methods.activate = function(callback) {
 
   this.model('Schedule').update({active: true}, { $set: {active: false} }, {multi: true}, function(err) {
     if (err) callback(err);
-
     self.active = true;
     self.save(callback);
   });
+};
+
+mongoose.model('Schedule', scheduleSchema);
+
+scheduleSchema.methods.deactivate = function(callback) {
+  this.active = true;
+  this.save(callback);
 };
 
 mongoose.model('Schedule', scheduleSchema);

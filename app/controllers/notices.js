@@ -14,7 +14,6 @@ router.get('/', function(req, res) {
 router.param('notice', function(req, res, next, id) {
   Notice.findById(id, function (err, notice) {
     if (err) return next(err);
-
     req.notice = notice;
     next();
   });

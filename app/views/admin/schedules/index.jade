@@ -15,7 +15,9 @@ block content
             td= schedules[i].name
             td= schedules[i].description
             td
-              if (!schedules[i].active)
+              if (schedules[i].active)
+                <a href="/admin/schedules/#{schedules[i]._id}/deactivate">Deactivate</a>
+              else
                 <a href="/admin/schedules/#{schedules[i]._id}/activate">Activate</a>
             td
               <a href="/admin/schedules/#{schedules[i]._id}/edit">Edit</a> —

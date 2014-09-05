@@ -3,5 +3,9 @@
 
 # Explicitly declare text files we want to always be normalized and converted 
 # to native line endings on checkout.
-*.js text
 *.md text
+*.yaml text
+*.js text
+*.styl text
+*.jade text
+

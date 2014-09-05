@@ -1,26 +1,22 @@
-// Node.js core
-var fs = require('fs')
+
+var fs = require('fs')                       // Node.js core
   , path = require('path');
 
-// Express
-var express = require('express')
+var express = require('express')             // Express
   , app = express();
 
-// Express middleware
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser')      // Express middleware
   , cookieParser = require('cookie-parser')
   , multer = require('multer')
   , session = require('express-session')
   , stylus = require('stylus')
   , flash = require('connect-flash');
 
-// Database
-var mongoose = require('mongoose')
+var mongoose = require('mongoose')           // Database
   , Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo; // Connect GFS and MongoDB
 
-// Miscellaneous utilities
-var uuid = require('node-uuid');
+var uuid = require('node-uuid');             // Miscellaneous utilities
 var yaml = require('js-yaml');
 
 // Grab settings
@@ -37,14 +33,8 @@ app.set('views', __dirname + '/app/views');
 app.set('view engine', 'jade');
 app.locals.pretty = true;
 
-io.set('browser client gzip', true);
-
 app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
-
-// Set up Socket.io communication
-var server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
 
 // Setup view controller
 app.use(bodyParser());
@@ -67,9 +57,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
   console.log('Connected!');
-  
-  // Enable server-side socket plugins
-  require(__dirname+'apiloader')(db);
 
   app.use('/', Clock);
   app.use('/admin', Admin);

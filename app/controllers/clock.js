@@ -12,7 +12,6 @@ router.get('/', function(req, res) {
   var self = this;
 
   async.parallel({
-
     'periods': function(callback) {
       Schedule.getActive(function(err, schedule) {
         schedule.getPeriods(callback);

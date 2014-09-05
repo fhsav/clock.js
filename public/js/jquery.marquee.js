@@ -1,14 +1,14 @@
 /*!
  * Marquee jQuery Plug-in
  *
- * Copyright 2009 Giva, Inc. (http://www.givainc.com/labs/) 
- * 
+ * Copyright 2009 Giva, Inc. (http://www.givainc.com/labs/)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * 	http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,17 +21,17 @@
 ;(function($){
 	// set the version of the marquee
 	$.marquee = {version: "1.0.01"};
-	
+
 	$.fn.marquee = function(options) {
 		var method = typeof arguments[0] == "string" && arguments[0];
 		var args = method && Array.prototype.slice.call(arguments, 1) || arguments;
 		// get a reference to the first marquee found
 		var self = (this.length == 0) ? null : $.data(this[0], "marquee");
-		
+
 		// if a method is supplied, execute it for non-empty results
 		if( self && method && this.length ){
 
-			// if request a copy of the object, return it			
+			// if request a copy of the object, return it
 			if( method.toLowerCase() == "object" ) return self;
 			// if method is defined, run it and return either it's results or the chain
 			else if( self[method] ){
@@ -72,12 +72,12 @@
 
 	$.Marquee = function (marquee, options){
 		options = $.extend({}, $.Marquee.defaults, options);
-		
+
 		var self = this, $marquee = $(marquee), $lis = $marquee.find("> li"), current = -1, hard_paused = false, paused = false, loop_count = 0;
 
 		// store a reference to this marquee
 		$.data($marquee[0], "marquee", self);
-		
+
 		// pause the marquee
 		this.pause = function (){
 			// mark as hard pause (no resume on hover)
@@ -85,7 +85,7 @@
 			// pause scrolling
 			pause();
 		}
-		
+
 		// resume the marquee
 		this.resume = function (){
 			// mark as hard pause (no resume on hover)
@@ -93,14 +93,14 @@
 			// resume scrolling
 			resume();
 		}
-		
+
 		// update the marquee
 		this.update = function (){
 			var iCurrentCount = $lis.length;
 
 			// update the line items
 			$lis = $marquee.find("> li");
-			
+
 			// if we only have one item, show the next item by resuming playback (which will scroll to the next item)
 			if( iCurrentCount <= 1 ) resume();
 		}
@@ -109,9 +109,9 @@
 		function show(i){
 			// if we're already scrolling an item, stop processing
 			if( $lis.filter("." + options.cssShowing).length > 0 ) return false;
-			
+
 			var $li = $lis.eq(i);
-			
+
 			// run the beforeshow callback
 			if( $.isFunction(options.beforeshow) ) options.beforeshow.apply(self, [$marquee, $li]);
 
@@ -119,11 +119,11 @@
 				top: (options.yScroll == "top" ? "-" : "+") + $li.outerHeight() + "px"
 				, left: 0
 			};
-			
+
 			$marquee.data("marquee.showing", true);
 			$li.addClass(options.cssShowing);
-	
-			$li.css(params).animate({top: "0px"}, options.showSpeed, options.fxEasingShow, function (){ 
+
+			$li.css(params).animate({top: "0px"}, options.showSpeed, options.fxEasingShow, function (){
 				// run the show callback
 				if( $.isFunction(options.show) ) options.show.apply(self, [$marquee, $li]);
 				$marquee.data("marquee.showing", false);
@@ -146,7 +146,7 @@
 
 					var width = $li.outerWidth(), endPos = width * -1, curPos = parseInt($li.css("left"), 10);
 
-					// scroll the message to the left					
+					// scroll the message to the left
 					$li.animate({left: endPos + "px"}, ((width + curPos) * options.scrollSpeed), options.fxEasingScroll, function (){ finish($li); });
 				}, delay);
 			} else if ( $lis.length > 1 ){
@@ -160,16 +160,16 @@
 					finish($li);
 				}, delay);
 			}
-			
+
 		}
-		
+
 		function finish($li){
 			// run the aftershow callback, only after we've displayed the first option
 			if( $.isFunction(options.aftershow) ) options.aftershow.apply(self, [$marquee, $li]);
-			
+
 			// mark that we're done scrolling this element
 			$li.removeClass(options.cssShowing);
-			
+
 			// show the next message
 			showNext();
 		}
@@ -184,7 +184,7 @@
 				$lis.filter("." + options.cssShowing).dequeue().stop();
 			}
 		}
-		
+
 		// this function will resume the previous animation
 		function resume(){
 			// mark the message as resumed
@@ -210,31 +210,31 @@
 				}
 			);
 		}
-		
+
 		// determines if the message needs to be scrolled to read
 		function doScroll($li){
 			return ($li.outerWidth() > $marquee.innerWidth());
 		}
 
-		// show the next message in the queue		
+		// show the next message in the queue
 		function showNext(){
 			// increase the current counter (starts at -1, to indicate a new marquee beginning)
 			current++;
-			
+
 			// if we only have 1 entry and it doesn't need to scroll, just cancel processing
 			if( current >= $lis.length ){
 				// if we've reached our loop count, cancel processing
 				if( !isNaN(options.loop) && options.loop > 0 && (++loop_count >= options.loop ) ) return false;
 				current = 0;
-			} 
-			
+			}
+
 			// show the next message
 			show(current);
 		}
-		
+
 		// run the init callback
 		if( $.isFunction(options.init) ) options.init.apply(self, [$marquee, options]);
-		
+
 		// show the first item
 		showNext();
 	};
