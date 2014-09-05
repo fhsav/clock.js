@@ -1,6 +1,6 @@
 extend ../index
 block content
-  include ../flash
+  include ../layout/flash
   h2 Schedules
   h3 #{schedule.name}
   form(action='/admin/schedules/#{schedule._id}/edit',method='post').schedule-edit

@@ -37,9 +37,10 @@ app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
 
 // Setup view controller
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: uuid.v4()}));
+app.use(session({secret: uuid.v4(), saveUninitialized: true, resave: true}));
 app.use(multer());
 app.use(flash());
 
@@ -69,7 +70,7 @@ db.once('open', function() {
   });
 
   var port = process.env.PORT || 3000;
-  server.listen(port, function() {
+  app.listen(port, function() {
     console.log('Listening on port ' + port);
   });
 });

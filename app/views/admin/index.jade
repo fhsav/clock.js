@@ -1,13 +1,13 @@
 doctype html
 html
-  include head
+  include layout/head
   body
     header
-      include header
+      include layout/header
     if (authenticated == true)
       nav
-        include navigation
+        include layout/navigation
     #content
       block content
     footer
-      include footer
+      include layout/footer

@@ -21,6 +21,7 @@
 
     "mongoose"        : "3.8.x",
     "gridfs-stream"   : "0.5.x",
+    "redis"           : "0.12.x",
 
     "socket.io"       : "1.1.x",
     "moment"          : "2.8.x",
