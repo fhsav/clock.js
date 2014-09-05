@@ -19,8 +19,9 @@ html
         p#date
         p#time
       #schedule
-        ol
-          - for (var i = 0; i < periods.length; i++) {
-              li.
-                #{periods[i].text}: <time datetime="#{periods[i].datetime.start}">#{periods[i].normalized.start}</time> &ndash; <time datetime="#{periods[i].datetime.finish}">#{periods[i].normalized.finish}</time>
-          - }
+        if (periods !== undefined)
+          ol
+            - for (var i = 0; i < periods.length; i++) {
+                li.
+                  #{periods[i].text}: <time datetime="#{periods[i].datetime.start}">#{periods[i].normalized.start}</time> &ndash; <time datetime="#{periods[i].datetime.finish}">#{periods[i].normalized.finish}</time>
+            - }

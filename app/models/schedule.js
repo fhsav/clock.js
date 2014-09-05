@@ -36,10 +36,8 @@ scheduleSchema.methods.activate = function(callback) {
   });
 };
 
-mongoose.model('Schedule', scheduleSchema);
-
 scheduleSchema.methods.deactivate = function(callback) {
-  this.active = true;
+  this.active = false;
   this.save(callback);
 };
 
