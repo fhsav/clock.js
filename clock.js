@@ -9,7 +9,8 @@ var bodyParser = require('body-parser')      // Express middleware
   , multer = require('multer')
   , session = require('express-session')
   , stylus = require('stylus')
-  , flash = require('connect-flash');
+  , flash = require('connect-flash'),
+  , morgan = require('morgan');
 
 var mongoose = require('mongoose')           // Database
   , Grid = require('gridfs-stream');
@@ -34,6 +35,7 @@ app.locals.pretty = true;
 
 app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
+app.use(morgan('combined'));
 
 // Setup view controller
 app.use(bodyParser.urlencoded({extended: true}));
