@@ -20,8 +20,8 @@ var uuid = require('node-uuid');             // Miscellaneous utilities
 var yaml = require('js-yaml');
 
 // Grab settings
-var database = yaml.safeLoad(fs.readFileSync(__dirname + '/config/database.yaml', 'utf8'));
-database.mongodb_uri = process.env['MONGODB_URI'];
+var database = yaml.load(fs.readFileSync(__dirname + '/config/database.yaml', 'utf8'));
+database.mongodb_uri = database.mongodb_uri || process.env['MONGODB_URI'];
 
 // Include data models
 fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
