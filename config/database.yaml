@@ -1,0 +1,2 @@
+# mongodb://<user>:<password>@address:port/dbname
+mongodb_uri: <%= ENV['MONGOHQ_URL'] %>
