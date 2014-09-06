@@ -19,7 +19,7 @@ html
         p#date
         p#time
       #schedule
-        if (periods !== undefined)
+        if (periods !== undefined && periods.length > 0)
           ol
             - for (var i = 0; i < periods.length; i++) {
                 li.
