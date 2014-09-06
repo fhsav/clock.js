@@ -4,6 +4,9 @@
 # Node.js libraries and modules
 node_modules
 
+# OS X
+.DS_Store
+
 # Eclipse project info
 .project
 .buildpath
@@ -13,5 +16,5 @@ node_modules
 /public/css/*.css
 /public/css/admin/*.css
 
-# OS X
-.DS_Store
+# App config
+/config/database.yaml
