@@ -9,7 +9,7 @@ var bodyParser = require('body-parser')      // Express middleware
   , multer = require('multer')
   , session = require('express-session')
   , stylus = require('stylus')
-  , flash = require('connect-flash'),
+  , flash = require('connect-flash')
   , morgan = require('morgan');
 
 var mongoose = require('mongoose')           // Database
