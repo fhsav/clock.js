@@ -2,14 +2,13 @@ $(function() {
   updateTime();
   createMarquee();
   highlightActivePeriod();
-
-  setInterval(updateTime(), 1000);
-  setInterval(highlightActivePeriod(), 1000);
 });
 
 function updateTime() {
   $("#date").text( moment().format('dddd, MMMM D, YYYY') );
-  $("#time").text( moment().format('h:mm') );
+  $("#time").text( moment().format('h:mm:ss') );
+  
+  setTimeout(updateTime, 1000);
 }
 
 function createMarquee() {
@@ -17,7 +16,7 @@ function createMarquee() {
 }
 
 function highlightActivePeriod() {
-  $('#schedule ol li') .each(function (index, element) {
+  $('#schedule ol li').each(function (index, element) {
     var startTime = $($(element).children()[0]).attr('datetime');
     var finishTime = $($(element).children()[1]).attr('datetime');
 
@@ -32,4 +31,6 @@ function highlightActivePeriod() {
       $(element).removeClass('active');
     }
   });
+  
+  setTimeout(highlightActivePeriod, 1000);
 }
