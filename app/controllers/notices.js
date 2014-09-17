@@ -41,7 +41,7 @@ router.get('/:notice/delete', function(req, res) {
 
 router.get('/:notice/edit', function(req, res) {
   res.locals.viewData.notice = req.notice;
-  res.render('admin/notice/edit', res.locals.viewData);
+  res.render('admin/notices/edit', res.locals.viewData);
 });
 
 router.post('/:notice/edit', function(req, res) {

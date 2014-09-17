@@ -3,8 +3,6 @@ block content
   h2 Notice Items
   h3 Editing notice item #{notice._id}
   form(action='edit',method='post').notice-edit
-    textarea(name='notice[text]',rows=5)= notice.text
-    .submit-container
-      .cancel
-        a(href='/admin/notices') Cancel
-      input(type='submit',value='Save')
+    input(type='text',name='notice[text]',placeholder='What do you need to notify the school of?',value='#{notice.text}')
+    a.cancel(href='/admin/notices') Cancel
+    input(type='submit',value='Save')
