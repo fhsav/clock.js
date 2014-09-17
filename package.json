@@ -1,11 +1,14 @@
 {
   "name": "clock.js",
   "version": "0.3.0",
-  "author": "Brandon Cheng <gluxon@gluxon.com>",
+  "author": "Brandon Cheng <brandoncheng.personal@gmail.com>",
   "description": "clock.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gluxon/clock.js.git"
+    "url": "https://github.com/fhsav/clock.js.git"
+  },
+  "scripts": {
+    "test": "node clock.js"
   },
   "dependencies" : {
     "async"           : "0.9.x",

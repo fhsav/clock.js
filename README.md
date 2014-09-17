@@ -1,4 +1,14 @@
-# clock.js
+# Clock [![Travis-CI](https://secure.travis-ci.org/fhsav/clock.js.png)](http://travis-ci.org/#!/fhsav/clock.js)
+
+**Author:** [Brandon Cheng](https://github.com/gluxon)
+
+**Based on**: [Ruby clock](https://github.com/fhsav/clock) by [Ethan Turkeltaub](https://github.com/eturk)
+
+**Thanks:** Nick Silverman, Farmington High School Audio-Visual Department
+
+## What is it?
+
+The Farmington High School Clock is displayed on a television in each classroom. It displays the time and date, periods (and current period) of the day, marquee items, and notices for the school.
 
 ## License
 
