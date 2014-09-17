@@ -21,4 +21,5 @@ block content
         - }
   form(method='post',action='/admin/marquee/create').marquee-create
     textarea(name='marquee[text]',placeholder='What do you want to say?')
-    input(type='submit',value='Save')
+    .submit-container
+      input(type='submit',value='Save')

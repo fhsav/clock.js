@@ -7,6 +7,6 @@ block content
     input(type='text',name='period[text]',placeholder='Text',value='#{period.text}')
     input(type='text',name='period[start]',placeholder='Start Time',value='#{period.normalized.military.start}')
     input(type='text',name='period[finish]',placeholder='Finish Time',value='#{period.normalized.military.finish}')
-    .cancel
-      a(href='/admin/schedules/#{period.schedule_id}/edit') Cancel
-    input(type='submit',value='Save')
+    .submit-container
+      a.canel(href='/admin/schedules/#{period.schedule_id}/edit') Cancel
+      input(type='submit',value='Save')

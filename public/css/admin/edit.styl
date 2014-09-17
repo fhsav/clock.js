@@ -8,64 +8,59 @@
 	display: flex;
 }
 
-.theme-create input + input,
-.schedule-create input + input,
-.notice-create input + input,
-.period-create input + input,
-.schedule-edit input + input,
-.period-edit input + input {
+form {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+form > * {
 	margin-left: 5px;
 }
 
-.theme-create input[type='text'],
-.schedule-create input[type='text'],
-.notice-create input[type='text'],
-.period-create input[type='text'],
-.schedule-edit input[type='text'],
-.period-edit input[type='text'] {
-	flex: 1 1 auto;
+form > :first-child {
+	margin-left: 0px;
 }
 
-.period-edit .cancel {
-	flex: 1 1 auto;
-	margin: 0 5px;
+form > input[type='text'] {
+	flex: 1 1 main-size;
 }
 
 .periods {
 	margin-top: 30px;
 }
 
-.period-create input[name="period[number]"] { flex: 0 1 25px; }
-.period-create input[name="period[text]"]   { flex: 2 1 100px; }
-.period-create input[name="period[start]"]  { flex: 1 1 50px; }
-.period-create input[name="period[finish]"] { flex: 1 1 50px; }
-
-.period-edit input[name="period[number]"] { flex: 0 1 25px; }
-.period-edit input[name="period[text]"]   { flex: 2 1 100px; }
-.period-edit input[name="period[start]"]  { flex: 1 1 50px; }
-.period-edit input[name="period[finish]"] { flex: 1 1 50px; }
-
-.marquee-create {
+.marquee-create, .marquee-edit {
 	margin-top: 30px;
+	justify-content: flex-end;
 }
+
+form > input[name="period[number]"] { flex: 0 0 main-size; width: 25px; }
+form > input[name="period[text]"]   { flex: 2 1 main-size; width: 100px; }
+form > input[name="period[start]"]  { flex: 1 1 main-size; width: 50px; }
+form > input[name="period[finish]"] { flex: 1 1 main-size; width: 50px; }
 
 .marquee-create textarea,
 .marquee-edit textarea {
 	height: 120px;
 }
 
-.marquee-create input[type='submit'],
-.marquee-edit input[type='submit'] {
-	margin-top: 5px;
-	float: right;
-}
-
-.marquee-edit .cancel {
-	margin-top: 5px; margin-right: 5px;
-	float: left;
-}
-
 .submit-container {
-	float: right;
-	overflow: hidden;
+	display: flex;
+	margin-top: 5px;
+}
+
+.submit-container > * {
+	margin-left: 5px;
+}
+
+.submit-container > :first-child {
+	margin-left: 0px;
+}
+
+a.cancel {
+	display: block;
+	padding: 5px 10px;
+	min-height: 20px;
+	background: linear-gradient(center, rgb(255, 255, 255), rgb(230, 230, 230));
+	border: 1px solid rgba(0,0,0, 0.3); border-radius: 3px;
 }
