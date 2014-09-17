@@ -2,27 +2,31 @@ extend ../index
 block content
   include ../layout/flash
   h2 Schedules
-  table.schedules
-    thead
-      tr
-        th Name
-        th Description
-        th Activate
-        th Actions
-    tbody
-      - for (var i = 0; i < schedules.length; ++i) {
-          tr(class=schedules[i].active == true ? "active" : undefined)
-            td= schedules[i].name
-            td= schedules[i].description
-            td
-              if (schedules[i].active)
-                <a href="/admin/schedules/#{schedules[i]._id}/deactivate">Deactivate</a>
-              else
-                <a href="/admin/schedules/#{schedules[i]._id}/activate">Activate</a>
-            td
-              <a href="/admin/schedules/#{schedules[i]._id}/edit">Edit</a> —
-              <a href="/admin/schedules/#{schedules[i]._id}/delete">Delete</a>
-      - }
+  if (schedules.length == 0)
+    p
+      | No schedules yet! Why don't you make one?
+  else
+    table.schedules
+      thead
+        tr
+          th Name
+          th Description
+          th Activate
+          th Actions
+      tbody
+        - for (var i = 0; i < schedules.length; ++i) {
+            tr(class=schedules[i].active == true ? "active" : undefined)
+              td= schedules[i].name
+              td= schedules[i].description
+              td
+                if (schedules[i].active)
+                  <a href="/admin/schedules/#{schedules[i]._id}/deactivate">Deactivate</a>
+                else
+                  <a href="/admin/schedules/#{schedules[i]._id}/activate">Activate</a>
+              td
+                <a href="/admin/schedules/#{schedules[i]._id}/edit">Edit</a> —
+                <a href="/admin/schedules/#{schedules[i]._id}/delete">Delete</a>
+        - }
   form(action='/admin/schedules/create',method='post').schedule-create
     input(type='text',name='schedule[name]',placeholder='Name')
     input(type='text',name='schedule[description]',placeholder='Description')

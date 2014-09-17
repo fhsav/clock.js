@@ -2,23 +2,27 @@ extend ../index
 block content
   include ../layout/flash
   h2 Themes
-  table.themes
-    thead
-      tr
-        th Name
-        th Activate
-        th Actions
-    tbody
-      - for (var i = 0; i < themes.length; ++i) {
-          tr(class=themes[i].active == true ? "active" : undefined)
-            td= themes[i].name
-            td
-              if (!themes[i].active)
-                <a href="/admin/themes/#{themes[i]._id}/activate">Activate</a>
-            td
-              <a href="/admin/themes/#{themes[i]._id}/preview">View</a> —
-              <a href="/admin/themes/#{themes[i]._id}/delete">Delete</a>
-      - }
+  if (themes.length == 0)
+    p
+      | No themes yet! Why don't you make one?
+  else
+    table.themes
+      thead
+        tr
+          th Name
+          th Activate
+          th Actions
+      tbody
+        - for (var i = 0; i < themes.length; ++i) {
+            tr(class=themes[i].active == true ? "active" : undefined)
+              td= themes[i].name
+              td
+                if (!themes[i].active)
+                  <a href="/admin/themes/#{themes[i]._id}/activate">Activate</a>
+              td
+                <a href="/admin/themes/#{themes[i]._id}/preview">View</a> —
+                <a href="/admin/themes/#{themes[i]._id}/delete">Delete</a>
+        - }
   form(method='post',action='/admin/themes/create',enctype='multipart/form-data').theme-create
     input(type='text',name='theme[name]',placeholder='Name')
     input(type='file',name='theme[wallpaper]')
