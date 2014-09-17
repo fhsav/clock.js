@@ -8,10 +8,12 @@
     "url": "https://github.com/fhsav/clock.js.git"
   },
   "scripts": {
-    "test": "node clock.js"
+    "test": "make test"
   },
   "dependencies" : {
     "async"           : "0.9.x",
+    "mocha"           : "1.21.x",
+    "should"          : "4.0.x",
 
     "express"         : "4.x",
     "jade"            : "1.6.x",
