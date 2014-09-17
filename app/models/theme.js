@@ -38,7 +38,12 @@ themeSchema.statics.uploadWallpaper = function(wallpaper, callback) {
 
 themeSchema.statics.getWallpaperStreamOfActive = function(callback) {
   this.getActive(function(err, activeTheme) {
-    activeTheme.createWallpaperStream(callback);
+    if (err) throw err;
+    if (activeTheme == null) {
+      callback(new Error('No active theme'));
+    } else {
+      activeTheme.createWallpaperStream(callback);
+    }
   });
 };
 
