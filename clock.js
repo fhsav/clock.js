@@ -35,7 +35,7 @@ app.locals.pretty = true;
 
 app.use(stylus.middleware(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 // Setup view controller
 app.use(bodyParser.urlencoded({extended: true}));
