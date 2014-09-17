@@ -7,23 +7,27 @@ block content
     input(type='text',name='schedule[name]',value='#{schedule.name}')
     input(type='text',name='schedule[description]',value='#{schedule.description}')
     input(type='submit',value='Save')
-  table.periods
-    thead
-      tr
-        th &#35;
-        th Text
-        th Times
-        th Actions
-    tbody
-      - for (var i = 0; i < periods.length; ++i) {
-          tr
-            td= periods[i].number
-            td= periods[i].text
-            td= periods[i].normalized.military.start + ' - ' + periods[i].normalized.military.finish
-            td
-              <a href="periods/#{periods[i]._id}/edit">Edit</a> —
-              <a href="periods/#{periods[i]._id}/delete">Delete</a>
-      - }
+  if periods.length == 0
+    p
+      | No periods yet!
+  else
+    table.periods
+      thead
+        tr
+          th &#35;
+          th Text
+          th Times
+          th Actions
+      tbody
+        - for (var i = 0; i < periods.length; ++i) {
+            tr
+              td= periods[i].number
+              td= periods[i].text
+              td= periods[i].normalized.military.start + ' - ' + periods[i].normalized.military.finish
+              td
+                <a href="periods/#{periods[i]._id}/edit">Edit</a> —
+                <a href="periods/#{periods[i]._id}/delete">Delete</a>
+        - }
   form(method='post',action='/admin/schedules/#{schedule._id}/periods/create').period-create
     input(type='text',name='period[number]',placeholder='#')
     input(type='text',name='period[text]',placeholder='Text')

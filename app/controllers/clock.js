@@ -12,13 +12,8 @@ router.get('/', function(req, res) {
   var self = this;
 
   async.parallel({
-    'periods': function(callback) {
-      Schedule.getActive(function(err, schedule) {
-        if (schedule != null)
-          schedule.getPeriods(callback);
-        else
-          callback();
-      });
+    'schedule': function(callback) {
+      Schedule.getActive(callback);
     },
 
     'marquees': function(callback){

@@ -7,7 +7,8 @@ var scheduleSchema = new Schema({
   'name': String,
   'description': String,
   'created_at': { type: Date, default: Date.now },
-  'updated_at': { type: Date, default: Date.now }
+  'updated_at': { type: Date, default: Date.now },
+  'periods': [Period.schema]
 });
 
 // Static methods
@@ -21,10 +22,6 @@ scheduleSchema.statics.getActive = function(callback) {
 };
 
 // Instance methods
-
-scheduleSchema.methods.getPeriods = function(callback) {
-  Period.find({ schedule_id: this._id }).sort({ number: 1 }).exec(callback);
-}
 
 scheduleSchema.methods.activate = function(callback) {
   var self = this;

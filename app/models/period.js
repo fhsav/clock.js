@@ -7,8 +7,7 @@ var periodSchema = new Schema({
   'number': Number,
   'text': String,
   'start': Date,
-  'finish': Date,
-  'schedule_id': ObjectId
+  'finish': Date
 });
 
 // Static methods

@@ -6,7 +6,7 @@ var router = express.Router();
 
 router.get('/active', function(req, res) {
   Theme.getWallpaperStreamOfActive(function(err, wallpaperStream) {
-    if (err.message == 'No active theme') {
+    if (err && err.message == 'No active theme') {
       res.status(404);
       res.end();
     } else {

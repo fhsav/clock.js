@@ -59,11 +59,8 @@ router.get('/:schedule/delete', function(req, res) {
 
 router.get('/:schedule/edit', function(req, res) {
   res.locals.viewData.schedule = req.schedule;
-
-  req.schedule.getPeriods(function(err, periods) {
-    res.locals.viewData.periods = periods;
-    res.render('admin/schedules/edit', res.locals.viewData);
-  });
+  res.locals.viewData.periods = req.schedule.periods;
+  res.render('admin/schedules/edit', res.locals.viewData);
 });
 
 router.post('/:schedule/edit', function(req, res) {
@@ -78,31 +75,28 @@ router.post('/:schedule/edit', function(req, res) {
 });
 
 router.param('period', function(req, res, next, id) {
-  Period.findById(id, function (err, period) {
-    if (err) return next(err);
-    req.period = period;
-    next();
-  });
+  req.period = req.schedule.periods.id(id);
+  next();
 });
 
 router.post('/:schedule/periods/create', function(req, res) {
-  Period.create({
+  req.schedule.periods.push({
     'number': req.body.period.number,
     'text': req.body.period.text,
     'start': Period.parseTime(req.body.period.start),
-    'finish': Period.parseTime(req.body.period.finish),
-    'schedule_id': req.schedule._id
-  }, redirectToLanding);
+    'finish': Period.parseTime(req.body.period.finish)
+  });
 
-  function redirectToLanding(err) {
+  req.schedule.save(function (err) {
     if (err) throw err;
     req.flash('success', 'The period has been created.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
-  }
+  });
 });
 
 router.get('/:schedule/periods/:period/delete', function(req, res) {
-  req.period.remove(function (err) {
+  req.schedule.periods.id(req.period.id).remove();
+  req.schedule.save(function(err) {
     if (err) throw err;
     req.flash('success', 'The period has been destroyed.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
@@ -110,19 +104,22 @@ router.get('/:schedule/periods/:period/delete', function(req, res) {
 });
 
 router.get('/:schedule/periods/:period/edit', function(req, res) {
-  res.locals.viewData.scheduleID = req.params.scheduleID;
+  res.locals.viewData.schedule = req.schedule;
   res.locals.viewData.period = req.period;
   res.render('admin/schedules/edit_period', res.locals.viewData);
 });
 
 router.post('/:schedule/periods/:period/edit', function(req, res) {
-  req.period.number = req.body.period.number;
-  req.period.text = req.body.period.text;
-  req.period.start = Period.parseTime(req.body.period.start);
-  req.period.finish = Period.parseTime(req.body.period.finish);
-  req.period.schedule_id = req.schedule.id;
+  var index = req.schedule.periods.indexOf(req.period);
 
-  req.period.save(function(err) {
+  req.schedule.periods[index].number = req.body.period.number;
+  req.schedule.periods[index].text = req.body.period.text;
+  req.schedule.periods[index].start = Period.parseTime(req.body.period.start);
+  req.schedule.periods[index].finish = Period.parseTime(req.body.period.finish);
+
+  // Sorting of periods may have to be done here in the future.
+
+  req.schedule.save(function(err) {
     if (err) throw err;
     req.flash('success', 'The schedule has been modified.');
     res.redirect('/admin/schedules/' + req.params.schedule + '/edit');
