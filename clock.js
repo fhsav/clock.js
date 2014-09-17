@@ -21,7 +21,7 @@ var yaml = require('js-yaml');
 
 // Grab settings
 var database = yaml.load(fs.readFileSync(__dirname + '/config/database.yaml', 'utf8'));
-database.mongodb_uri = database.mongodb_uri || process.env['MONGODB_URI'];
+database.mongodb_uri = database.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
 
 // Include data models
 fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
