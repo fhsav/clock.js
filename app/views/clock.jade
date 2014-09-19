@@ -2,11 +2,12 @@ doctype html
 html
   head
     title Clock
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
     link(rel="stylesheet", href="/css/clock.css")
     link(rel="stylesheet", href="/css/vendor/jquery.marquee.css")
     script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
     script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js")
-    script(type="text/javascript", src="/js/jquery.marquee.js")
+    script(type="text/javascript", src="/js/vendor/jquery.marquee.js")
     script(type="text/javascript", src="/js/clock.js")
   body
     #marquee
@@ -23,6 +24,11 @@ html
         if (periods !== undefined && periods.length > 0)
           ol
             - for (var i = 0; i < periods.length; i++) {
+                - var text = periods[i].text;
+                - var datetimeStart = periods[i].datetime.start;
+                - var normalizedStart = periods[i].normalized.start;
+                - var datetimeFinish = periods[i].datetime.finish;
+                - var normalizedFinish = periods[i].normalized.finish;
                 li.
-                  #{periods[i].text}: <time datetime="#{periods[i].datetime.start}">#{periods[i].normalized.start}</time> &ndash; <time datetime="#{periods[i].datetime.finish}">#{periods[i].normalized.finish}</time>
+                  #{text}: <time datetime="#{datetimeStart}">#{normalizedStart}</time> &ndash; <time datetime="#{datetimeFinish}">#{normalizedFinish}</time>
             - }

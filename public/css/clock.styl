@@ -10,19 +10,22 @@ body {
 
 	font: 500 38px/1.25em "Roboto",Helvetica Neue,Helvetica,Arial,sans-serif;
 	color: white;
+
+	-webkit-text-size-adjust: 100%;
 }
 
 #wrapper {
 	margin-top: 0.85em;
-	padding: 0 0.5em;
-	overflow: hidden;
+	padding: 0 0.5em 0.5em;
+
+	display: flex;
+	display: -webkit-flex;
 }
 
 #marquee {
 	background-color: rgba(51, 51, 51, 0.75);
 	margin-top: 19px; padding: 0 0.5em;
 	color: #FAFAFA;
-	border-radius: 3px;
 }
 
 #marquee ul {
@@ -35,15 +38,16 @@ body {
 }
 
 #clock {
-	width: 45.3781%;
-	float: right;
+	width: 45%;
+	padding: 0 2% 2em;
+
+	flex: 1 1 auto;
+	-webkit-flex: 1 1 auto;
+	order: 2;
+	-webkit-order: 2;
 
 	text-align: center;
 	text-shadow: 2px 2px 2px rgba(50, 50, 50, 0.8);
-
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 }
 
 #clock p {
@@ -64,19 +68,15 @@ body {
 
 #schedule {
 	background-color: rgba(0,0,0, 0.7);
-	width: 49.5798%;
 
-	float: left;
-	overflow: hidden;
+	width: 50%;
+	flex: 1 1 auto;
+	-webkit-flex: 1 1 auto;
 
 	color: black;
 	font-weight: 700;
 
 	border-radius: 2px;
-
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 }
 
 #schedule ol {
@@ -101,4 +101,47 @@ body {
 
 #schedule ol li.active {
 	background-color: rgba(0,0,0, 0.9);
+}
+
+.closingTime #clock #date {
+	font-size: 1.5em;
+}
+
+.closingTime #clock #time {
+	font-size: 4em;
+	margin-top: 0.15em;
+}
+
+.closingTime #schedule {
+	display: none;
+}
+
+@media screen and (max-width: 1000px) {
+	#wrapper {
+		flex-direction: column;
+		-webkit-flex-direction: column;
+	}
+
+	#schedule, #clock {
+		width: 100%;
+		order: 0;
+		-webkit-order: 0;
+	}
+	
+	#clock {
+		padding: 0 0 2em;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.closingTime #clock #time {
+		font-size: 3em;
+	}
+}
+
+@media screen and (max-width: 530px) {
+	#clock, #schedule, #marquee {
+		font-size: 7.17vw;
+		line-height: 1.25em;
+	}
 }
