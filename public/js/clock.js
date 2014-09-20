@@ -3,6 +3,8 @@ $(function() {
   createMarquee();
   highlightActivePeriod();
   closingTime();
+  slideDown();
+  passingTime();
 });
 
 function updateTime() {
@@ -57,4 +59,43 @@ function closingTime() {
   }
 
   setTimeout(closingTime, 1000);
+}
+
+function slideDown() {
+  $('#schedule ol li').each(function(index, element) {
+    var finishTime = $($(element).children()[1]).attr('datetime');
+    var finishTimeX = moment(finishTime, "HH:mm:ss").format('X');
+
+    var now = moment().format('X');
+
+    if (now >= finishTimeX && $('#schedule ol li').size() > 10) {
+      $(element).filter(':visible').slideUp('slow');
+    } else {
+      $(element).show();
+    }
+  });
+
+  setTimeout(slideDown, 1000);
+}
+
+function passingTime() {
+  var lastFinishX;
+  
+  $('#schedule ol li').each(function(index, element) {
+    var startTime = $($(element).children()[0]).attr('datetime');
+    var startTimeX = moment(startTime, "HH:mm:ss").format('X');
+
+    var now = moment().format('X');
+
+    if (lastFinishX < now && now < startTimeX) {
+      $(element).addClass('next');
+    } else {
+      $(element).removeClass('next');
+    }
+
+    var lastFinish = $($(element).children()[1]).attr('datetime');
+    lastFinishX = moment(lastFinish, "HH:mm:ss").format('X');
+  });
+
+  setTimeout(passingTime, 1000);
 }

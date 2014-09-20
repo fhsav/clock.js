@@ -87,20 +87,22 @@ body {
 #schedule ol li {
 	padding: 0.2em 0.5em;
 	background: linear-gradient(#F0F0F0, #D2D2D2);
-	border-top: 1px solid #FFF;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid rgba(0,0,0, 0.5);
 }
 
 #schedule ol li.active {
 	background: linear-gradient(#444, #222);
+	border-top: 1px solid #444;
 	color: #FFF;
-}
-
-#schedule ol li + li {
-	border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 #schedule ol li.active {
 	background-color: rgba(0,0,0, 0.9);
+}
+
+#schedule ol li.next {
+	border-top: 10px solid rgba(0, 0, 0, 0.5);
 }
 
 .closingTime #clock #date {
