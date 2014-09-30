@@ -2,7 +2,7 @@ extend index
 block content
   #login
     h2 Setup
+    include layout/flash
     form(action='/admin/setup',method='post')
-      include layout/flash
       input(type='password',name='password',placeholder='Password')
       input(type='submit',value='Go')
