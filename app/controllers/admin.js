@@ -5,6 +5,7 @@ var Theme = mongoose.model('Theme')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice')
   , System = require(__dirname + '/../models/system.js');
+var package = require(__dirname + '/../../package.json');
 
 var router = express.Router();
 
@@ -12,7 +13,7 @@ router.get(/.*/, function(req, res, next) {
   // Generate data for views
   res.locals.viewData = {};
   res.locals.viewData.authenticated = req.session.authenticated;
-  res.locals.viewData.version = '0.3.0';
+  res.locals.viewData.version = package.version;
   res.locals.viewData.successes = req.flash('success');
   res.locals.viewData.errors = req.flash('error');
   res.locals.viewData.warnings = req.flash('warning');
