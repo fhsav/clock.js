@@ -67,8 +67,6 @@ body {
 }
 
 #schedule {
-	background-color: rgba(0,0,0, 0.7);
-
 	width: 50%;
 	flex: 1 1 auto;
 	-webkit-flex: 1 1 auto;
@@ -81,6 +79,7 @@ body {
 
 #schedule ol {
 	margin: 0; padding: 0;
+	background-color: rgba(0,0,0, 0.7);
 	list-style-type: none;
 }
 
@@ -89,6 +88,15 @@ body {
 	background: linear-gradient(#F0F0F0, #D2D2D2);
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid rgba(0,0,0, 0.5);
+	transition: border-width 0.2s;
+}
+
+#schedule ol li:first-child {
+	border-radius: 2px 2px 0 0;
+}
+
+#schedule ol li:last-child {
+	border-radius: 0 0 2px 2px;
 }
 
 #schedule ol li.active {
@@ -97,12 +105,17 @@ body {
 	color: #FFF;
 }
 
-#schedule ol li.active {
-	background-color: rgba(0,0,0, 0.9);
-}
-
 #schedule ol li.next {
 	border-top: 10px solid rgba(0, 0, 0, 0.5);
+}
+
+#schedule.collapsing ol li.next {
+	border-top: 1px solid #fff;
+	border-radius: 2px 2px 0 0;
+}
+
+#schedule.collapsing ol li.active {
+	border-radius: 2px 2px 0 0;
 }
 
 .closingTime #clock #date {
@@ -129,7 +142,7 @@ body {
 		order: 0;
 		-webkit-order: 0;
 	}
-	
+
 	#clock {
 		padding: 0 0 2em;
 	}
