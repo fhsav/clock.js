@@ -1,0 +1,24 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+/* TEAM */
+  Developer: Brandon Chang
+  Site: http://gluxon.com
+  GitHub: gluxon
+  Location: Farmington, CT (USA)
+
+  Developer, Designer: Ethan Turkeltaub
+  Site: http://ethnt.me
+  Twitter: ethnt
+  GitHub: eturk
+  Location: Farmington, CT (USA)
+
+/* THANKS */
+  Evan Foreman
+  Nick Silverman
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: jQuery
+  Application: Express, MongoDB
+  Software: Atom
