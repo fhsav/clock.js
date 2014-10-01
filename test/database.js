@@ -3,12 +3,12 @@ var mongoose = require('mongoose');
 var yaml = require('js-yaml');
 
 // Grab settings
-var database = yaml.load(fs.readFileSync(__dirname + '/../config/database.yaml', 'utf8'));
-database.mongodb_uri = database.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
+var datastore = yaml.load(fs.readFileSync(__dirname + '/../config/datastore.yaml', 'utf8'));
+datastore.mongodb_uri = datastore.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
 
 describe('MongoDB', function() {
   it('should connect', function(done) {
-    mongoose.connect(database.mongodb_uri);
+    mongoose.connect(datastore.mongodb_uri);
 
     var db = mongoose.connection;
     db.on('error', done);
