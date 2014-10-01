@@ -3,12 +3,22 @@ html
   head
     title Clock
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
+    meta(content="yes", name="apple-mobile-web-app-capable")
+    meta(content="black", name="apple-mobile-web-app-status-bar-style")
+    meta(content="The Farmington High School clock.", name="description")
+    meta(content="Brandon Cheng, Ethan Turkeltaub, Eric Sims, and Farmington High School Audio-Visual Support", name="author")
     link(rel="stylesheet", href="/css/clock.css")
     link(rel="stylesheet", href="/css/vendor/jquery.marquee.css")
     script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
     script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js")
     script(type="text/javascript", src="/js/vendor/jquery.marquee.js")
     script(type="text/javascript", src="/js/clock.js")
+    link(href="/img/apple-touch-icon.png", rel="apple-touch-icon-precomposed")
+    link(href="/img/apple-touch-startup-image-iphone.png", rel="apple-touch-startup-image")
+    link(href="/img/apple-touch-startup-image-ipad-portrait.png", media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)", rel="apple-touch-startup-image")
+    link(href="/img/apple-touch-startup-image-ipad-landscape.png", media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)", rel="apple-touch-startup-image")
+    link(href="/img/apple-touch-startup-image-ipad-portrait@2x.png", media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) and (-webkit-min-device-pixel-ratio: 2)", rel="apple-touch-startup-image")
+    link(href="/img/apple-touch-startup-image-ipad-landscape@2x.png", media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio: 2)", rel="apple-touch-startup-image")
   body
     #marquee
       ul.marquee
