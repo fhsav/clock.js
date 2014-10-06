@@ -1,3 +1,2 @@
 # mongodb://<user>:<password>@address:port/dbname
 mongodb_uri: # blank to use MONGODB_URI environment variable
-redis_uri: # blank to use REDIS_URI environment variable
