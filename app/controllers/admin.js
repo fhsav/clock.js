@@ -1,4 +1,3 @@
-var crypto = require('crypto');
 var mongoose = require('mongoose');
 var express = require('express');
 var Theme = mongoose.model('Theme')
