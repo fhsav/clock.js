@@ -36,21 +36,29 @@ router.get('/', function(req, res) {
 });
 
 router.get('/setup', function(req, res) {
-  res.render('admin/setup', res.locals.viewData);
+  User.getActive(function(err, user) {
+    if (user) {
+      res.status(403);
+      res.render(__dirname + '/../views/403');
+      return;
+    }
+    res.render('admin/setup', res.locals.viewData);
+  });
 });
 
 router.post('/setup', function(req, res) {
-  var user = User.getActive();
-  if (user) {
-    // Send 403 here
-    return;
-  }
-
-  User.create({
-    'active': true,
-    'name': 'Default',
-    'password': User.provideHash(req.body.password)
-  }, redirectToLanding);
+  User.getActive(function(err, user) {
+    if (user) {
+      res.status(403);
+      res.render(__dirname + '/../views/403');
+      return;
+    }
+    User.create({
+      'active': true,
+      'name': 'Default',
+      'password': User.provideHash(req.body.password)
+    }, redirectToLanding);
+  });
 
   function redirectToLanding(err) {
     if (err) throw err;
@@ -60,16 +68,18 @@ router.post('/setup', function(req, res) {
 
 router.post('/login', function(req, res) {
   User.getActive(function(err, user) {
-    user.checkPassword(req.body.password, function(err) {
-      if (err) {
-        req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
-      } else {
-        req.flash('success', 'Welcome back!');
-        req.session.authenticated = true;
-      }
-      res.redirect('/admin');
-    });
+    user.checkPassword(req.body.password, checkPassword);
   });
+
+  function checkPassword(err) {
+    if (err) {
+      req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
+    } else {
+      req.flash('success', 'Welcome back!');
+      req.session.authenticated = true;
+    }
+    res.redirect('/admin');
+  }
 });
 
 router.get('/logout', function(req, res) {
