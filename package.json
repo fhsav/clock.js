@@ -27,13 +27,11 @@
 
     "mongoose"        : "3.8.x",
     "gridfs-stream"   : "0.5.x",
-    "redis"           : "0.12.x",
 
     "socket.io"       : "1.1.x",
     "moment"          : "2.8.x",
     "js-yaml"         : "3.2.x",
-    "node-uuid"       : "1.4.x",
-    "sha1"            : "1.1.x"
+    "node-uuid"       : "1.4.x"
   },
   "license": "MPL",
   "engines": {

@@ -1,10 +1,11 @@
+var crypto = require('crypto');
 var mongoose = require('mongoose');
 var express = require('express');
 var Theme = mongoose.model('Theme')
   , Schedule = mongoose.model('Schedule')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice')
-  , System = require(__dirname + '/../models/system.js');
+  , User = mongoose.model('User');
 var package = require(__dirname + '/../../package.json');
 
 var router = express.Router();
@@ -18,15 +19,17 @@ router.get(/.*/, function(req, res, next) {
   res.locals.viewData.errors = req.flash('error');
   res.locals.viewData.warnings = req.flash('warning');
 
-  // Check if we need to do one-time setup
-  if (!System.isConfigured() && req.url != '/setup') {
-    req.flash('warning', 'Y\'all need to give me your password first.');
-    res.redirect('/admin/setup');
-  } else if (!req.session.authenticated && System.isConfigured()) {
-    res.render('admin/login', res.locals.viewData);
-  } else {
-    next();
-  }
+  User.getActive(function(err, user) {
+    // Check if we need to do one-time setup
+    if (!user && req.url != '/setup') {
+      req.flash('warning', 'Y\'all need to give me your password first.');
+      res.redirect('/admin/setup');
+    } else if (!req.session.authenticated && user) {
+      res.render('admin/login', res.locals.viewData);
+    } else {
+      next();
+    }
+  });
 });
 
 router.get('/', function(req, res) {
@@ -38,20 +41,35 @@ router.get('/setup', function(req, res) {
 });
 
 router.post('/setup', function(req, res) {
-  System.setPassword(req.body.password, function(err, reply) {
+  var user = User.getActive();
+  if (user) {
+    // Send 403 here
+    return;
+  }
+
+  User.create({
+    'active': true,
+    'name': 'Default',
+    'password': User.provideHash(req.body.password)
+  }, redirectToLanding);
+
+  function redirectToLanding(err) {
+    if (err) throw err;
     res.redirect('/admin');
-  });
+  }
 });
 
 router.post('/login', function(req, res) {
-  System.validatePassword(req.body.password, function(err) {
-    if (err) {
-      req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
-    } else {
-      req.flash('success', 'Welcome back!');
-      req.session.authenticated = true;
-    }
-    res.redirect('/admin');
+  User.getActive(function(err, user) {
+    user.checkPassword(req.body.password, function(err) {
+      if (err) {
+        req.flash('error', 'You\'re an idiot. You can\'t remember your own password?');
+      } else {
+        req.flash('success', 'Welcome back!');
+        req.session.authenticated = true;
+      }
+      res.redirect('/admin');
+    });
   });
 });
 

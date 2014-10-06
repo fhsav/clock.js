@@ -12,7 +12,7 @@ var bodyParser = require('body-parser')      // Express middleware
   , flash = require('connect-flash')
   , morgan = require('morgan');
 
-var mongoose = require('mongoose')           // Database
+var mongoose = require('mongoose')           // Datastores
   , Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo; // Connect GFS and MongoDB
 
@@ -21,7 +21,7 @@ var yaml = require('js-yaml');
 
 // Grab settings
 var datastore = yaml.load(fs.readFileSync(__dirname + '/config/datastore.yaml', 'utf8'));
-datastore.mongodb_uri = datastore.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
+var mongodb_uri = datastore.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
 
 // Include data models
 fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
@@ -50,12 +50,12 @@ var Admin = require(__dirname + '/app/controllers/admin');
 var Wallpaper = require(__dirname + '/app/controllers/wallpaper');
 
 // We're ready!
-console.log('Connecting to database...');
-mongoose.connect(datastore.mongodb_uri);
+console.log('Connecting to MongoDB...');
+mongoose.connect(mongodb_uri);
 
 var db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 db.once('open', function() {
   console.log('Connected!');

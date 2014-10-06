@@ -6,7 +6,6 @@ node_js:
   - "0.10"
 services:
   - mongodb
-  - redis-server
 notifications:
   email:
     - brandoncheng.personal@gmail.com
