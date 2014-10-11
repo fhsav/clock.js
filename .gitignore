@@ -3,6 +3,7 @@
 
 # Node.js libraries and modules
 node_modules
+npm-debug.log
 
 # OS X
 .DS_Store

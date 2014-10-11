@@ -4,7 +4,7 @@ var yaml = require('js-yaml');
 
 // Grab settings
 var datastore = yaml.load(fs.readFileSync(__dirname + '/../config/datastore.yaml', 'utf8'));
-datastore.mongodb_uri = datastore.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
+var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
 
 describe('MongoDB', function() {
   it('should connect', function(done) {

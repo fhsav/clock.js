@@ -18,7 +18,7 @@ userSchema.statics.getActive = function(callback) {
 
 userSchema.statics.provideHash = function(password) {
   return crypto.createHash('sha512').update(password).digest('hex');
-}
+};
 
 // Instance methods
 

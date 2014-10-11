@@ -34,7 +34,7 @@ periodSchema.statics.normalizeForDatetime = function(isoTime) {
   var hour = moment(isoTime).hour();
   var time = moment(isoTime).hour(hour + timezone);
   return moment(time).format("HH:mm:ss");
-}
+};
 
 /** Parse time in hh:mm format to Date() */
 periodSchema.statics.parseTime = function(time) {

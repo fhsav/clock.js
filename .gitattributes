@@ -5,10 +5,11 @@
 # to native line endings on checkout.
 *.md text
 *.yaml text
+*.json text
 *.js text
 *.styl text
+*.css text
 *.jade text
-
 
 # Denote all files that are truly binary and should not be modified.
 *.png binary

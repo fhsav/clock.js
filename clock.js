@@ -21,7 +21,7 @@ var yaml = require('js-yaml');
 
 // Grab settings
 var datastore = yaml.load(fs.readFileSync(__dirname + '/config/datastore.yaml', 'utf8'));
-var mongodb_uri = datastore.mongodb_uri || process.env['MONGODB_URI'] || 'localhost';
+var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
 
 // Include data models
 fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
