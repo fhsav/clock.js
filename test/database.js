@@ -8,7 +8,7 @@ var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost
 
 describe('MongoDB', function() {
   it('should connect', function(done) {
-    mongoose.connect(datastore.mongodb_uri);
+    mongoose.connect(mongodb_uri);
 
     var db = mongoose.connection;
     db.on('error', done);

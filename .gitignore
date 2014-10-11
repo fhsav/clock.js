@@ -3,6 +3,7 @@
 
 # Node.js libraries and modules
 node_modules
+/public/js/bower_components
 npm-debug.log
 
 # OS X
