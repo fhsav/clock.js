@@ -1,5 +1,7 @@
-@import url("http://fonts.googleapis.com/css?family=Open\+Sans:400,300");
-@import url("http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100|Anonymous\+Pro");
+@import url("https://fonts.googleapis.com/css?family=Open\+Sans:400,300");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100|Anonymous\+Pro");
+
+@import 'mixins.styl'
 
 body {
 	margin: 0; padding: 0;
@@ -42,9 +44,7 @@ body {
 	padding: 0 2% 2em;
 
 	flex: 1 1 auto;
-	-webkit-flex: 1 1 auto;
 	order: 2;
-	-webkit-order: 2;
 
 	text-align: center;
 	text-shadow: 2px 2px 2px rgba(50, 50, 50, 0.8);
@@ -69,7 +69,6 @@ body {
 #schedule {
 	width: 50%;
 	flex: 1 1 auto;
-	-webkit-flex: 1 1 auto;
 
 	color: black;
 	font-weight: 700;
@@ -134,13 +133,11 @@ body {
 @media screen and (max-width: 1000px) {
 	#wrapper {
 		flex-direction: column;
-		-webkit-flex-direction: column;
 	}
 
 	#schedule, #clock {
 		width: 100%;
 		order: 0;
-		-webkit-order: 0;
 	}
 
 	#clock {

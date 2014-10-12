@@ -1,18 +1,21 @@
 nav {
+	margin: 0; padding: 0;
 	background-color: rgb(103, 164, 164);
+	color: white;
+	font: 300 14px/3.5em "Roboto";
 }
 
 nav .container {
 	margin: auto; padding: 0 10%;
 	max-width: 800px;
-	overflow: hidden;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: space-between;
 }
 
 nav ul {
-	margin: 0; padding: 10px 0;
+	margin: 0; padding: 0;
 	list-style-type: none;
-	float: left;
-	overflow: hidden;
 }
 
 nav ul li {
@@ -20,12 +23,9 @@ nav ul li {
 }
 
 nav ul li a {
-	margin: 5px 0;
-	margin-right: 20px;
-	display: block;
-
 	color: white;
 	font-size: 14px;
+	line-height: 1.5em;
 	text-decoration: none;
 }
 
@@ -33,14 +33,16 @@ nav ul li a:hover {
 	color: rgb(239, 239, 239);
 }
 
-#sign-out {
-	margin-top: 15px;
-	display: block;
-	float: right;
-
-	color: white;
-	text-decoration: none;
+nav ul li + li {
+	margin-left: 1.5em;
 }
+
+#sign-out {
+	display: block;
+	text-decoration: none;
+	color: white;
+}
+
 #sign-out:hover {
 	color: rgb(239, 239, 239);
 }

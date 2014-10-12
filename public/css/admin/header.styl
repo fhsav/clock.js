@@ -1,37 +1,46 @@
 header {
-	margin: 0; padding: 12px 0;
-
+  margin: 0; padding: 0;
 	background-color: rgb(81, 135, 135);
 	color: white;
-
-	font-family: "Open Sans";
-	font-weight: 300;
+  font: 300 14px/3.5em "Roboto";
 }
+
 header .container {
 	margin: auto; padding: 0 10%;
 	max-width: 800px;
-	overflow: hidden;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: space-between;
 }
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
 header a:hover {
 	color: rgb(239, 239, 239);
 }
 
 header h1 {
 	margin: 0; padding: 0;
+}
 
+header h1 a {
 	display: block;
-	float: left;
+  font-weight: 700;
+  font-size: 18px;
+	text-transform: uppercase;
+}
 
-	font-size: 18px;
-	font-weight: 400;
+#refresh-clock {
+  display: block;
+  margin-right: 1.5em;
+  float: left;
+  font-weight: 500;
 }
-header a {
-	color: white;
-	text-decoration: none;
-}
+
 #view-clock {
-	margin-top: 3px;
-	font-family: "Roboto";
-	font-size: 14px;
-	float: right;
+  display: block;
+  float: right;
 }

@@ -4,6 +4,9 @@ var fs = require('fs')                       // Node.js core
 var express = require('express')             // Express
   , app = express();
 
+var server = require('http').Server(app)     // Socket.IO
+  , io = require('socket.io')(server);
+
 var bodyParser = require('body-parser')      // Express middleware
   , cookieParser = require('cookie-parser')
   , multer = require('multer')
@@ -71,7 +74,7 @@ db.once('open', function() {
   });
 
   var port = process.env.PORT || 3000;
-  app.listen(port, function() {
+  server.listen(port, function() {
     console.log('Listening on port ' + port);
   });
 });
