@@ -70,7 +70,7 @@ $(function() {
   var socket = io();
 
   socket.on('refresh', function() {
-    location.reload();
+    location.reload(true);
   });
 
   socket.on('error', function() {
