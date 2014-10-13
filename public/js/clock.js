@@ -72,4 +72,16 @@ $(function() {
   socket.on('refresh', function() {
     location.reload();
   });
+
+  socket.on('error', function() {
+    $('#connection-error').show();
+  });
+
+  socket.on('disconnect', function() {
+    $('#connection-error').show();
+  });
+
+  socket.on('reconnect', function() {
+    $('#connection-error').hide();
+  });
 });
