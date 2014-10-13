@@ -52,6 +52,10 @@ var Clock = require(__dirname + '/app/controllers/clock');
 var Admin = require(__dirname + '/app/controllers/admin');
 var Wallpaper = require(__dirname + '/app/controllers/wallpaper');
 
+// Allow controllers to use Socket.IO. If there is a better way to do this, I
+// would love to know.
+app.locals.io = io;
+
 // We're ready!
 console.log('Connecting to MongoDB...');
 mongoose.connect(mongodb_uri);

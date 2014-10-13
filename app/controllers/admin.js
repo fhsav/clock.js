@@ -88,6 +88,11 @@ router.get('/logout', function(req, res) {
   res.redirect('/admin');
 });
 
+router.get('/refresh', function(req, res) {
+  req.app.locals.io.emit('refresh');
+  res.redirect(req.header('Referer') || '/admin');
+});
+
 var themesRoute = require(__dirname + '/themes');
 var schedulesRoute = require(__dirname + '/schedules');
 var marqueeRoute = require(__dirname + '/marquee');

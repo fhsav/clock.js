@@ -1,5 +1,6 @@
 .container
   h1 <a href="/">Clock</a>
   #clock-actions
-    <a id="refresh-clock" href="/">Refresh</a>
+    if (authenticated == true)
+      <a id="refresh-clock" href="/admin/refresh">Refresh</a>
     <a id="view-clock" href="/">View Clock →</a>
