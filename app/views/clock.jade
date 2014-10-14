@@ -27,12 +27,19 @@ html
           li= marquees[i].text
         - }
     #wrapper
-      #clock
-        p#date
-        p#time
-      #schedule
-        - var periods = schedule.periods;
-        if (periods !== undefined && periods.length > 0)
+      #right-pane
+        #clock
+          p#date
+          p#time
+        if (notices !== undefined && notices.length > 0)
+          #notices
+            ul
+              - for (var i = 0; i < notices.length; i++) {
+                li= notices[i].text
+              - }
+      - var periods = schedule.periods;
+      if (periods !== undefined && periods.length > 0)
+        #schedule
           ol
             - for (var i = 0; i < periods.length; i++) {
                 - var text = periods[i].text;

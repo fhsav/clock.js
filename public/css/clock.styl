@@ -18,7 +18,7 @@ body {
 
 #wrapper {
 	margin-top: 0.85em;
-	padding: 0 0.5em 0.5em;
+	padding: 0 0 0.5em;
 
 	display: flex;
 	display: -webkit-flex;
@@ -36,18 +36,19 @@ body {
 }
 
 #marquee ul li {
-	padding: 0.2em 0px 0.2em 0.5em;
+	padding: 0.2em 0 0.2em 0.5em;
+}
+
+#right-pane {
+	width: 50%;
+	flex: 1 1 main-size;
+	order: 2;
+	text-align: center;
+	text-shadow: 2px 2px 2px rgba(50, 50, 50, 0.8);
 }
 
 #clock {
-	width: 45%;
-	padding: 0 2% 2em;
-
-	flex: 1 1 auto;
-	order: 2;
-
-	text-align: center;
-	text-shadow: 2px 2px 2px rgba(50, 50, 50, 0.8);
+	padding: 0 0.5em 2em;
 }
 
 #clock p {
@@ -61,14 +62,16 @@ body {
 
 #clock #time {
 	margin-top: 0.35em;
-	font-size: 2.5em;
 	font-weight: 700;
+	font-size: 2.5em;
 	line-height: 1em;
 }
 
 #schedule {
+	padding: 0 0.5em;
 	width: 50%;
-	flex: 1 1 auto;
+	box-sizing: border-box;
+	flex: 1 1 main-size;
 
 	color: black;
 	font-weight: 700;
@@ -77,14 +80,14 @@ body {
 }
 
 #schedule ol {
-	margin: 0; padding: 0;
 	background-color: rgba(0,0,0, 0.7);
+	margin: 0; padding: 0;
 	list-style-type: none;
 }
 
 #schedule ol li {
-	padding: 0.2em 0.5em;
 	background: linear-gradient(#F0F0F0, #D2D2D2);
+	padding: 0.2em 0.5em;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid rgba(0,0,0, 0.5);
 	transition: border-width 0.2s;
@@ -117,11 +120,22 @@ body {
 	border-radius: 2px 2px 0 0;
 }
 
+#notices {
+	background-color: rgba(255, 255, 0, 0.5);
+	margin: 0 1em 1.5em 0.5em; padding: 1em;
+	border-radius: 2px;
+}
+
+#notices ul {
+	margin: 0; padding: 0;
+	list-style-type: none;
+}
+
 #connection-error {
+	height: 1rem; width: 1rem;
 	display: none;
 	position: fixed;
 	bottom: 10px; right: 10px;
-	height: 1rem; width: 1rem;
 	background-color: red;
 }
 
@@ -143,13 +157,9 @@ body {
 		flex-direction: column;
 	}
 
-	#schedule, #clock {
+	#schedule, #right-pane {
 		width: 100%;
 		order: 0;
-	}
-
-	#clock {
-		padding: 0 0 2em;
 	}
 }
 
@@ -160,7 +170,7 @@ body {
 }
 
 @media screen and (max-width: 530px) {
-	#clock, #schedule, #marquee {
+	#marquee, #clock, #schedule, #notices {
 		font-size: 7.17vw;
 		line-height: 1.25em;
 	}
