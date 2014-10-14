@@ -1,22 +1,35 @@
-FROM ubuntu
+#
+# fhsclock.js Dockerfile
+#
+# https://github.com/fhsav/clock.js
+#
 
-# Install Node.js
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository -y ppa:chris-lea/node.js
-RUN apt-get update
-RUN apt-get install -y nodejs
+FROM dockerfile/nodejs
+MAINTAINER Brandon Cheng
 
-# Append to $PATH variable.
-RUN echo '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bash_profile
+# Install MongoDB.
+RUN \
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
+  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/mongodb.list && \
+  apt-get update && \
+  apt-get install -y mongodb-org && \
+  rm -rf /var/lib/apt/lists/*
 
-# Define default command.
-CMD ["node"]
+# Define mountable directories.
+VOLUME ["/data/db"]
+
+# Define working directory.
+WORKDIR /data
 
 # Install Git
 RUN apt-get install -y git
 
 # Download and run clock.js
-RUN git clone https://github.com/gluxon/clock.js
+RUN git clone https://github.com/fhsav/clock.js
 RUN cd clock.js
 RUN npm install
-RUN node clock.js
+
+# Define default command.
+CMD ["npm start"]
+
+EXPOSE 3000
