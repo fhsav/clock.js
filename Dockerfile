@@ -18,18 +18,16 @@ RUN \
 # Define mountable directories.
 VOLUME ["/data/db"]
 
-# Define working directory.
-WORKDIR /data
+# Define working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-# Install Git
-RUN apt-get install -y git
-
-# Download and run clock.js
-RUN git clone https://github.com/fhsav/clock.js
-RUN cd clock.js
-RUN npm install
+# Install dependencies and copy app to working directory
+ONBUILD COPY package.json /usr/src/app/
+ONBUILD RUN npm install
+ONBUILD COPY . /usr/src/app
 
 # Define default command.
-CMD ["npm start"]
+CMD ["npm", "start"]
 
 EXPOSE 3000
