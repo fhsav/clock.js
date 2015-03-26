@@ -13,31 +13,32 @@
     "test": "make test"
   },
   "dependencies" : {
-    "async"           : "0.9.x",
-    "mocha"           : "1.21.x",
-    "should"          : "4.0.x",
     "bower"           : "1.3.x",
+    "async"           : "0.9.x",
+
+    "mocha"           : "2.2.x",
+    "should"          : "5.2.x",
 
     "express"         : "4.x",
-    "jade"            : "1.7.x",
-    "body-parser"     : "1.9.x",
+    "jade"            : "1.9.x",
+    "body-parser"     : "1.12.x",
     "cookie-parser"   : "1.3.x",
     "multer"          : "0.1.x",
-    "express-session" : "1.8.x",
+    "express-session" : "1.10.x",
     "stylus"          : "0.x",
     "connect-flash"   : "0.1.x",
-    "morgan"          : "1.3.x",
+    "morgan"          : "1.5.x",
 
     "mongoose"        : "3.8.x",
-    "gridfs-stream"   : "0.5.x",
+    "gridfs-stream"   : "1.1.x",
 
-    "socket.io"       : "1.1.x",
-    "moment"          : "2.8.x",
+    "socket.io"       : "1.3.x",
+    "moment"          : "2.9.x",
     "js-yaml"         : "3.2.x",
     "node-uuid"       : "1.4.x"
   },
   "license": "MPL",
   "engines": {
-    "node": "0.10.x"
+    "node": "0.12.x"
   }
 }
