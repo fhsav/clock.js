@@ -6,8 +6,8 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   Theme.getAll(function(err, themes) {
-    res.locals.viewData.themes = themes;
-    res.render('admin/themes/index', res.locals.viewData);
+    res.locals.themes = themes;
+    res.render('admin/themes/index');
   });
 });
 
@@ -53,11 +53,11 @@ router.get('/:theme/delete', function(req, res) {
 });
 
 router.get('/:theme/preview', function(req, res) {
-  res.locals.viewData.theme = req.theme;
+  res.locals.theme = req.theme;
 
   req.theme.getWallpaperID(function(err, wallpaperID) {
-    res.locals.viewData.wallpaperID = wallpaperID;
-    res.render('admin/themes/preview', res.locals.viewData);
+    res.locals.wallpaperID = wallpaperID;
+    res.render('admin/themes/preview');
   });
 });
 

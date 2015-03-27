@@ -11,12 +11,11 @@ var router = express.Router();
 
 router.get(/.*/, function(req, res, next) {
   // Generate data for views
-  res.locals.viewData = {};
-  res.locals.viewData.authenticated = req.session.authenticated;
-  res.locals.viewData.version = package.version;
-  res.locals.viewData.successes = req.flash('success');
-  res.locals.viewData.errors = req.flash('error');
-  res.locals.viewData.warnings = req.flash('warning');
+  res.locals.authenticated = req.session.authenticated;
+  res.locals.appVersion = package.version;
+  res.locals.successes = req.flash('success');
+  res.locals.errors = req.flash('error');
+  res.locals.warnings = req.flash('warning');
 
   User.getActive(function(err, user) {
     // Check if we need to do one-time setup
@@ -24,7 +23,7 @@ router.get(/.*/, function(req, res, next) {
       req.flash('warning', 'Y\'all need to give me your password first.');
       res.redirect('/admin/setup');
     } else if (!req.session.authenticated && user) {
-      res.render('admin/login', res.locals.viewData);
+      res.render('admin/login');
     } else {
       next();
     }
@@ -32,7 +31,7 @@ router.get(/.*/, function(req, res, next) {
 });
 
 router.get('/', function(req, res) {
-  res.render('admin/welcome', res.locals.viewData);
+  res.render('admin/welcome');
 });
 
 router.get('/setup', function(req, res) {
@@ -42,7 +41,7 @@ router.get('/setup', function(req, res) {
       res.render(__dirname + '/../views/403');
       return;
     }
-    res.render('admin/setup', res.locals.viewData);
+    res.render('admin/setup');
   });
 });
 

@@ -6,8 +6,8 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   Notice.getAll(function(err, notices) {
-    res.locals.viewData.notices = notices;
-    res.render('admin/notices/index', res.locals.viewData);
+    res.locals.notices = notices;
+    res.render('admin/notices/index');
   });
 });
 
@@ -40,8 +40,8 @@ router.get('/:notice/delete', function(req, res) {
 });
 
 router.get('/:notice/edit', function(req, res) {
-  res.locals.viewData.notice = req.notice;
-  res.render('admin/notices/edit', res.locals.viewData);
+  res.locals.notice = req.notice;
+  res.render('admin/notices/edit');
 });
 
 router.post('/:notice/edit', function(req, res) {

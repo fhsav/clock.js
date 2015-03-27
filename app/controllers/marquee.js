@@ -6,8 +6,8 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   Marquee.getAll(function(err, marquees) {
-    res.locals.viewData.marquees = marquees;
-    res.render('admin/marquee/index', res.locals.viewData);
+    res.locals.marquees = marquees;
+    res.render('admin/marquee/index');
   });
 });
 
@@ -40,8 +40,8 @@ router.get('/:marquee/delete', function(req, res) {
 });
 
 router.get('/:marquee/edit', function(req, res) {
-  res.locals.viewData.marquee = req.marquee;
-  res.render('admin/marquee/edit', res.locals.viewData);
+  res.locals.marquee = req.marquee;
+  res.render('admin/marquee/edit');
 });
 
 router.post('/:marquee/edit', function(req, res) {

@@ -7,8 +7,8 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   Schedule.getAll(function(err, schedules) {
-    res.locals.viewData.schedules = schedules;
-    res.render('admin/schedules/index', res.locals.viewData);
+    res.locals.schedules = schedules;
+    res.render('admin/schedules/index');
   });
 });
 
@@ -58,9 +58,9 @@ router.get('/:schedule/delete', function(req, res) {
 });
 
 router.get('/:schedule/edit', function(req, res) {
-  res.locals.viewData.schedule = req.schedule;
-  res.locals.viewData.periods = req.schedule.periods;
-  res.render('admin/schedules/edit', res.locals.viewData);
+  res.locals.schedule = req.schedule;
+  res.locals.periods = req.schedule.periods;
+  res.render('admin/schedules/edit');
 });
 
 router.post('/:schedule/edit', function(req, res) {
@@ -104,9 +104,9 @@ router.get('/:schedule/periods/:period/delete', function(req, res) {
 });
 
 router.get('/:schedule/periods/:period/edit', function(req, res) {
-  res.locals.viewData.schedule = req.schedule;
-  res.locals.viewData.period = req.period;
-  res.render('admin/schedules/edit_period', res.locals.viewData);
+  res.locals.schedule = req.schedule;
+  res.locals.period = req.period;
+  res.render('admin/schedules/edit_period');
 });
 
 router.post('/:schedule/periods/:period/edit', function(req, res) {
