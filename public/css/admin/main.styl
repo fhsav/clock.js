@@ -88,6 +88,11 @@ table tr.active:hover {
 	color: #c09853;
 }
 
+.alert + p {
+	/* Fix jumping with jQuery .hide() due to margin collapse. See  */
+	margin-top: 0;
+}
+
 @import '../elements.styl'
 @import 'header'
 @import 'navigation'
