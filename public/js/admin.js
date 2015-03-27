@@ -1,5 +1,5 @@
 $(function() {
-  $('.alert').click(function() {
-    $('.alert').hide("slide");
+  $('.alert').click(function(event) {
+    $(event.target).hide('slide');
   });
 });

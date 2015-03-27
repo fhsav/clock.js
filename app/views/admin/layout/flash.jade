@@ -1,9 +1,3 @@
-if successes.length > 0
-  div.alert.success
-    p= successes
-if errors.length > 0
-  div.alert.error
-    p= errors
-if warnings.length > 0
-  div.alert.warning
-    p= warnings
+for message in flash
+  div.alert(class=message.type)
+    p= message.message

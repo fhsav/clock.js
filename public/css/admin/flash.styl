@@ -1,0 +1,33 @@
+.alert {
+	font-weight: 300;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.alert p {
+	margin: 1em 0 2em; padding: 0.5em 0.8em;
+}
+
+.alert.error p {
+	background-color: #f2dede;
+	border: 1px solid #eed3d7;
+	color: #b94a48;
+}
+
+.alert.success p {
+	background-color: #dff0d8;
+	border: 1px solid #d6e9c6;
+	color:#468847;
+}
+
+.alert.warning p {
+	background: #fcf8e3;
+	border: 1px solid #fbeed5;
+	color: #c09853;
+}
+
+.alert + p {
+	/* Fix jumping with jQuery .hide() due to margin collapse. See  */
+	margin-top: 0;
+}

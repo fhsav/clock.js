@@ -13,9 +13,10 @@ router.get(/.*/, function(req, res, next) {
   // Generate data for views
   res.locals.authenticated = req.session.authenticated;
   res.locals.appVersion = package.version;
-  res.locals.successes = req.flash('success');
-  res.locals.errors = req.flash('error');
-  res.locals.warnings = req.flash('warning');
+
+  // For this request, flash messages have been loaded into res.locals. Clear
+  // them for the next request.
+  req.session.flash = [];
 
   User.getActive(function(err, user) {
     // Check if we need to do one-time setup
