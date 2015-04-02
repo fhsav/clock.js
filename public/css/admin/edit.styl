@@ -28,7 +28,7 @@ form > :first-child {
 }
 
 form > input[type='text'] {
-	flex: 1 1 main-size;
+	flex: 1 1 auto;
 }
 
 .marquee-create, .marquee-edit {
@@ -36,10 +36,10 @@ form > input[type='text'] {
 	justify-content: flex-end;
 }
 
-form > input[name="period[number]"] { flex: 0 0 main-size; width: 25px; }
-form > input[name="period[text]"]   { flex: 2 1 main-size; width: 100px; }
-form > input[name="period[start]"]  { flex: 1 1 main-size; width: 50px; }
-form > input[name="period[finish]"] { flex: 1 1 main-size; width: 50px; }
+form > input[name="period[number]"] { flex: 0 0 25px; }
+form > input[name="period[text]"]   { flex: 2 1 100px; }
+form > input[name="period[start]"]  { flex: 1 1 50px; }
+form > input[name="period[finish]"] { flex: 1 1 50px; }
 
 .marquee-create textarea,
 .marquee-edit textarea {
