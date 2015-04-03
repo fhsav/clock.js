@@ -2,6 +2,6 @@
   "name": "clock.js",
   "dependencies": {
     "jquery": "2.1.x",
-    "moment": "2.8.x"
+    "moment": "2.9.x"
   }
 }
