@@ -36,10 +36,10 @@ form > input[type='text'] {
 	justify-content: flex-end;
 }
 
-form > input[name="period[number]"] { flex: 0 0 25px; }
-form > input[name="period[text]"]   { flex: 2 1 100px; }
-form > input[name="period[start]"]  { flex: 1 1 50px; }
-form > input[name="period[finish]"] { flex: 1 1 50px; }
+form > input[name="period[number]"] { flex: 0 0 25px; min-width: 0; }
+form > input[name="period[text]"]   { flex: 2 1 auto; }
+form > input[name="period[start]"]  { flex: 1 1 auto; }
+form > input[name="period[finish]"] { flex: 1 1 auto; }
 
 .marquee-create textarea,
 .marquee-edit textarea {
