@@ -1,3 +1,3 @@
-for message in flash
+while message = flash.shift()
   div.alert(class=message.type)
     p= message.message

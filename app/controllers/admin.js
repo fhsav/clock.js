@@ -14,10 +14,6 @@ router.get(/.*/, function(req, res, next) {
   res.locals.authenticated = req.session.authenticated;
   res.locals.appVersion = package.version;
 
-  // For this request, flash messages have been loaded into res.locals. Clear
-  // them for the next request.
-  req.session.flash = [];
-
   User.getActive(function(err, user) {
     // Check if we need to do one-time setup
     if (!user && req.url != '/setup') {
