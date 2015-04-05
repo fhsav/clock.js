@@ -1,5 +1,5 @@
 {
   "disallowCommaBeforeLineBreak": false,
   "validateLineBreaks": "LF",
-  "validateIndentation": 2,
+  "validateIndentation": 2
 }
