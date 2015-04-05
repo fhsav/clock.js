@@ -1,7 +1,4 @@
 {
+  // Environments
   "node": true,
-  "laxcomma": true,
-  "indent": 2,
-  "freeze": true,
-  "maxdepth": 2
 }
