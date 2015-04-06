@@ -23,9 +23,8 @@ html
   body
     #marquee
       ul.marquee
-        - for (var i = 0; i < marquees.length; i++) {
-          li= marquees[i].text
-        - }
+        for marquee in marquees
+          li= marquee.text
     #wrapper
       #right-pane
         #clock
@@ -34,20 +33,18 @@ html
         if (notices !== undefined && notices.length > 0)
           #notices
             ul
-              - for (var i = 0; i < notices.length; i++) {
-                li= notices[i].text
-              - }
+              for notice in notices
+                li= notice.text
       - var periods = schedule.periods;
       if (periods !== undefined && periods.length > 0)
         #schedule
           ol
-            - for (var i = 0; i < periods.length; i++) {
-                - var text = periods[i].text;
-                - var datetimeStart = periods[i].datetime.start;
-                - var normalizedStart = periods[i].normalized.start;
-                - var datetimeFinish = periods[i].datetime.finish;
-                - var normalizedFinish = periods[i].normalized.finish;
+            for period in periods
+                - var text = period.text;
+                - var datetimeStart = period.datetime.start;
+                - var start = period.normalized.start;
+                - var datetimeFinish = period.datetime.finish;
+                - var finish = period.normalized.finish;
                 li.
-                  #{text}: <time datetime="#{datetimeStart}">#{normalizedStart}</time> &ndash; <time datetime="#{datetimeFinish}">#{normalizedFinish}</time>
-            - }
+                  #{text}: <time datetime="#{datetimeStart}">#{start}</time> &ndash; <time datetime="#{datetimeFinish}">#{finish}</time>
     #connection-error

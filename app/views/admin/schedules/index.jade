@@ -14,19 +14,18 @@ block content
           th Activate
           th Actions
       tbody
-        - for (var i = 0; i < schedules.length; ++i) {
-            tr(class=schedules[i].active == true ? "active" : undefined)
-              td= schedules[i].name
-              td= schedules[i].description
-              td
-                if (schedules[i].active)
-                  <a href="/admin/schedules/#{schedules[i]._id}/deactivate">Deactivate</a>
-                else
-                  <a href="/admin/schedules/#{schedules[i]._id}/activate">Activate</a>
-              td
-                <a href="/admin/schedules/#{schedules[i]._id}/edit">Edit</a> —
-                <a href="/admin/schedules/#{schedules[i]._id}/delete">Delete</a>
-        - }
+        for schedule in schedules
+          tr(class=schedule.active == true ? "active" : undefined)
+            td= schedule.name
+            td= schedule.description
+            td
+              if (schedule.active)
+                <a href="/admin/schedules/#{schedule._id}/deactivate">Deactivate</a>
+              else
+                <a href="/admin/schedules/#{schedule._id}/activate">Activate</a>
+            td
+              <a href="/admin/schedules/#{schedule._id}/edit">Edit</a> —
+              <a href="/admin/schedules/#{schedule._id}/delete">Delete</a>
   form(action='/admin/schedules/create',method='post').schedule-create
     input(type='text',name='schedule[name]',placeholder='Name')
     input(type='text',name='schedule[description]',placeholder='Description')

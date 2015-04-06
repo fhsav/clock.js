@@ -12,13 +12,12 @@ block content
           th Text
           th Actions
       tbody
-        - for (var i = 0; i < notices.length; ++i) {
-            tr
-              td= notices[i].text
-              td
-                <a href="/admin/notices/#{notices[i]._id}/edit">Edit</a> —
-                <a href="/admin/notices/#{notices[i]._id}/delete">Delete</a>
-        - }
+        for notice in notices
+          tr
+            td= notice.text
+            td
+              <a href="/admin/notices/#{notice._id}/edit">Edit</a> —
+              <a href="/admin/notices/#{notice._id}/delete">Delete</a>
   form(action='/admin/notices/create',method='post').notice-create
     input(type='text',name='notice[text]',placeholder='What do you need to notify the school of?')
     input(type='submit',value='Save')

@@ -12,13 +12,12 @@ block content
           th Text
           th Actions
       tbody
-        - for (var i = 0; i < marquees.length; ++i) {
-            tr
-              td= marquees[i].text
-              td
-                <a href="/admin/marquee/#{marquees[i]._id}/edit">Edit</a> —
-                <a href="/admin/marquee/#{marquees[i]._id}/delete">Delete</a>
-        - }
+        for marquee in marquees
+          tr
+            td= marquee.text
+            td
+              <a href="/admin/marquee/#{marquee._id}/edit">Edit</a> —
+              <a href="/admin/marquee/#{marquee._id}/delete">Delete</a>
   form(method='post',action='/admin/marquee/create').marquee-create
     textarea(name='marquee[text]',placeholder='What do you want to say?')
     .submit-container

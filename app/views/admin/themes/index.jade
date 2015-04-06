@@ -13,16 +13,15 @@ block content
           th Activate
           th Actions
       tbody
-        - for (var i = 0; i < themes.length; ++i) {
-            tr(class=themes[i].active == true ? "active" : undefined)
-              td= themes[i].name
-              td
-                if (!themes[i].active)
-                  <a href="/admin/themes/#{themes[i]._id}/activate">Activate</a>
-              td
-                <a href="/admin/themes/#{themes[i]._id}/preview">View</a> —
-                <a href="/admin/themes/#{themes[i]._id}/delete">Delete</a>
-        - }
+        for theme in themes
+          tr(class=theme.active == true ? "active" : undefined)
+            td= theme.name
+            td
+              if (!theme.active)
+                <a href="/admin/themes/#{theme._id}/activate">Activate</a>
+            td
+              <a href="/admin/themes/#{theme._id}/preview">View</a> —
+              <a href="/admin/themes/#{theme._id}/delete">Delete</a>
   form(method='post',action='/admin/themes/create',enctype='multipart/form-data').theme-create
     input(type='text',name='theme[name]',placeholder='Name')
     input(type='file',name='theme[wallpaper]')

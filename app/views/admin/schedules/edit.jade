@@ -19,15 +19,14 @@ block content
           th Times
           th Actions
       tbody
-        - for (var i = 0; i < periods.length; ++i) {
-            tr
-              td= periods[i].number
-              td= periods[i].text
-              td= periods[i].normalized.military.start + ' - ' + periods[i].normalized.military.finish
-              td
-                <a href="periods/#{periods[i]._id}/edit">Edit</a> —
-                <a href="periods/#{periods[i]._id}/delete">Delete</a>
-        - }
+        for period in periods
+          tr
+            td= period.number
+            td= period.text
+            td= period.normalized.military.start + ' - ' + period.normalized.military.finish
+            td
+              <a href="periods/#{period._id}/edit">Edit</a> —
+              <a href="periods/#{period._id}/delete">Delete</a>
   form(method='post',action='/admin/schedules/#{schedule._id}/periods/create').period-create
     input(type='text',name='period[number]',placeholder='#')
     input(type='text',name='period[text]',placeholder='Text')
