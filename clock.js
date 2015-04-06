@@ -1,13 +1,13 @@
-var fs = require('fs')                       // Node.js core
+let fs = require('fs')                       // Node.js core
   , path = require('path');
 
-var express = require('express')             // Express
+let express = require('express')             // Express
   , app = express();
 
-var server = require('http').Server(app)     // Socket.IO
+let server = require('http').Server(app)     // Socket.IO
   , io = require('socket.io')(server);
 
-var bodyParser = require('body-parser')      // Express middleware
+let bodyParser = require('body-parser')      // Express middleware
   , cookieParser = require('cookie-parser')
   , multer = require('multer')
   , session = require('express-session')
@@ -15,28 +15,28 @@ var bodyParser = require('body-parser')      // Express middleware
   , flash = require('flash')
   , morgan = require('morgan');
 
-var mongoose = require('mongoose')           // Datastores
+let mongoose = require('mongoose')           // Datastores
   , Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo; // Connect GFS and MongoDB
 
-var uuid = require('node-uuid');             // Miscellaneous utilities
+let uuid = require('node-uuid');             // Miscellaneous utilities
 
 // Grab settings
-var datastore = require(__dirname + '/config/datastore.json');
-var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
+let datastore = require(`${__dirname}/config/datastore`);
+let mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
 
 // Include data models
-fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
-  if (path.extname(file)) require(__dirname + '/app/models/' + file);
+fs.readdirSync(`${__dirname}/app/models`).forEach((file) => {
+  if (path.extname(file)) require(`${__dirname}/app/models/${file}`);
 });
 
 // Configure Express view engines and middleware
-app.set('views', __dirname + '/app/views');
+app.set('views', `${__dirname}/app/views`);
 app.set('view engine', 'jade');
 app.locals.pretty = true;
 
-app.use(stylus.middleware(__dirname + '/public'));
-app.use(express.static(__dirname + '/public'));
+app.use(stylus.middleware(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/public`));
 app.use(morgan('dev'));
 
 // Setup view controller
@@ -47,9 +47,9 @@ app.use(session({secret: uuid.v4(), saveUninitialized: true, resave: true}));
 app.use(multer());
 app.use(flash());
 
-var Clock = require(__dirname + '/app/controllers/clock');
-var Admin = require(__dirname + '/app/controllers/admin');
-var Wallpaper = require(__dirname + '/app/controllers/wallpaper');
+let Clock = require(`${__dirname}/app/controllers/clock`);
+let Admin = require(`${__dirname}/app/controllers/admin`);
+let Wallpaper = require(`${__dirname}/app/controllers/wallpaper`);
 
 // Allow controllers to use Socket.IO. If there is a better way to do this, I
 // would love to know.
@@ -59,11 +59,11 @@ app.locals.io = io;
 console.log('Connecting to MongoDB...');
 mongoose.connect(mongodb_uri);
 
-var db = mongoose.connection;
+let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-db.once('open', function() {
+db.once('open', () => {
   console.log('Connected!');
 
   app.use('/', Clock);
@@ -71,13 +71,13 @@ db.once('open', function() {
   app.use('/wallpaper', Wallpaper);
 
   // Setup 404
-  app.use(function(req, res, next) {
+  app.use((req, res, next) => {
     res.status(404);
     res.render('404');
   });
 
-  var port = process.env.PORT || 3000;
-  server.listen(port, function() {
-    console.log('Listening on port ' + port);
+  let port = process.env.PORT || 3000;
+  server.listen(port, () => {
+    console.log(`Listening on port ${port}`);
   });
 });

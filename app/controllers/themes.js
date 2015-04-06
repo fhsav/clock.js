@@ -1,26 +1,26 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var Theme = mongoose.model('Theme');
+let express = require('express');
+let mongoose = require('mongoose');
+let Theme = mongoose.model('Theme');
 
-var router = express.Router();
+let router = express.Router();
 
-router.get('/', function(req, res) {
-  Theme.getAll(function(err, themes) {
+router.get('/', (req, res) => {
+  Theme.getAll((err, themes) => {
     res.locals.themes = themes;
     res.render('admin/themes/index');
   });
 });
 
-router.param('theme', function(req, res, next, id) {
-  Theme.findById(id, function (err, theme) {
+router.param('theme', (req, res, next, id) => {
+  Theme.findById(id, (err, theme) => {
     if (err) return next(err);
     req.theme = theme;
     next();
   });
 });
 
-router.post('/create', function(req, res) {
-  Theme.uploadWallpaper(req.files['theme[wallpaper]'], function(err) {
+router.post('/create', (req, res) => {
+  Theme.uploadWallpaper(req.files['theme[wallpaper]'], (err) => {
     if (err) throw err;
 
     Theme.create({
@@ -36,26 +36,26 @@ router.post('/create', function(req, res) {
   });
 });
 
-router.get('/:theme/activate', function(req, res) {
-  req.theme.activate(function(err) {
+router.get('/:theme/activate', (req, res) => {
+  req.theme.activate((err) => {
     if (err) throw err;
     req.flash('success', 'The theme has been activated.');
     res.redirect('/admin/themes');
   });
 });
 
-router.get('/:theme/delete', function(req, res) {
-  req.theme.remove(function (err) {
+router.get('/:theme/delete', (req, res) => {
+  req.theme.remove((err) => {
     if (err) throw err;
     req.flash('success', 'The theme has been destroyed.');
     res.redirect('/admin/themes');
   });
 });
 
-router.get('/:theme/preview', function(req, res) {
+router.get('/:theme/preview', (req, res) => {
   res.locals.theme = req.theme;
 
-  req.theme.getWallpaperID(function(err, wallpaperID) {
+  req.theme.getWallpaperID((err, wallpaperID) => {
     res.locals.wallpaperID = wallpaperID;
     res.render('admin/themes/preview');
   });

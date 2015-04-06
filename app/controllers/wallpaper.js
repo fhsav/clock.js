@@ -1,10 +1,10 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var Theme = mongoose.model('Theme');
+let express = require('express');
+let mongoose = require('mongoose');
+let Theme = mongoose.model('Theme');
 
-var router = express.Router();
+let router = express.Router();
 
-router.get('/active', function(req, res) {
+router.get('/active', (req, res) => {
   Theme.getWallpaperStreamOfActive(function(err, wallpaperStream) {
     if (err && err.message == 'No active theme') {
       res.status(404);
@@ -15,15 +15,15 @@ router.get('/active', function(req, res) {
   });
 });
 
-router.param('wallpaper', function(req, res, next, id) {
-  Theme.createWallpaperStream(id, function(err, wallpaperStream) {
+router.param('wallpaper', (req, res, next, id) => {
+  Theme.createWallpaperStream(id, (err, wallpaperStream) => {
     if (err) return next(err);
     req.wallpaperStream = wallpaperStream;
     next();
   });
 });
 
-router.get('/:wallpaper', function(req, res) {
+router.get('/:wallpaper', (req, res) => {
   req.wallpaperStream.pipe(res);
 });
 

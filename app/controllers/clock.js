@@ -1,26 +1,24 @@
-var express = require('express');
-var moment = require('moment');
-var async = require('async');
-var mongoose = require('mongoose');
-var Schedule = mongoose.model('Schedule')
+let express = require('express');
+let moment = require('moment');
+let async = require('async');
+let mongoose = require('mongoose');
+let Schedule = mongoose.model('Schedule')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice');
 
-var router = express.Router();
+let router = express.Router();
 
-router.get('/', function(req, res) {
-  var self = this;
-
+router.get('/', (req, res) => {
   async.parallel({
-    'schedule': function(callback) {
+    'schedule': (callback) => {
       Schedule.getActive(callback);
     },
 
-    'marquees': function(callback){
+    'marquees': (callback) => {
       Marquee.getAll(callback);
     },
 
-    'notices': function(callback) {
+    'notices': (callback) => {
       Notice.getAll(callback);
     }
   },

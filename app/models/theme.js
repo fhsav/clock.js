@@ -1,9 +1,9 @@
-var fs = require('fs');
-var mongoose = require('mongoose')
+let fs = require('fs');
+let mongoose = require('mongoose')
   , Schema = require('mongoose').Schema;
-var Grid = require('gridfs-stream');
+let Grid = require('gridfs-stream');
 
-var themeSchema = new Schema({
+let themeSchema = new Schema({
   'active': { type: Boolean, default: false },
   'name': String,
   'wallpaper': String,
@@ -22,16 +22,16 @@ themeSchema.statics.getActive = function(callback) {
 };
 
 themeSchema.statics.uploadWallpaper = function(wallpaper, callback) {
-  var gfs = Grid(mongoose.connection.db);
+  let gfs = Grid(mongoose.connection.db);
 
-  var writestream = gfs.createWriteStream({
+  let writestream = gfs.createWriteStream({
     filename: 'uploads/' + wallpaper.name,
     mode: 'w',
     content_type: wallpaper.type
   });
   fs.createReadStream(wallpaper.path).pipe(writestream);
 
-  writestream.on('close', function(file) {
+  writestream.on('close', (file) => {
     callback(null);
   });
 };
@@ -48,8 +48,8 @@ themeSchema.statics.getWallpaperStreamOfActive = function(callback) {
 };
 
 themeSchema.statics.createWallpaperStream = function(wallpaperID, callback) {
-  var gfs = Grid(mongoose.connection.db);
-  var readStream = gfs.createReadStream({
+  let gfs = Grid(mongoose.connection.db);
+  let readStream = gfs.createReadStream({
     _id: wallpaperID
   });
   callback(null, readStream);
@@ -58,12 +58,10 @@ themeSchema.statics.createWallpaperStream = function(wallpaperID, callback) {
 // Instance methods
 
 themeSchema.methods.activate = function(callback) {
-  var self = this;
-
-  this.model('Theme').update({active: true}, { $set: {active: false} }, {multi: true}, function(err) {
+  this.model('Theme').update({active: true}, { $set: {active: false} }, {multi: true}, (err) => {
     if (err) callback(err);
-    self.active = true;
-    self.save(callback);
+    this.active = true;
+    this.save(callback);
   });
 };
 
@@ -71,11 +69,9 @@ themeSchema.methods.activate = function(callback) {
  * Create a wallpaper stream from the theme
  */
 themeSchema.methods.createWallpaperStream = function(callback) {
-  var self = this;
-
-  this.getWallpaperID(function(err, wallpaperID) {
+  this.getWallpaperID((err, wallpaperID) => {
     if (err) throw err;
-    self.model('Theme').createWallpaperStream(wallpaperID, callback);
+    this.model('Theme').createWallpaperStream(wallpaperID, callback);
   });
 };
 
@@ -84,8 +80,8 @@ themeSchema.methods.createWallpaperStream = function(callback) {
  * ID.
  */
 themeSchema.methods.getWallpaperID = function(callback) {
-  var gfs = Grid(mongoose.connection.db);
-  gfs.files.findOne({filename: 'uploads/' + this.wallpaper}, function(err, wallpaper) {
+  let gfs = Grid(mongoose.connection.db);
+  gfs.files.findOne({filename: 'uploads/' + this.wallpaper}, (err, wallpaper) => {
     callback(err, wallpaper._id);
   });
 };

@@ -1,9 +1,9 @@
-var mongoose = require('mongoose')
+let mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
-var moment = require('moment');
+let moment = require('moment');
 
-var periodSchema = new Schema({
+let periodSchema = new Schema({
   'number': Number,
   'text': String,
   'start': Date,
@@ -13,16 +13,16 @@ var periodSchema = new Schema({
 // Static methods
 
 periodSchema.statics.normalize = function(isoTime) {
-  var timezone = isoTime.getTimezoneOffset() / 60;
-  var hour = moment(isoTime).hour();
-  var time = moment(isoTime).hour(hour + timezone);
+  let timezone = isoTime.getTimezoneOffset() / 60;
+  let hour = moment(isoTime).hour();
+  let time = moment(isoTime).hour(hour + timezone);
   return moment(time).format("h:mm");
 };
 
 periodSchema.statics.normalize24 = function(isoTime) {
-  var timezone = isoTime.getTimezoneOffset() / 60;
-  var hour = moment(isoTime).hour();
-  var time = moment(isoTime).hour(hour + timezone);
+  let timezone = isoTime.getTimezoneOffset() / 60;
+  let hour = moment(isoTime).hour();
+  let time = moment(isoTime).hour(hour + timezone);
   return moment(time).format("HH:mm");
 };
 
@@ -30,15 +30,15 @@ periodSchema.statics.normalize24 = function(isoTime) {
 * RFC 3339 partial-time
 */
 periodSchema.statics.normalizeForDatetime = function(isoTime) {
-  var timezone = isoTime.getTimezoneOffset() / 60;
-  var hour = moment(isoTime).hour();
-  var time = moment(isoTime).hour(hour + timezone);
+  let timezone = isoTime.getTimezoneOffset() / 60;
+  let hour = moment(isoTime).hour();
+  let time = moment(isoTime).hour(hour + timezone);
   return moment(time).format("HH:mm:ss");
 };
 
 /** Parse time in hh:mm format to Date() */
 periodSchema.statics.parseTime = function(time) {
-  var timezone = new Date().getTimezoneOffset() / 60;
+  let timezone = new Date().getTimezoneOffset() / 60;
   time = moment(time, "HH:mm").toDate();
   time.setHours(time.getHours() - timezone);
   return time;
@@ -46,27 +46,27 @@ periodSchema.statics.parseTime = function(time) {
 
 // Virtual properties
 
-periodSchema.virtual('normalized.start').get(function () {
+periodSchema.virtual('normalized.start').get(function() {
   return periodSchema.statics.normalize(this.start);
 });
 
-periodSchema.virtual('normalized.finish').get(function () {
+periodSchema.virtual('normalized.finish').get(function() {
   return periodSchema.statics.normalize(this.finish);
 });
 
-periodSchema.virtual('normalized.military.start').get(function () {
+periodSchema.virtual('normalized.military.start').get(function() {
   return periodSchema.statics.normalize24(this.start);
 });
 
-periodSchema.virtual('normalized.military.finish').get(function () {
+periodSchema.virtual('normalized.military.finish').get(function() {
   return periodSchema.statics.normalize24(this.finish);
 });
 
-periodSchema.virtual('datetime.start').get(function () {
+periodSchema.virtual('datetime.start').get(function() {
   return periodSchema.statics.normalizeForDatetime(this.start);
 });
 
-periodSchema.virtual('datetime.finish').get(function () {
+periodSchema.virtual('datetime.finish').get(function() {
   return periodSchema.statics.normalizeForDatetime(this.finish);
 });
 

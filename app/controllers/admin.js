@@ -1,19 +1,19 @@
-var mongoose = require('mongoose');
-var express = require('express');
-var Theme = mongoose.model('Theme')
+let mongoose = require('mongoose');
+let express = require('express');
+let Theme = mongoose.model('Theme')
   , Schedule = mongoose.model('Schedule')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice')
   , User = mongoose.model('User');
 
-var router = express.Router();
+let router = express.Router();
 
-router.get(/.*/, function(req, res, next) {
+router.get(/.*/, (req, res, next) => {
   // Generate data for views
   res.locals.authenticated = req.session.authenticated;
-  res.locals.appVersion = require(__dirname + '/../../package.json').version;
+  res.locals.appVersion = require(`${__dirname}/../../package.json`).version;
 
-  User.getActive(function(err, user) {
+  User.getActive((err, user) => {
     // Check if we need to do one-time setup
     if (!user && req.url != '/setup') {
       req.flash('warning', 'Y\'all need to give me your password first.');
@@ -26,26 +26,26 @@ router.get(/.*/, function(req, res, next) {
   });
 });
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   res.render('admin/welcome');
 });
 
-router.get('/setup', function(req, res) {
-  User.getActive(function(err, user) {
+router.get('/setup', (req, res) => {
+  User.getActive((err, user) => {
     if (user) {
       res.status(403);
-      res.render(__dirname + '/../views/403');
+      res.render(`${__dirname}/../views/403`);
       return;
     }
     res.render('admin/setup');
   });
 });
 
-router.post('/setup', function(req, res) {
-  User.getActive(function(err, user) {
+router.post('/setup', (req, res) => {
+  User.getActive((err, user) => {
     if (user) {
       res.status(403);
-      res.render(__dirname + '/../views/403');
+      res.render(`${__dirname}/../views/403`);
       return;
     }
     User.create({
@@ -61,8 +61,8 @@ router.post('/setup', function(req, res) {
   }
 });
 
-router.post('/login', function(req, res) {
-  User.getActive(function(err, user) {
+router.post('/login', (req, res) => {
+  User.getActive((err, user) => {
     user.checkPassword(req.body.password, checkPassword);
   });
 
@@ -77,21 +77,21 @@ router.post('/login', function(req, res) {
   }
 });
 
-router.get('/logout', function(req, res) {
+router.get('/logout', (req, res) => {
   req.session.authenticated = false;
   req.flash('success', 'Bye bye!');
   res.redirect('/admin');
 });
 
-router.get('/refresh', function(req, res) {
+router.get('/refresh', (req, res) => {
   req.app.locals.io.emit('refresh');
   res.redirect(req.header('Referer') || '/admin');
 });
 
-var themesRoute = require(__dirname + '/themes');
-var schedulesRoute = require(__dirname + '/schedules');
-var marqueeRoute = require(__dirname + '/marquee');
-var noticesRoute = require(__dirname + '/notices');
+let themesRoute = require(`${__dirname}/themes`);
+let schedulesRoute = require(`${__dirname}/schedules`);
+let marqueeRoute = require(`${__dirname}/marquee`);
+let noticesRoute = require(`${__dirname}/notices`);
 
 router.use('/themes', themesRoute);
 router.use('/schedules', schedulesRoute);

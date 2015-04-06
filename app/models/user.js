@@ -1,8 +1,8 @@
-var crypto = require('crypto');
-var mongoose = require('mongoose')
+let crypto = require('crypto');
+let mongoose = require('mongoose')
   , Schema = require('mongoose').Schema;
 
-var userSchema = new Schema({
+let userSchema = new Schema({
   'active': { type: Boolean, default: false },
   'name': String,
   'password': String,
@@ -23,12 +23,10 @@ userSchema.statics.provideHash = function(password) {
 // Instance methods
 
 userSchema.methods.activate = function(callback) {
-  var self = this;
-
-  this.model('User').update({active: true}, { $set: {active: false} }, {multi: true}, function(err) {
+  this.model('User').update({active: true}, { $set: {active: false} }, {multi: true}, (err) => {
     if (err) callback(err);
-    self.active = true;
-    self.save(callback);
+    this.active = true;
+    this.save(callback);
   });
 };
 

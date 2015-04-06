@@ -1,4 +1,7 @@
 {
+  // Relaxing
+  "esnext": true,
+
   // Environments
   "node": true
 }

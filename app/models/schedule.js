@@ -1,8 +1,8 @@
-var mongoose = require('mongoose')
+let mongoose = require('mongoose')
   , Schema = mongoose.Schema;
-var Period = mongoose.model('Period');
+let Period = mongoose.model('Period');
 
-var scheduleSchema = new Schema({
+let scheduleSchema = new Schema({
   'active': { type: Boolean, default: false },
   'name': String,
   'description': String,
@@ -24,12 +24,10 @@ scheduleSchema.statics.getActive = function(callback) {
 // Instance methods
 
 scheduleSchema.methods.activate = function(callback) {
-  var self = this;
-
-  this.model('Schedule').update({active: true}, { $set: {active: false} }, {multi: true}, function(err) {
+  this.model('Schedule').update({active: true}, { $set: {active: false} }, {multi: true}, (err) => {
     if (err) callback(err);
-    self.active = true;
-    self.save(callback);
+    this.active = true;
+    this.save(callback);
   });
 };
 
