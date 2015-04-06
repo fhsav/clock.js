@@ -1,0 +1,5 @@
+{
+  "//": "mongodb://<user>:<password>@address:port/dbname",
+  "//": "Use an empty string for the MONGODB_URI environment variable",
+  "mongodb_uri": ""
+}

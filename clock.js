@@ -20,10 +20,9 @@ var mongoose = require('mongoose')           // Datastores
 Grid.mongo = mongoose.mongo; // Connect GFS and MongoDB
 
 var uuid = require('node-uuid');             // Miscellaneous utilities
-var yaml = require('js-yaml');
 
 // Grab settings
-var datastore = yaml.load(fs.readFileSync(__dirname + '/config/datastore.yaml', 'utf8'));
+var datastore = require(__dirname + '/config/datastore.json');
 var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
 
 // Include data models
