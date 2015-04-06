@@ -5,14 +5,13 @@ var Theme = mongoose.model('Theme')
   , Marquee = mongoose.model('Marquee')
   , Notice = mongoose.model('Notice')
   , User = mongoose.model('User');
-var package = require(__dirname + '/../../package.json');
 
 var router = express.Router();
 
 router.get(/.*/, function(req, res, next) {
   // Generate data for views
   res.locals.authenticated = req.session.authenticated;
-  res.locals.appVersion = package.version;
+  res.locals.appVersion = require(__dirname + '/../../package.json').version;
 
   User.getActive(function(err, user) {
     // Check if we need to do one-time setup
