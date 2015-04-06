@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var yaml = require('js-yaml');
 
 // Grab settings
-var datastore = yaml.load(fs.readFileSync(__dirname + '/../config/datastore.yaml', 'utf8'));
+var datastore = require(`${__dirname}/config/datastore`);
 var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
 
 describe('MongoDB', function() {
