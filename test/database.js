@@ -1,9 +1,8 @@
 var fs = require('fs');
 var mongoose = require('mongoose');
-var yaml = require('js-yaml');
 
 // Grab settings
-var datastore = require(`${__dirname}/config/datastore`);
+var datastore = require(__dirname + '/config/datastore');
 var mongodb_uri = datastore.mongodb_uri || process.env.MONGODB_URI || 'localhost';
 
 describe('MongoDB', function() {
